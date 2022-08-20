@@ -53,8 +53,9 @@ struct FTDExample: View, Slide {
                                 set: { Model.shared.code = $0 }
                             ),
                             language: .swift,
+                            theme: CodeEditor.ThemeName(rawValue: "xcode"),
                             indentStyle: .softTab(width: 2)
-                        )
+                        ).preferredColorScheme(.light)
                         Button("Zkompiluj a spusť!") {
                             isLoading = true
                             currentLiveView = nil
