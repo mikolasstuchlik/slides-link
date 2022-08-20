@@ -11,7 +11,7 @@
  - `nm` program pro zobrazování seznamu symbolů
  - `otool` nástroj pro zobrazování  objektovách souborů
  - `ar` nástroj na tvorbu archivů knihoven
- - `lipo` nástroj na správu univerzálních (více architekturových) souborů
+ - `lipo` nástroj na správu univerzálních (FAT / více architekturových) souborů
  - `sourcekitten` frontend pro práci se sourcekitd
  - `ld` linker editor
  - `dyld` dynamic linker
@@ -34,9 +34,9 @@
  - _DWARF_ je formát, který byl vytvořen společně s ELF, ale není na něm závislý. Obsahuje "metadata" o programu např. pro potřeby debuggeru atd.
  - _dSYM_ je na platformách Darwin archiv, který obsahuje DWARF a jiná metadata, které byly "stripped" ze spustielných souborů a knihoven aplikace.
  - _FAT binary_ je souhrnný název pro knihovny a spustitelné soubory, které obsaují kód pro více než jednu platformu/architekturu. 
- - _Symbol_ je identifikátor proměnné nebo funkce, zpravidla unikátní řetězec. Není dovolené definovat dva různé symboly stejného jména.
- - _Symbol reference_ je všude tam, kde dochází k použití funkce nebo proměnné daného jména.
- - _Symbol definition_ hovoříme o místu, kde je zapsáno tělo funkce nebo kde je vyhrazeno místo pro proměnnou.
+ - _Symbol_ je identifikátor, zpravidla unikátní řetězec, který identifikuje místo v programu, např. proměnné nebo funkce. Není dovolené definovat dva různé symboly stejného jména.
+ - _Symbol reference_ je všude tam, kde dochází k použití symbolu, např. funkce nebo proměnné daného jména.
+ - _Symbol definition_ hovoříme o místě v programu, kde se symbol nachází, tj. např. kde je zapsáno tělo funkce nebo kde je vyhrazeno místo pro proměnnou.
  - _Name mangling_ je metoda, kterou se vyrovnávají různé jazyky s faktem, že nelze definovat dva symboly stejného jména. Name mangling je zpravidla bijektivní zobrazení. Příklad v C++ `__Z16decorateAndPrintPKc` pro funkci `void decorateAndPrint(const char *)`, Swift např. `s6FooLib0A5HelloV5greet3andySSSg_tF` pro `FooLib.FooHello.greet(and:)`.
  - _LLVM Bitcode_ formát strukturovaného (jako např. XML) binárního souboru, který je optimalizován pro velikost a náhodný přístup. Lze analyzovat pomocí programu `llvm-bcanalyzer`.
  - _C/C++: deklarace a prototyp_ deklarace symbolu nastává v C/C++ tam, kde dochází k "první zmíňce" o symbolu (nehledě na to, jestli se jedná o definici prototypu nebo použití, což vede k "implicitní deklaraci"). Definice prototypu přisuzuje symbolu jeho typ/návratovou hodnoty a argumenty - ale ne nutně tělo funkce (popř. místo pro data), to může být vyhodnoceno během linkování.
