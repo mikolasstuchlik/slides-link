@@ -270,7 +270,7 @@ public func \(symbolName)() -> Any {
     }
 
     func compileAndLoad(code: String) throws -> AnyView {
-        try dispose()
+        dispose()
         try writeFile(code: code)
 
         _ = try Process.executeAndWait(
@@ -302,13 +302,13 @@ public func \(symbolName)() -> Any {
         try FileManager.default.removeItem(atPath: sourceFilePath)
     }
 
-    private func dispose() throws {
+    private func dispose() {
         existingHandle.flatMap(dlclose(_:))
         existingHandle = nil
-        try FileManager.default.removeItem(atPath: libraryPath)
+        try? FileManager.default.removeItem(atPath: libraryPath)
     }
 
-    deinit { try! dispose() }
+    deinit { dispose() }
 }
 
 
