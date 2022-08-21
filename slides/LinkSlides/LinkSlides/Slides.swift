@@ -3,8 +3,7 @@ import SwiftUI
 struct LinkSlides: View {
     @EnvironmentObject var presentation: PresentationProperties
     @State var selectedFocus: Int = 0
-    
-    
+
     @State var currentLiveView: AnyView?
     @State var exception: String?
     @State var isLoading: Bool = false
@@ -38,12 +37,12 @@ struct LinkSlides: View {
                         End()
                     ],
                     focuses: [
-                        [Beginning.self],
-                        [WhatIsFTD.self],
-                        [Beginning.self, WhatIsFTD.self],
-                        [FTDExample.self],
-                        [End.self],
-                        [Beginning.self, WhatIsFTD.self, FTDExample.self, End.self],
+                        .slides([Beginning.self]),
+                        .slides([WhatIsFTD.self]),
+                        .slides([Beginning.self, WhatIsFTD.self]),
+                        .slides([FTDExample.self]),
+                        .slides([End.self]),
+                        .slides([Beginning.self, WhatIsFTD.self, FTDExample.self, End.self]),
                     ],
                     selectedFocus: $selectedFocus
                 ).onChange(of: geometry.size) { newSize in

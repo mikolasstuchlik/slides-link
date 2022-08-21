@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct LinkSlidesApp: App {
-    
-    
+
     var body: some Scene {
         WindowGroup {
             LinkSlides().environmentObject(PresentationProperties.shared)
         }
+        
     }
 }

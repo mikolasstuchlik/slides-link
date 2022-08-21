@@ -4,13 +4,11 @@ import SwiftUI
 
 protocol Slide {
     static var offset: CGVector { get }
-    static var identifier: String { get }
 
     var slideView: AnyView { get }
 }
 
 extension Slide where Self: View {
-    static var identifier: String { String(describing: Self.self) }
     var slideView: AnyView { AnyView(body) }
 }
 
@@ -40,11 +38,21 @@ struct Plane: View {
     }
 }
 
+enum Focus {
+    struct Properties {
+        let offset: CGVector
+        let scale: CGFloat
+    }
+    
+    case slides([Slide.Type])
+    case properties(Properties)
+}
+
 struct Presentation: View {
     @EnvironmentObject var presentation: PresentationProperties
 
     let slides: [Slide]
-    let focuses: [[Slide.Type]]
+    let focuses: [Focus]
 
     @Binding var selectedFocus: Int
 
@@ -56,50 +64,61 @@ struct Presentation: View {
                 y: -(presentation.screenSize.height * presentation.offset.dy)
             )
             .clipped()
-            .onChange(
-                of: selectedFocus,
-                perform: { newFocus in
-                    if let newConfiguration = getConfiguration(for: newFocus) {
-                        withAnimation(.easeInOut(duration: 1.0)) {
-                            presentation.offset = newConfiguration.offset
-                        }
-                        if abs(presentation.scale - newConfiguration.scale) < 0.1 {
-                            withAnimation(.easeIn(duration: 0.5)) {
-                                presentation.scale = newConfiguration.scale * 3 / 4
-                            }
-                            withAnimation(.easeOut(duration: 0.5).delay(0.5)) {
-                                presentation.scale = newConfiguration.scale
-                            }
-                        } else {
-                            withAnimation(.easeInOut(duration: 1.0)) {
-                                presentation.scale = newConfiguration.scale
-                            }
-                        }
-                    }
-                }
-            )
+            .onChange(of: selectedFocus, perform: applyNew(focus:))
     }
     
-    private func getConfiguration(for newFocusIndex: Int) -> (scale: CGFloat, offset: CGVector)? {
+    private func applyNew(focus focusIndex: Int) {
+        guard let newConfiguration = getConfiguration(for: focusIndex) else {
+            return
+        }
+
+        withAnimation(.easeInOut(duration: 1.0)) {
+            presentation.offset = newConfiguration.offset
+        }
+
+        if abs(presentation.scale - newConfiguration.scale) < 0.1 {
+            withAnimation(.easeIn(duration: 0.5)) {
+                presentation.scale = newConfiguration.scale * 3 / 4
+            }
+            withAnimation(.easeOut(duration: 0.5).delay(0.5)) {
+                presentation.scale = newConfiguration.scale
+            }
+        } else {
+            withAnimation(.easeInOut(duration: 1.0)) {
+                presentation.scale = newConfiguration.scale
+            }
+        }
+    }
+    
+    private func getConfiguration(for newFocusIndex: Int) -> Focus.Properties? {
         guard
             newFocusIndex >= 0,
-            newFocusIndex < focuses.count,
-            !focuses[newFocusIndex].isEmpty
+            newFocusIndex < focuses.count
         else {
             return nil
         }
-        let focus = focuses[newFocusIndex]
         
-        var minXOffset = focus.first!.offset.dx
-        var minYOffset = focus.first!.offset.dy
-        var maxXOffset = focus.first!.offset.dx
-        var maxYOffset = focus.first!.offset.dy
+        switch focuses[newFocusIndex] {
+        case let .slides(slides):
+            return computeFocus(for: slides)
+        case let .properties(properties):
+            return properties
+        }
+    }
+    
+    private func computeFocus(for slides: [Slide.Type]) -> Focus.Properties? {
+        guard !slides.isEmpty else { return nil }
+
+        var minXOffset = slides.first!.offset.dx
+        var minYOffset = slides.first!.offset.dy
+        var maxXOffset = slides.first!.offset.dx
+        var maxYOffset = slides.first!.offset.dy
         
-        for frame in focus {
-            minXOffset = min(minXOffset, frame.offset.dx)
-            minYOffset = min(minYOffset, frame.offset.dy)
-            maxXOffset = max(maxXOffset, frame.offset.dx)
-            maxYOffset = max(maxYOffset, frame.offset.dy)
+        for slide in slides {
+            minXOffset = min(minXOffset, slide.offset.dx)
+            minYOffset = min(minYOffset, slide.offset.dy)
+            maxXOffset = max(maxXOffset, slide.offset.dx)
+            maxYOffset = max(maxYOffset, slide.offset.dy)
         }
 
         let width = 1 / (minXOffset.distance(to: maxXOffset) + 1)
@@ -112,7 +131,7 @@ struct Presentation: View {
             dy: (minYOffset + minYOffset.distance(to: maxYOffset) / 2) * newScale
         )
         
-        return (scale: newScale, offset: newOffset)
+        return .init(offset: newOffset, scale: newScale)
     }
 }
 
@@ -123,5 +142,4 @@ final class PresentationProperties: ObservableObject {
     @Published var screenSize: CGSize = CGSize(width: 480, height: 360)
     @Published var scale: CGFloat = 1.0
     @Published var offset: CGVector = .zero
-    @Published var exception: String?
 }
