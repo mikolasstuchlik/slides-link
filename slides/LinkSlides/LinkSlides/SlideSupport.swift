@@ -1,39 +1,45 @@
 import SwiftUI
 
 // MARK: - Presentation support
-
-protocol Slide {
+protocol Slide: View {
     static var offset: CGVector { get }
-
-    var slideView: AnyView { get }
+    static var hint: String? { get }
+    static var name: String { get }
 }
 
-extension Slide where Self: View {
-    var slideView: AnyView { AnyView(body) }
+extension Slide {
+    static var hint: String? { nil }
+    static var name: String { String(describing: Self.self) }
+    
+    var name: String { Self.name }
 }
 
 struct Plane: View {
     @EnvironmentObject var presentation: PresentationProperties
     
-    let slides: [Slide]
+    let slides: [any Slide]
 
     var body: some View {
         ZStack {
-            ForEach(Array(zip(slides.indices, slides)), id: \.0) { _, slide in
-                slide.slideView
-                    .frame(
-                        width: presentation.frameSize.width,
-                        height: presentation.frameSize.height
-                    )
-                    .offset(
-                        x: presentation.screenSize.width * type(of: slide).offset.dx,
-                        y: presentation.screenSize.height * type(of: slide).offset.dy
-                    )
-            }
+            ForEach(slides, id: \.name, content: content(for:))
         }
         .frame(
             width: presentation.screenSize.width,
             height: presentation.screenSize.height
+        )
+    }
+
+    private func content(for slide: any Slide) -> AnyView {
+        AnyView(
+            slide.body
+                .frame(
+                    width: presentation.frameSize.width,
+                    height: presentation.frameSize.height
+                )
+                .offset(
+                    x: presentation.screenSize.width * type(of: slide).offset.dx,
+                    y: presentation.screenSize.height * type(of: slide).offset.dy
+                )
         )
     }
 }
@@ -42,21 +48,33 @@ enum Focus {
     struct Properties {
         let offset: CGVector
         let scale: CGFloat
+        let hint: String?
     }
     
-    case slides([Slide.Type])
+    case slides([any Slide.Type])
     case properties(Properties)
 }
 
 struct Presentation: View {
     @EnvironmentObject var presentation: PresentationProperties
 
-    let slides: [Slide]
+    let slides: [any Slide]
     let focuses: [Focus]
 
-    @Binding var selectedFocus: Int
-
     var body: some View {
+        GeometryReader { geometry in
+            plane.onChange(of: geometry.size) { newSize in
+                if presentation.automaticFameSize {
+                    presentation.frameSize = newSize
+                }
+                if presentation.automaticScreenSize {
+                    presentation.screenSize = newSize
+                }
+            }
+        }
+    }
+    
+    private var plane: some View {
         Plane(slides: slides)
             .scaleEffect(presentation.scale)
             .offset(
@@ -64,7 +82,7 @@ struct Presentation: View {
                 y: -(presentation.screenSize.height * presentation.offset.dy)
             )
             .clipped()
-            .onChange(of: selectedFocus, perform: applyNew(focus:))
+            .onChange(of: presentation.selectedFocus, perform: applyNew(focus:))
     }
     
     private func applyNew(focus focusIndex: Int) {
@@ -106,7 +124,7 @@ struct Presentation: View {
         }
     }
     
-    private func computeFocus(for slides: [Slide.Type]) -> Focus.Properties? {
+    private func computeFocus(for slides: [any Slide.Type]) -> Focus.Properties? {
         guard !slides.isEmpty else { return nil }
 
         var minXOffset = slides.first!.offset.dx
@@ -131,14 +149,23 @@ struct Presentation: View {
             dy: (minYOffset + minYOffset.distance(to: maxYOffset) / 2) * newScale
         )
         
-        return .init(offset: newOffset, scale: newScale)
+        let newHint = slides
+            .compactMap { slide in slide.hint.flatMap { "**\(slide.name):**\n" + $0 } }
+            .joined(separator: "\n")
+        
+        return .init(offset: newOffset, scale: newScale, hint: newHint)
     }
 }
 
 final class PresentationProperties: ObservableObject {
     static let shared = PresentationProperties()
     
+    @Published var automaticFameSize: Bool = true
     @Published var frameSize: CGSize = CGSize(width: 480, height: 360)
+    
+    @Published var selectedFocus: Int = 0
+    
+    @Published var automaticScreenSize: Bool = true
     @Published var screenSize: CGSize = CGSize(width: 480, height: 360)
     @Published var scale: CGFloat = 1.0
     @Published var offset: CGVector = .zero

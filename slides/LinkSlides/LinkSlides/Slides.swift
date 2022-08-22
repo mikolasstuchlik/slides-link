@@ -2,55 +2,37 @@ import SwiftUI
 
 struct LinkSlides: View {
     @EnvironmentObject var presentation: PresentationProperties
-    @State var selectedFocus: Int = 0
 
-    @State var currentLiveView: AnyView?
-    @State var exception: String?
-    @State var isLoading: Bool = false
+    @State var ftdStdIn: String = "ls"
+    @State var ftdTerminal: TerminalView.State = .idle
+    
+    let workingPath: URL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
+    @State var ftdCode: String = FTDExample.defaultCode
+    @State var ftcCompiler: CodeView.State = .idle
+    
 
+    var slides: [any Slide] {
+        [
+            Beginning(),
+            WhatIsFTD(),
+            FTDExample(workingPath: workingPath, code: $ftdCode, compilerState: $ftcCompiler, stdIn: $ftdStdIn, terminalStatus: $ftdTerminal),
+            End()
+        ]
+    }
+
+    var focuses: [Focus] {
+        [
+            .slides([Beginning.self]),
+            .slides([WhatIsFTD.self]),
+            .slides([Beginning.self, WhatIsFTD.self]),
+            .slides([FTDExample.self]),
+            .slides([End.self]),
+            .slides([Beginning.self, WhatIsFTD.self, FTDExample.self, End.self]),
+        ]
+    }
+    
     var body: some View {
-        ZStack {
-            Button(
-                "",
-                action: {
-                    selectedFocus += 1
-                }
-            )
-            .hidden()
-            .keyboardShortcut(.return)
-
-            Button(
-                "",
-                action: {
-                    selectedFocus -= 1
-                }
-            )
-            .hidden()
-            .keyboardShortcut("p")
-
-            GeometryReader { geometry in
-                Presentation(
-                    slides: [
-                        Beginning(),
-                        WhatIsFTD(),
-                        FTDExample(currentLiveView: $currentLiveView, exception: $exception, isLoading: $isLoading),
-                        End()
-                    ],
-                    focuses: [
-                        .slides([Beginning.self]),
-                        .slides([WhatIsFTD.self]),
-                        .slides([Beginning.self, WhatIsFTD.self]),
-                        .slides([FTDExample.self]),
-                        .slides([End.self]),
-                        .slides([Beginning.self, WhatIsFTD.self, FTDExample.self, End.self]),
-                    ],
-                    selectedFocus: $selectedFocus
-                ).onChange(of: geometry.size) { newSize in
-                    presentation.screenSize = newSize
-                    presentation.frameSize = newSize
-                }
-            }
-        }
+        Presentation(slides: slides, focuses: focuses)
     }
 }
 

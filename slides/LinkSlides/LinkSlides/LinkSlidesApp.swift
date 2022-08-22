@@ -1,19 +1,14 @@
-//
-//  LinkSlidesApp.swift
-//  LinkSlides
-//
-//  Created by Mikoláš Stuchlík on 20.08.2022.
-//
-
 import SwiftUI
 
 @main
 struct LinkSlidesApp: App {
-
     var body: some Scene {
-        WindowGroup {
-            LinkSlides().environmentObject(PresentationProperties.shared)
+        WindowGroup("Toolbar") {
+            SlideControlPanel().environmentObject(PresentationProperties.shared)
         }
         
+        Window("Slides", id: "slides") {
+            LinkSlides().environmentObject(PresentationProperties.shared)
+        }
     }
 }

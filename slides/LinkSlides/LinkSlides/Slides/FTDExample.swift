@@ -1,41 +1,31 @@
-//
-//  FTDExample.swift
-//  LinkSlides
-//
-//  Created by Mikoláš Stuchlík on 20.08.2022.
-//
-
 import SwiftUI
 import CodeEditor
 
-private let defaultCode =
-"""
-public struct MyView: View {
-  @State var isPushed: Bool = false
+struct FTDExample: View, Slide {    
+    static let offset = CGVector(dx: 2, dy: 2)
 
-  public var body: some View {
-    VStack(spacing: 8) {
-      Text("Ahoj")
-      Button("Zmáčkni mě", action: { isPushed.toggle() })
-    }.background(
-      isPushed ? .green : .red
-    )
-  }
-}
-"""
+    static let defaultCode =
+    """
+    public struct FTDExample: View {
+      @State var isPushed: Bool = false
 
-struct FTDExample: View, Slide {
-    private final class Model {
-        static let shared = Model()
-        var runtimeProvider = RuntimeViewProvider(rootViewName: "MyView")
-        var code = defaultCode
+      public var body: some View {
+        VStack(spacing: 8) {
+          Text("Ahoj")
+          Button("Zmáčkni mě", action: { isPushed.toggle() })
+        }.background(
+          isPushed ? .green : .red
+        )
+      }
     }
+    """
     
-    static let offset = CGVector(dx: 1, dy: 2)
-
-    @Binding var currentLiveView: AnyView?
-    @Binding var exception: String?
-    @Binding var isLoading: Bool
+    let workingPath: URL
+    @Binding var code: String
+    @Binding var compilerState: CodeView.State
+    
+    @Binding var stdIn: String
+    @Binding var terminalStatus: TerminalView.State
 
     var body: some View {
         ZStack {
@@ -45,56 +35,58 @@ struct FTDExample: View, Slide {
                     .foregroundColor(.black)
                     .font(.system(size: 40))
                     .bold()
-                HStack {
-                    VStack {
-                        CodeEditor(
-                            source: Binding(
-                                get: { Model.shared.code },
-                                set: { Model.shared.code = $0 }
-                            ),
-                            language: .swift,
-                            theme: CodeEditor.ThemeName(rawValue: "xcode"),
-                            indentStyle: .softTab(width: 2)
-                        ).preferredColorScheme(.light)
-                        Button("Zkompiluj a spusť!") {
-                            isLoading = true
-                            currentLiveView = nil
-                            exception = nil
-                            Task {
-                                do {
-                                    let newView = try Model.shared.runtimeProvider.compileAndLoad(code: Model.shared.code)
-                                    currentLiveView = newView
-                                } catch {
-                                    exception = "\(error)"
-                                }
-                                isLoading = false
-                            }
-                        }
-                        .foregroundColor(.black)
-                        .background()
-                    }.frame(idealWidth: .infinity)
-                    ZStack {
-                        Color.gray.opacity(0.1)
-                        currentLiveView
-                        if let exception = exception {
-                            Text(exception)
-                                .foregroundColor(.red)
-                        }
-                        if isLoading {
-                            ProgressView("Kompilace")
-                                .colorInvert()
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                codeView
+                terminalView
             }
             .padding()
         }
+    }
+    
+    @ViewBuilder private var codeView: some View {
+        HStack {
+            VStack {
+                CodeView(
+                    axis: .horizontal,
+                    uniqueName: "FTDExample",
+                    code: $code,
+                    state: $compilerState
+                )
+            }.frame(idealWidth: .infinity)
+            ZStack {
+                Color.gray.opacity(0.1)
+                switch compilerState {
+                case .idle:
+                    EmptyView()
+                case .loading:
+                    ProgressView("Kompilace")
+                        .colorInvert()
+                case let .view(view):
+                    view
+                case let .exception(ProcessError.endedWith(code: _, error: .some(message))):
+                    Text(message)
+                        .foregroundColor(.red)
+                case let .exception(otherError):
+                    Text(otherError.localizedDescription)
+                        .foregroundColor(.red)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    @ViewBuilder private var terminalView: some View {
+        TerminalView(
+            axis: .horizontal,
+            workingPath: workingPath,
+            stdIn: $stdIn,
+            state: $terminalStatus
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 struct FTDExample_Previews: PreviewProvider {
     static var previews: some View {
-        FTDExample(currentLiveView: .constant(nil), exception: .constant(nil), isLoading: .constant(false))
+        FTDExample(workingPath: FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0], code: .constant(FTDExample.defaultCode), compilerState: .constant(.idle), stdIn: .constant(""), terminalStatus: .constant(.idle))
     }
 }

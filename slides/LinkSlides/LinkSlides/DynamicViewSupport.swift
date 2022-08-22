@@ -5,7 +5,7 @@ import SwiftUI
 enum ProcessError: Error {
     case endedWith(code: Int, error: String?)
     case couldNotBeSpawned
-        case programNotFound
+    case programNotFound
 }
 
 private extension ProcessInfo {
