@@ -64,7 +64,7 @@ struct CodeView: View {
             language: .swift,
             theme: CodeEditor.ThemeName(rawValue: "xcode"),
             indentStyle: .softTab(width: 2)
-        ).preferredColorScheme(.light)
+        ).colorScheme(.light)
         if case .loading = state {
             ProgressView()
                 .frame(width: 50, height: 50)

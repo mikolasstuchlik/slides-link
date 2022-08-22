@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - Presentation support
 protocol Slide: View {
     static var offset: CGVector { get }
+    static var singleFocusScale: CGFloat { get }
     static var hint: String? { get }
     static var name: String { get }
 }
@@ -10,6 +11,7 @@ protocol Slide: View {
 extension Slide {
     static var hint: String? { nil }
     static var name: String { String(describing: Self.self) }
+    static var singleFocusScale: CGFloat { 0.9999 } // When scale is 1.0, some shapes disappear :shurug:
     
     var name: String { Self.name }
 }
@@ -119,11 +121,17 @@ struct Presentation: View {
         }
         
         switch focuses[newFocusIndex] {
+        case let .slides(slides) where slides.count == 1:
+            return singleSlideFocus(for: slides.first!)
         case let .slides(slides):
             return computeFocus(for: slides)
         case let .properties(properties):
             return properties
         }
+    }
+    
+    private func singleSlideFocus(for slide: any Slide.Type) -> Focus.Properties {
+        .init(offset: slide.offset, scale: slide.singleFocusScale, hint: slide.hint)
     }
     
     private func computeFocus(for slides: [any Slide.Type]) -> Focus.Properties? {
@@ -155,7 +163,7 @@ struct Presentation: View {
             .compactMap { slide in slide.hint.flatMap { "**\(slide.name):**\n" + $0 } }
             .joined(separator: "\n")
         
-        return .init(offset: newOffset, scale: newScale, hint: newHint)
+        return .init(offset: newOffset, scale: newScale - 0.01, hint: newHint)
     }
 }
 

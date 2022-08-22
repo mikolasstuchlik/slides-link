@@ -2,7 +2,7 @@ import SwiftUI
 import CodeEditor
 
 struct FTDExample: View, Slide {    
-    static let offset = CGVector(dx: 2, dy: 2)
+    static let offset = CGVector(dx: 1, dy: 2)
 
     static let defaultCode =
     """
@@ -12,7 +12,10 @@ struct FTDExample: View, Slide {
       public var body: some View {
         VStack(spacing: 8) {
           Text("Ahoj")
-          Button("Zmáčkni mě", action: { isPushed.toggle() })
+          Button(
+            "Zmáčkni mě",
+            action: { isPushed.toggle() }
+          )
         }.background(
           isPushed ? .green : .red
         )

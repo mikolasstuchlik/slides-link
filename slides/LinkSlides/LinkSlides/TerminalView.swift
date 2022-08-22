@@ -66,7 +66,8 @@ struct TerminalView: View {
             CodeEditor(
                 source: $stdIn,
                 language: .bash,
-                indentStyle: .softTab(width: 2)
+                indentStyle: .softTab(width: 2),
+                autoscroll: false
             )
         }
     }
