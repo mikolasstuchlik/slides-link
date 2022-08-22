@@ -186,4 +186,21 @@ final class PresentationProperties: ObservableObject {
     @Published var offset: CGVector = .zero
     
     @Published var hint: String? = nil
+    
+    @Published var title: NSFont = NSFont.systemFont(ofSize: 80, weight: .bold)
+    @Published var subTitle: NSFont = NSFont.systemFont(ofSize: 70, weight: .regular)
+    @Published var headline: NSFont = NSFont.systemFont(ofSize: 50, weight: .bold)
+    @Published var subHeadline: NSFont = NSFont.systemFont(ofSize: 40, weight: .regular)
+    @Published var body: NSFont = NSFont.systemFont(ofSize: 30)
+    @Published var note: NSFont = NSFont.systemFont(ofSize: 20, weight: .light)
+}
+
+extension Font {
+    static var presentationTitle: Font { Font(PresentationProperties.shared.title as CTFont) }
+    static var presentationSubTitle: Font { Font(PresentationProperties.shared.subTitle as CTFont) }
+    static var presentationHeadline: Font { Font(PresentationProperties.shared.headline as CTFont) }
+    static var presentationSubHeadline: Font { Font(PresentationProperties.shared.subHeadline as CTFont) }
+    static var presentationBody: Font { Font(PresentationProperties.shared.body as CTFont) }
+    static var presentationNote: Font { Font(PresentationProperties.shared.note as CTFont) }
+    
 }

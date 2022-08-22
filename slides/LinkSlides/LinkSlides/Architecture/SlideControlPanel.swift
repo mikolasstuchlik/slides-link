@@ -170,6 +170,21 @@ struct SlideControlPanel: View {
                     }
                     .pickerStyle(.segmented)
                 }
+                GridRow {
+                    Text("Fonty")
+                    Grid {
+                        GridRow {
+                            FontPicker("Titulek", selection: $presentation.title)
+                            FontPicker("Napis", selection: $presentation.headline)
+                            FontPicker("Tělo", selection: $presentation.body)
+                        }
+                        GridRow {
+                            FontPicker("Podtitulek", selection: $presentation.subTitle)
+                            FontPicker("Podnadpis", selection: $presentation.subHeadline)
+                            FontPicker("Poznámka", selection: $presentation.note)
+                        }
+                    }
+                }
             }
         }
     }

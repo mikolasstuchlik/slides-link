@@ -6,8 +6,7 @@ struct WhatIsFTD: View, Slide {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Jak spustit prezentaci")
-                .font(.system(size: 40))
-                .bold()
+                .font(.presentationHeadline)
             Text(
 """
 **Spuštění na macOS**
@@ -21,7 +20,7 @@ struct WhatIsFTD: View, Slide {
 **Můžete si prohlédnout ale i více slidů zároveň!!!**
 """
             )
-            .font(.system(size: 24))
+            .font(.presentationBody)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
         .padding()

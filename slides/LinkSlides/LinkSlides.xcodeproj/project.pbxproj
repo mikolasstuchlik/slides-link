@@ -74,17 +74,12 @@
 		BE0363FC28B14FBC00C667F5 /* LinkSlides */ = {
 			isa = PBXGroup;
 			children = (
+				BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */,
 				BE03641128B1504800C667F5 /* Slides.swift */,
 				BE03641628B1586100C667F5 /* Slides */,
-				BE03640D28B14FE300C667F5 /* SlideSupport.swift */,
-				BE8BFF1128B3764200B04726 /* TerminalView.swift */,
-				BEEC47C828B366BB00BF5C2A /* CodeView.swift */,
-				BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */,
-				BE03640F28B1502200C667F5 /* DynamicViewSupport.swift */,
-				BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */,
+				BE32CCDE28B3CCB3007C4E72 /* Architecture */,
 				BE03640C28B14FD200C667F5 /* Supporting */,
 				BE03640328B14FBD00C667F5 /* Preview Content */,
-				BE6FF46D28B3990600802752 /* SupportingViews.swift */,
 			);
 			path = LinkSlides;
 			sourceTree = "<group>";
@@ -115,6 +110,19 @@
 				BE03641F28B158AC00C667F5 /* FTDExample.swift */,
 			);
 			path = Slides;
+			sourceTree = "<group>";
+		};
+		BE32CCDE28B3CCB3007C4E72 /* Architecture */ = {
+			isa = PBXGroup;
+			children = (
+				BE03640D28B14FE300C667F5 /* SlideSupport.swift */,
+				BE8BFF1128B3764200B04726 /* TerminalView.swift */,
+				BEEC47C828B366BB00BF5C2A /* CodeView.swift */,
+				BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */,
+				BE03640F28B1502200C667F5 /* DynamicViewSupport.swift */,
+				BE6FF46D28B3990600802752 /* SupportingViews.swift */,
+			);
+			path = Architecture;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

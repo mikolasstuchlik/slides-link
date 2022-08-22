@@ -6,9 +6,10 @@ struct End: View, Slide {
     var body: some View {
         VStack(alignment: .leading) {
             Text("**Děkuji za pozornost!!!**")
-                .font(.system(size: 80))
+                .font(.presentationTitle)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             Text("... a těste se na iOS meet ;)")
+                .font(.presentationNote)
         }
         .padding()
     }

@@ -8,7 +8,7 @@ struct Beginning: View, Slide {
     var body: some View {
         VStack {
             Text("**Dynamická SwiftUI Prezentace**")
-                .font(.system(size: 80))
+                .font(.presentationTitle)
             if !isPreview {
                 WebView(url: URL(string: "https://www.youtube.com/watch?v=78706bv98S8")!)
             }

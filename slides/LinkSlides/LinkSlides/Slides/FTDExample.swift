@@ -42,8 +42,7 @@ struct FTDExample: View, Slide {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("A teď něco pro zasmání :D")
-                .font(.system(size: 40))
-                .bold()
+                .font(.presentationHeadline)
             terminalView
             codeView
         }
