@@ -74,6 +74,7 @@ struct FTDExample: View, Slide {
         TerminalView(
             axis: .horizontal,
             workingPath: workingPath,
+            aspectRatio: 0.25,
             stdIn: $stdIn,
             state: $terminalStatus
         )

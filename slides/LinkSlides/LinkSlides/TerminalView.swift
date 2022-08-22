@@ -12,19 +12,22 @@ struct TerminalView: View {
     
     let axis: Axis
     let workingPath: URL
+    let aspectRatio: CGFloat
     @Binding var stdIn: String
     @Binding var state: State
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            elements
-                .padding(4)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(.gray, style: StrokeStyle(lineWidth: 1, dash: [3]))
-                )
-                .padding(6)
-            Text("\(workingPath.path)%")
+            Group {
+                elements
+            }
+            .padding(4)
+            .overlay(
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(.gray, style: StrokeStyle(lineWidth: 1, dash: [3]))
+            )
+            .padding(6)
+            Text("zsh in:\(workingPath.path) %")
                 .background( EffectView(material: .windowBackground))
                 .padding(.leading, 16)
                 .foregroundColor(.gray)
@@ -34,12 +37,19 @@ struct TerminalView: View {
     
     @ViewBuilder private var elements: some View {
         HStack {
-            VStack(spacing: 4.0) {
-                inputView
-                if axis == .vertical {
-                    buttonView
+            GeometryReader { proxy in
+                VStack(spacing: 4.0) {
+                    let baseHeight = proxy.size.height - proxy.safeAreaInsets.top - proxy.safeAreaInsets.bottom - (axis == .vertical ? 58 : 4)
+                    inputView.frame(
+                        height: baseHeight * aspectRatio
+                    )
+                    if axis == .vertical {
+                        buttonView
+                    }
+                    resultView.frame(
+                        height: baseHeight * (1.0 - aspectRatio)
+                    )
                 }
-                resultView
             }
             if axis == .horizontal {
                 buttonView
@@ -124,6 +134,6 @@ struct TerminalView: View {
 
 struct TerminalView_Previews: PreviewProvider {
     static var previews: some View {
-        TerminalView(axis: .horizontal, workingPath: FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0], stdIn: .constant(""), state: .constant(.idle))
+        TerminalView(axis: .vertical, workingPath: FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0], aspectRatio: 0.25, stdIn: .constant(""), state: .constant(.idle))
     }
 }

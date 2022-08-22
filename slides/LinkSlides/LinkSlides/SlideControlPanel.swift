@@ -74,6 +74,21 @@ struct SlideControlPanel: View {
                     presentation.selectedFocus += 1
                 }
             }
+            Picker(
+                "Barevné chéma",
+                selection: .init(
+                    get: {
+                        presentation.colorScheme == .dark ? 0 : 1
+                    },
+                    set: {
+                        presentation.colorScheme = $0 == 0 ? .dark : .light
+                    }
+                )
+            ) {
+                Text("Dark").tag(0)
+                Text("Light").tag(1)
+            }
+            .pickerStyle(.segmented)
         }
     }
 }
