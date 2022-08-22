@@ -63,14 +63,16 @@ struct Presentation: View {
 
     var body: some View {
         GeometryReader { geometry in
-            plane.onChange(of: geometry.size) { newSize in
-                if presentation.automaticFameSize {
-                    presentation.frameSize = newSize
+            plane
+                .onChange(of: geometry.size) { newSize in
+                    if presentation.automaticFameSize {
+                        presentation.frameSize = newSize
+                    }
+                    if presentation.automaticScreenSize {
+                        presentation.screenSize = newSize
+                    }
                 }
-                if presentation.automaticScreenSize {
-                    presentation.screenSize = newSize
-                }
-            }
+                .preferredColorScheme(presentation.colorScheme)
         }
     }
     
@@ -160,6 +162,7 @@ struct Presentation: View {
 final class PresentationProperties: ObservableObject {
     static let shared = PresentationProperties()
     
+    @Published var colorScheme: ColorScheme = ColorScheme.dark
     @Published var automaticFameSize: Bool = true
     @Published var frameSize: CGSize = CGSize(width: 480, height: 360)
     

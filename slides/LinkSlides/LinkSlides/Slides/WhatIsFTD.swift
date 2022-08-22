@@ -4,32 +4,27 @@ struct WhatIsFTD: View, Slide {
     static let offset = CGVector(dx: 1, dy: 0)
 
     var body: some View {
-        ZStack {
-            Color.white
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Jak spustit prezentaci")
-                    .foregroundColor(.black)
-                    .font(.system(size: 40))
-                    .bold()
-                Text(
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Jak spustit prezentaci")
+                .font(.system(size: 40))
+                .bold()
+            Text(
 """
 **Spuštění na macOS**
- - Stáhněte
- - Otevřete v Xcode
- - Ověřte, že je smazaný sandbox
- - Klávesa `cmd + enter` dává salší slide
- - Klávesa `cmd + p` dává předchozí slide
- - Zkuste změnit velikost okna :O
- 
+- Stáhněte
+- Otevřete v Xcode
+- Ověřte, že je smazaný sandbox
+- Klávesa `cmd + enter` dává salší slide
+- Klávesa `cmd + p` dává předchozí slide
+- Zkuste změnit velikost okna :O
+
 **Můžete si prohlédnout ale i více slidů zároveň!!!**
 """
-                )
-                .foregroundColor(.black)
-                .font(.system(size: 24))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            }
-            .padding()
+            )
+            .font(.system(size: 24))
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
+        .padding()
     }
 }
 

@@ -28,18 +28,14 @@ struct FTDExample: View, Slide {
     @Binding var terminalStatus: TerminalView.State
 
     var body: some View {
-        ZStack {
-            Color.white
-            VStack(alignment: .leading, spacing: 16) {
-                Text("A teď něco pro zasmání :D")
-                    .foregroundColor(.black)
-                    .font(.system(size: 40))
-                    .bold()
-                codeView
-                terminalView
-            }
-            .padding()
+        VStack(alignment: .leading, spacing: 16) {
+            Text("A teď něco pro zasmání :D")
+                .font(.system(size: 40))
+                .bold()
+            terminalView
+            codeView
         }
+        .padding()
     }
     
     @ViewBuilder private var codeView: some View {
@@ -59,7 +55,7 @@ struct FTDExample: View, Slide {
                     EmptyView()
                 case .loading:
                     ProgressView("Kompilace")
-                        .colorInvert()
+                        .preferredColorScheme(.light)
                 case let .view(view):
                     view
                 case let .exception(ProcessError.endedWith(code: _, error: .some(message))):

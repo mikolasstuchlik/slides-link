@@ -15,8 +15,7 @@ struct SlideControlPanel: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var now: Date = Date()
     @State var stateTime: Date?
-    
-    
+
     var body: some View {
         VStack(spacing: 16) {
             Text("Obecné").frame(maxWidth: .infinity, alignment: .leading)
@@ -66,12 +65,14 @@ struct SlideControlPanel: View {
     }
     
     @ViewBuilder private var presentationControl: some View {
-        HStack {
-            Button("Předchozí") {
-                presentation.selectedFocus -= 1
-            }
-            Button("Následující") {
-                presentation.selectedFocus += 1
+        VStack {
+            HStack {
+                Button("Předchozí") {
+                    presentation.selectedFocus -= 1
+                }
+                Button("Následující") {
+                    presentation.selectedFocus += 1
+                }
             }
         }
     }

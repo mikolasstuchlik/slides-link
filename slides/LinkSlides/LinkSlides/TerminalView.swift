@@ -17,15 +17,15 @@ struct TerminalView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            HStack { elements }
-            .padding(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4)
-                    .stroke(.gray, style: StrokeStyle(lineWidth: 1, dash: [3]))
-            )
-            .padding(6)
+            elements
+                .padding(4)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(.gray, style: StrokeStyle(lineWidth: 1, dash: [3]))
+                )
+                .padding(6)
             Text("\(workingPath.path)%")
-                .background(.background)
+                .background( EffectView(material: .windowBackground))
                 .padding(.leading, 16)
                 .foregroundColor(.gray)
                 .font(.system(.footnote))
@@ -33,7 +33,22 @@ struct TerminalView: View {
     }
     
     @ViewBuilder private var elements: some View {
-        VStack(spacing: 4.0) {
+        HStack {
+            VStack(spacing: 4.0) {
+                inputView
+                if axis == .vertical {
+                    buttonView
+                }
+                resultView
+            }
+            if axis == .horizontal {
+                buttonView
+            }
+        }
+    }
+    
+    @ViewBuilder private var inputView: some View {
+        VStack(spacing: 0) {
             Text("stdin:")
                 .foregroundColor(.gray)
                 .font(.system(.footnote))
@@ -41,51 +56,46 @@ struct TerminalView: View {
             CodeEditor(
                 source: $stdIn,
                 language: .bash,
-                theme: CodeEditor.ThemeName(rawValue: "xcode"),
                 indentStyle: .softTab(width: 2)
             )
-            .preferredColorScheme(.light)
-            if axis != .horizontal {
-                buttonView
-            }
-            ScrollView {
-                switch state {
-                case .idle, .loading:
-                    Text("stdout:")
-                        .foregroundColor(.gray)
-                        .font(.system(.footnote))
-                        .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
-                    Text("")
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                case let .result(.success(stdout)):
-                    Text("stdout:")
-                        .foregroundColor(.gray)
-                        .font(.system(.footnote))
-                        .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
-                    Text(stdout ?? "(Empty)")
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                    
-                case let .result(.failure(ProcessError.endedWith(code: code, error: stderr))):
-                    Text("Status: \(code)  stderr:")
-                        .foregroundColor(.gray)
-                        .font(.system(.footnote))
-                        .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
-                    Text(stderr ?? "(Empty)")
-                        .foregroundColor(.red)
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                case let .result(.failure(unknownError)):
-                    Text("Chyba:")
-                        .foregroundColor(.gray)
-                        .font(.system(.footnote))
-                        .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
-                    Text(unknownError.localizedDescription)
-                        .foregroundColor(.red)
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                }
-            }
         }
-        if axis == .horizontal {
-            buttonView
+    }
+    
+    @ViewBuilder private var resultView: some View {
+        ScrollView {
+            switch state {
+            case .idle, .loading:
+                Text("stdout:")
+                    .foregroundColor(.gray)
+                    .font(.system(.footnote))
+                    .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
+                Text("")
+                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+            case let .result(.success(stdout)):
+                Text("stdout:")
+                    .foregroundColor(.gray)
+                    .font(.system(.footnote))
+                    .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
+                Text(stdout ?? "(Empty)")
+                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                
+            case let .result(.failure(ProcessError.endedWith(code: code, error: stderr))):
+                Text("Status: \(code)  stderr:")
+                    .foregroundColor(.gray)
+                    .font(.system(.footnote))
+                    .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
+                Text(stderr ?? "(Empty)")
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+            case let .result(.failure(unknownError)):
+                Text("Chyba:")
+                    .foregroundColor(.gray)
+                    .font(.system(.footnote))
+                    .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
+                Text(unknownError.localizedDescription)
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+            }
         }
     }
     

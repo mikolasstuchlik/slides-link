@@ -9,7 +9,6 @@ struct LinkSlides: View {
     let workingPath: URL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
     @State var ftdCode: String = FTDExample.defaultCode
     @State var ftcCompiler: CodeView.State = .idle
-    
 
     var slides: [any Slide] {
         [
@@ -32,7 +31,10 @@ struct LinkSlides: View {
     }
     
     var body: some View {
-        Presentation(slides: slides, focuses: focuses)
+        Presentation(
+            slides: slides,
+            focuses: focuses
+        )
     }
 }
 

@@ -18,6 +18,7 @@
 		BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641D28B158A400C667F5 /* WhatIsFTD.swift */; };
 		BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641F28B158AC00C667F5 /* FTDExample.swift */; };
 		BE03642328B1638900C667F5 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BE03642228B1638900C667F5 /* CodeEditor */; };
+		BE6FF46E28B3990600802752 /* SupportingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* SupportingViews.swift */; };
 		BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BFF1128B3764200B04726 /* TerminalView.swift */; };
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
 		BEEC47C928B366BB00BF5C2A /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC47C828B366BB00BF5C2A /* CodeView.swift */; };
@@ -36,6 +37,7 @@
 		BE03641B28B1589100C667F5 /* End.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = End.swift; sourceTree = "<group>"; };
 		BE03641D28B158A400C667F5 /* WhatIsFTD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIsFTD.swift; sourceTree = "<group>"; };
 		BE03641F28B158AC00C667F5 /* FTDExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDExample.swift; sourceTree = "<group>"; };
+		BE6FF46D28B3990600802752 /* SupportingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingViews.swift; sourceTree = "<group>"; };
 		BE8BFF1128B3764200B04726 /* TerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalView.swift; sourceTree = "<group>"; };
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
 		BEEC47C828B366BB00BF5C2A /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */,
 				BE03640C28B14FD200C667F5 /* Supporting */,
 				BE03640328B14FBD00C667F5 /* Preview Content */,
+				BE6FF46D28B3990600802752 /* SupportingViews.swift */,
 			);
 			path = LinkSlides;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */,
+				BE6FF46E28B3990600802752 /* SupportingViews.swift in Sources */,
 				BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */,
 				BEEC47C928B366BB00BF5C2A /* CodeView.swift in Sources */,
 				BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */,

@@ -51,7 +51,7 @@ struct CodeView: View {
             )
             .padding(6)
             Text("SwiftUI View: \(uniqueName)")
-                .background(.background)
+                .background( EffectView(material: .windowBackground))
                 .padding(.leading, 16)
                 .foregroundColor(.gray)
                 .font(.system(.footnote))
