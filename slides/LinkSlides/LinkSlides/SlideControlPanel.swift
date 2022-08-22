@@ -15,20 +15,40 @@ struct SlideControlPanel: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var now: Date = Date()
     @State var stateTime: Date?
+    
+    @State var focusManualEntry: String = ""
+    
+    @State var screenXManualEntry: String = ""
+    @State var screenYManualEntry: String = ""
+    
+    @State var slideXManualEntry: String = ""
+    @State var slideYManualEntry: String = ""
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Obecné").frame(maxWidth: .infinity, alignment: .leading)
-            HStack(spacing: 16) {
-                dateCounter
+        HStack(spacing: 16) {
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
+                    dateCounter
+                    Spacer()
+                    timeCounter
+                    runButton
+                }
                 Spacer()
-                timeCounter
-                runButton
+                    .frame(maxHeight: .infinity)
+                Text("Ovládání prezentace").bold().frame(maxWidth: .infinity, alignment: .leading)
+                presentationControl
             }
-            Text("Ovládání prezentace").frame(maxWidth: .infinity, alignment: .leading)
-            presentationControl
-            Text("Poznámky pro zaostřené").frame(maxWidth: .infinity, alignment: .leading)
-            Text("Příslušenství").frame(maxWidth: .infinity, alignment: .leading)
+            Divider()
+            VStack(spacing: 16) {
+                Text("Poznámky pro zaostřené").bold().frame(maxWidth: .infinity, alignment: .leading)
+                if let hint = presentation.hint {
+                    ScrollView { Text(LocalizedStringKey(hint)) }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                } else {
+                    Spacer()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
         }.padding()
     }
 
@@ -66,29 +86,91 @@ struct SlideControlPanel: View {
     
     @ViewBuilder private var presentationControl: some View {
         VStack {
-            HStack {
-                Button("Předchozí") {
-                    presentation.selectedFocus -= 1
-                }
-                Button("Následující") {
-                    presentation.selectedFocus += 1
-                }
-            }
-            Picker(
-                "Barevné chéma",
-                selection: .init(
-                    get: {
-                        presentation.colorScheme == .dark ? 0 : 1
-                    },
-                    set: {
-                        presentation.colorScheme = $0 == 0 ? .dark : .light
+            Grid {
+                GridRow {
+                    Text("Zaměřený slide:")
+                    Button("Předchozí") {
+                        presentation.selectedFocus -= 1
+                    }.keyboardShortcut("n")
+                    Button("Následující") {
+                        presentation.selectedFocus += 1
+                    }.keyboardShortcut("m")
+                    HStack {
+                        TextField("Manuální", text: $focusManualEntry)
+                            .onChange(of: presentation.selectedFocus) { focusManualEntry = String($0) }
+                        Button("Přejít") {
+                            Int(focusManualEntry).flatMap { presentation.selectedFocus = $0 }
+                        }
                     }
-                )
-            ) {
-                Text("Dark").tag(0)
-                Text("Light").tag(1)
+                }
+                GridRow {
+                    Text("Pozice kamery")
+                    Grid {
+                        GridRow {
+                            Text("Scale: \(presentation.scale)")
+                            Slider(value: $presentation.scale, in: ClosedRange<CGFloat>(0...2))
+                        }
+                        GridRow {
+                            Text("X \(presentation.offset.dx)")
+                            Slider(value: $presentation.offset.dx, in: ClosedRange<CGFloat>(-3...3))
+                        }
+                        GridRow {
+                            Text("Y \(presentation.offset.dy)")
+                            Slider(value: $presentation.offset.dy, in: ClosedRange<CGFloat>(-3...3))
+                        }
+                    }.gridCellColumns(3)
+                }
+                GridRow {
+                    Text("Velikost obrazovky")
+                    Toggle(isOn: $presentation.automaticScreenSize, label: { Text("Automaticky") })
+                    TextField("X", text: $screenXManualEntry)
+                        .disabled(presentation.automaticScreenSize)
+                        .onChange(of: presentation.screenSize) { screenXManualEntry = "\($0.width)" }
+                    TextField("Y", text: $screenYManualEntry)
+                        .disabled(presentation.automaticScreenSize)
+                        .onChange(of: presentation.screenSize) { screenYManualEntry = "\($0.height)" }
+                    Button("Použít") {
+                        if let w = Double(screenXManualEntry), let h = Double(screenYManualEntry) {
+                            presentation.screenSize = CGSize(width: CGFloat(w), height: CGFloat(h))
+                        }
+                    }
+                }
+                GridRow {
+                    Text("Velikost slidu")
+                    Toggle(isOn: $presentation.automaticFameSize, label: { Text("Automaticky") })
+                    TextField("X", text: $slideXManualEntry)
+                        .disabled(presentation.automaticFameSize)
+                        .onChange(of: presentation.frameSize) { slideXManualEntry = "\($0.width)" }
+                    TextField("Y", text: $slideYManualEntry)
+                        .disabled(presentation.automaticFameSize)
+                        .onChange(of: presentation.frameSize) { slideYManualEntry = "\($0.height)" }
+                    Button("Použít") {
+                        if let w = Double(slideXManualEntry), let h = Double(slideYManualEntry) {
+                            presentation.frameSize = CGSize(width: CGFloat(w), height: CGFloat(h))
+                        }
+                    }
+                }
+                GridRow {
+                    Text("Barevné schéma")
+                    Spacer()
+                    Spacer()
+                    Picker(
+                        "",
+                        selection: .init(
+                            get: {
+                                presentation.colorScheme == .dark ? 0 : 1
+                            },
+                            set: {
+                                presentation.colorScheme = $0 == 0 ? .dark : .light
+                            }
+                        )
+                    ) {
+                        Text("Dark").tag(0)
+                        Text("Light").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                }
             }
-            .pickerStyle(.segmented)
         }
     }
 }

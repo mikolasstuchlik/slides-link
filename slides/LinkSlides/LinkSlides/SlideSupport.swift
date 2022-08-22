@@ -93,7 +93,7 @@ struct Presentation: View {
         guard let newConfiguration = getConfiguration(for: focusIndex) else {
             return
         }
-
+        
         withAnimation(.easeInOut(duration: 1.0)) {
             presentation.offset = newConfiguration.offset
         }
@@ -110,6 +110,8 @@ struct Presentation: View {
                 presentation.scale = newConfiguration.scale
             }
         }
+        
+        presentation.hint = newConfiguration.hint
     }
     
     private func getConfiguration(for newFocusIndex: Int) -> Focus.Properties? {
@@ -161,7 +163,7 @@ struct Presentation: View {
         
         let newHint = slides
             .compactMap { slide in slide.hint.flatMap { "**\(slide.name):**\n" + $0 } }
-            .joined(separator: "\n")
+            .joined(separator: "\n\n--\n\n")
         
         return .init(offset: newOffset, scale: newScale - 0.01, hint: newHint)
     }
@@ -171,13 +173,17 @@ final class PresentationProperties: ObservableObject {
     static let shared = PresentationProperties()
     
     @Published var colorScheme: ColorScheme = ColorScheme.dark
+
     @Published var automaticFameSize: Bool = true
     @Published var frameSize: CGSize = CGSize(width: 480, height: 360)
-    
-    @Published var selectedFocus: Int = 0
-    
+
     @Published var automaticScreenSize: Bool = true
     @Published var screenSize: CGSize = CGSize(width: 480, height: 360)
+
+    @Published var selectedFocus: Int = 0
+
     @Published var scale: CGFloat = 1.0
     @Published var offset: CGVector = .zero
+    
+    @Published var hint: String? = nil
 }

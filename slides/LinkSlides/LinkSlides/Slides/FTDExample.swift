@@ -3,6 +3,15 @@ import CodeEditor
 
 struct FTDExample: View, Slide {    
     static let offset = CGVector(dx: 1, dy: 2)
+    static let hint: String? =
+    """
+    Tady si vyzkoušíme něco nového:
+    
+     - Compile this
+     - *get this*
+     - **return this**
+     - `typecheck this`
+    """
 
     static let defaultCode =
     """
