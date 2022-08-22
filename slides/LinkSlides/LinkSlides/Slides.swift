@@ -15,7 +15,7 @@ struct LinkSlides: View {
             Beginning(),
             WhatIsFTD(),
             FTDExample(workingPath: workingPath, code: $ftdCode, compilerState: $ftcCompiler, stdIn: $ftdStdIn, terminalStatus: $ftdTerminal),
-            End()
+            End(),
         ]
     }
 

@@ -172,7 +172,7 @@ struct SlideControlPanel: View {
                 }
                 GridRow {
                     Text("Fonty")
-                    Grid {
+                    Grid(alignment: .trailing) {
                         GridRow {
                             FontPicker("Titulek", selection: $presentation.title)
                             FontPicker("Napis", selection: $presentation.headline)
@@ -183,7 +183,7 @@ struct SlideControlPanel: View {
                             FontPicker("Podnadpis", selection: $presentation.subHeadline)
                             FontPicker("Poznámka", selection: $presentation.note)
                         }
-                    }
+                    }.gridCellColumns(4)
                 }
             }
         }
