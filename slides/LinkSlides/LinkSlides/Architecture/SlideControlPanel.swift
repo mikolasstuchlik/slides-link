@@ -108,7 +108,7 @@ struct SlideControlPanel: View {
                     Grid {
                         GridRow {
                             Text("Scale: \(presentation.scale)")
-                            Slider(value: $presentation.scale, in: ClosedRange<CGFloat>(0...2))
+                            Slider(value: $presentation.scale, in: ClosedRange<CGFloat>(0.1...2))
                         }
                         GridRow {
                             Text("X \(presentation.offset.dx)")

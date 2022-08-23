@@ -27,8 +27,8 @@ struct LinkSlides: View {
     let focuses: [Focus] = [
         .slides([Beginning.self]),
         .slides([WhatIsFTD.self]),
-        .properties(.init(offset: CGVector(dx: 0, dy: -2), scale: 0.3, hint: nil)),
-        .properties(.init(offset: CGVector(dx: 0, dy: -1.8), scale: 1.1, hint: nil)),
+        .properties(.init(offset: CGVector(dx: 0, dy: -4), scale: 0.2, hint: nil)),
+        .properties(.init(offset: CGVector(dx: 0, dy: -3.5), scale: 0.9, hint: nil)),
         .slides([Beginning.self, WhatIsFTD.self]),
         .slides([FTDExample.self]),
         .slides([End.self]),

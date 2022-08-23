@@ -49,8 +49,8 @@ struct Plane: View {
         AnyView(
             background.body
                 .frame(
-                    width: presentation.frameSize.width * type(of: background).relativeSize.width,
-                    height: presentation.frameSize.height * type(of: background).relativeSize.height
+                    width: presentation.screenSize.width * type(of: background).relativeSize.width,
+                    height: presentation.screenSize.height * type(of: background).relativeSize.height
                 )
                 .offset(
                     x: presentation.screenSize.width * type(of: background).offset.dx,
