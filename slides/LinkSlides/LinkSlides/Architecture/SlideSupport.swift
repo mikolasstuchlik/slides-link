@@ -1,6 +1,18 @@
 import SwiftUI
 
 // MARK: - Presentation support
+protocol Background: View {
+    static var offset: CGVector { get }
+    static var relativeSize: CGSize { get }
+    static var name: String { get }
+}
+
+extension Background {
+    static var name: String { String(describing: Self.self) }
+
+    var name: String { Self.name }
+}
+
 protocol Slide: View {
     static var offset: CGVector { get }
     static var singleFocusScale: CGFloat { get }
@@ -19,10 +31,12 @@ extension Slide {
 struct Plane: View {
     @EnvironmentObject var presentation: PresentationProperties
     
+    let backgrounds: [any Background]
     let slides: [any Slide]
 
     var body: some View {
         ZStack {
+            ForEach(backgrounds, id: \.name, content: content(for:))
             ForEach(slides, id: \.name, content: content(for:))
         }
         .frame(
@@ -31,6 +45,20 @@ struct Plane: View {
         )
     }
 
+    private func content(for background: any Background) -> AnyView {
+        AnyView(
+            background.body
+                .frame(
+                    width: presentation.frameSize.width * type(of: background).relativeSize.width,
+                    height: presentation.frameSize.height * type(of: background).relativeSize.height
+                )
+                .offset(
+                    x: presentation.screenSize.width * type(of: background).offset.dx,
+                    y: presentation.screenSize.height * type(of: background).offset.dy
+                )
+        )
+    }
+    
     private func content(for slide: any Slide) -> AnyView {
         AnyView(
             slide.body
@@ -60,6 +88,7 @@ enum Focus {
 struct Presentation: View {
     @EnvironmentObject var presentation: PresentationProperties
 
+    let backgrounds: [any Background]
     let slides: [any Slide]
     let focuses: [Focus]
 
@@ -79,12 +108,12 @@ struct Presentation: View {
     }
     
     private var plane: some View {
-        Plane(slides: slides)
-            .scaleEffect(presentation.scale)
+        Plane(backgrounds: backgrounds, slides: slides)
             .offset(
                 x: -(presentation.screenSize.width * presentation.offset.dx),
                 y: -(presentation.screenSize.height * presentation.offset.dy)
             )
+            .scaleEffect(presentation.scale)
             .clipped()
             .onChange(of: presentation.selectedFocus, perform: applyNew(focus:))
     }
@@ -157,8 +186,8 @@ struct Presentation: View {
         let newScale = min(width, height)
         
         let newOffset = CGVector(
-            dx: (minXOffset + minXOffset.distance(to: maxXOffset) / 2) * newScale,
-            dy: (minYOffset + minYOffset.distance(to: maxYOffset) / 2) * newScale
+            dx: (minXOffset + minXOffset.distance(to: maxXOffset) / 2),
+            dy: (minYOffset + minYOffset.distance(to: maxYOffset) / 2)
         )
         
         let newHint = slides
@@ -187,20 +216,50 @@ final class PresentationProperties: ObservableObject {
     
     @Published var hint: String? = nil
     
-    @Published var title: NSFont = NSFont.systemFont(ofSize: 80, weight: .bold)
-    @Published var subTitle: NSFont = NSFont.systemFont(ofSize: 70, weight: .regular)
-    @Published var headline: NSFont = NSFont.systemFont(ofSize: 50, weight: .bold)
-    @Published var subHeadline: NSFont = NSFont.systemFont(ofSize: 40, weight: .regular)
-    @Published var body: NSFont = NSFont.systemFont(ofSize: 30)
-    @Published var note: NSFont = NSFont.systemFont(ofSize: 20, weight: .light)
+    @Published var title: NSFont = NSFont.systemFont(ofSize: 80, weight: .bold) {
+        willSet {
+            Font.presentationTitle = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var subTitle: NSFont = NSFont.systemFont(ofSize: 70, weight: .regular) {
+        willSet {
+            Font.presentationSubTitle = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var headline: NSFont = NSFont.systemFont(ofSize: 50, weight: .bold) {
+        willSet {
+            Font.presentationHeadline = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var subHeadline: NSFont = NSFont.systemFont(ofSize: 40, weight: .regular) {
+        willSet {
+            Font.presentationSubHeadline = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var body: NSFont = NSFont.systemFont(ofSize: 30) {
+        willSet {
+            Font.presentationBody = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var note: NSFont = NSFont.systemFont(ofSize: 20, weight: .light) {
+        willSet {
+            Font.presentationNote = Font(newValue as CTFont)
+        }
+    }
+
 }
 
 extension Font {
-    static var presentationTitle: Font { Font(PresentationProperties.shared.title as CTFont) }
-    static var presentationSubTitle: Font { Font(PresentationProperties.shared.subTitle as CTFont) }
-    static var presentationHeadline: Font { Font(PresentationProperties.shared.headline as CTFont) }
-    static var presentationSubHeadline: Font { Font(PresentationProperties.shared.subHeadline as CTFont) }
-    static var presentationBody: Font { Font(PresentationProperties.shared.body as CTFont) }
-    static var presentationNote: Font { Font(PresentationProperties.shared.note as CTFont) }
+    static fileprivate(set) var presentationTitle: Font = { Font(PresentationProperties.shared.title as CTFont) }()
+    static fileprivate(set) var presentationSubTitle: Font = { Font(PresentationProperties.shared.subTitle as CTFont) }()
+    static fileprivate(set) var presentationHeadline: Font = { Font(PresentationProperties.shared.headline as CTFont) }()
+    static fileprivate(set) var presentationSubHeadline: Font = { Font(PresentationProperties.shared.subHeadline as CTFont) }()
+    static fileprivate(set) var presentationBody: Font = { Font(PresentationProperties.shared.body as CTFont) }()
+    static fileprivate(set) var presentationNote: Font = { Font(PresentationProperties.shared.note as CTFont) }()
     
 }

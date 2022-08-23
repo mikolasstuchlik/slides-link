@@ -20,6 +20,8 @@
 		BE03642328B1638900C667F5 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BE03642228B1638900C667F5 /* CodeEditor */; };
 		BE6FF46E28B3990600802752 /* SupportingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* SupportingViews.swift */; };
 		BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BFF1128B3764200B04726 /* TerminalView.swift */; };
+		BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */; };
+		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
 		BEEC47C928B366BB00BF5C2A /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC47C828B366BB00BF5C2A /* CodeView.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +41,8 @@
 		BE03641F28B158AC00C667F5 /* FTDExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDExample.swift; sourceTree = "<group>"; };
 		BE6FF46D28B3990600802752 /* SupportingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingViews.swift; sourceTree = "<group>"; };
 		BE8BFF1128B3764200B04726 /* TerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalView.swift; sourceTree = "<group>"; };
+		BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBackground.swift; sourceTree = "<group>"; };
+		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
 		BEEC47C828B366BB00BF5C2A /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,8 +78,10 @@
 		BE0363FC28B14FBC00C667F5 /* LinkSlides */ = {
 			isa = PBXGroup;
 			children = (
+				BE03640128B14FBD00C667F5 /* Assets.xcassets */,
 				BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */,
 				BE03641128B1504800C667F5 /* Slides.swift */,
+				BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */,
 				BE03641628B1586100C667F5 /* Slides */,
 				BE32CCDE28B3CCB3007C4E72 /* Architecture */,
 				BE03640C28B14FD200C667F5 /* Supporting */,
@@ -95,7 +101,6 @@
 		BE03640C28B14FD200C667F5 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
-				BE03640128B14FBD00C667F5 /* Assets.xcassets */,
 				BE03640628B14FBD00C667F5 /* LinkSlides.entitlements */,
 			);
 			path = Supporting;
@@ -123,6 +128,15 @@
 				BE6FF46D28B3990600802752 /* SupportingViews.swift */,
 			);
 			path = Architecture;
+			sourceTree = "<group>";
+		};
+		BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */,
+				BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */,
+			);
+			path = Backgrounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,12 +221,14 @@
 				BEEC47C928B366BB00BF5C2A /* CodeView.swift in Sources */,
 				BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */,
 				BE03641028B1502200C667F5 /* DynamicViewSupport.swift in Sources */,
+				BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */,
 				BE03640E28B14FE300C667F5 /* SlideSupport.swift in Sources */,
 				BE03641C28B1589100C667F5 /* End.swift in Sources */,
 				BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */,
 				BE03641228B1504800C667F5 /* Slides.swift in Sources */,
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
 				BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */,
+				BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
