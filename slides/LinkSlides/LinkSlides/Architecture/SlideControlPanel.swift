@@ -7,6 +7,7 @@ private let timeDateFormatter: DateFormatter = {
     return formatter
 }()
 
+@available(macOS 13.0, *)
 struct SlideControlPanel: View {
 
     @EnvironmentObject var presentation: PresentationProperties
@@ -219,6 +220,7 @@ struct SlideControlPanel: View {
     }
 }
 
+@available(macOS 13.0, *)
 struct SlideControlPanel_Previews: PreviewProvider {
     static var previews: some View {
         SlideControlPanel()
