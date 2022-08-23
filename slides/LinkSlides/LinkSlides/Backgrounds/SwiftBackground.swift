@@ -12,7 +12,14 @@ struct SwiftBackground: View, Background {
     static var relativeSize: CGSize = CGSize(width: 2, height: 2)
     
     var body: some View {
-        Image("swift").colorInvert().scaledToFill()
+        ZStack {
+            LinearGradient(
+                colors: [.init(red: 233.0/255.0, green: 100.0/255.0, blue: 50.0/255.0), .init(red: 240.0/255.0, green: 140.0/255.0, blue: 40.0/255.0)],
+                startPoint: .bottom,
+                endPoint: .top
+            )
+            Image("swift").colorInvert()
+        }.cornerRadius(40)
     }
 }
 
