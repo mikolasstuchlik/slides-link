@@ -88,6 +88,14 @@ enum Focus {
 struct Presentation: View {
     @EnvironmentObject var presentation: PresentationProperties
 
+    private enum MouseMoveMachine: Equatable {
+        case idle
+        case cmdDown
+        case leftButtonDown(lastPosition: NSPoint)
+    }
+    
+    @State private var mouseMoveMachine: MouseMoveMachine = .idle
+    
     let backgrounds: [any Background]
     let slides: [any Slide]
     let focuses: [Focus]
@@ -104,6 +112,8 @@ struct Presentation: View {
                     }
                 }
                 .preferredColorScheme(presentation.colorScheme)
+        }.onAppear {
+            NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp, .leftMouseDragged, .leftMouseDown, .flagsChanged], handler: handleMac(event:))
         }
     }
     
@@ -196,11 +206,72 @@ struct Presentation: View {
         
         return .init(offset: newOffset, scale: newScale - 0.01, hint: newHint)
     }
+    
+    private func handleMac(event: NSEvent) -> NSEvent? {
+        resolveMouseDrag(event: event)
+        if resolveNavigation(event: event) {
+            return nil
+        }
+        
+        return event
+    }
+    
+    private func resolveMouseDrag(event: NSEvent) {
+        switch event.type {
+        case .flagsChanged:
+            mouseMoveMachine = event.modifierFlags.contains(.command) ? .cmdDown : .idle
+        case .leftMouseDown where mouseMoveMachine == .cmdDown:
+            mouseMoveMachine = .leftButtonDown(lastPosition: event.locationInWindow)
+        case .leftMouseDragged where mouseMoveMachine != .idle:
+            guard case let .leftButtonDown(lastPosition) = mouseMoveMachine, let windowSize = event.window?.frame.size else {
+                break
+            }
+            let newPosition = event.locationInWindow
+            let movement = CGVector(
+                dx: (newPosition.x - lastPosition.x) / windowSize.width / presentation.scale,
+                dy: (newPosition.y - lastPosition.y) / windowSize.height / presentation.scale
+            )
+            
+            presentation.offset = CGVector(
+                dx: presentation.offset.dx - movement.dx, // X axis is inverted due to different cooridinate usage
+                dy: presentation.offset.dy + movement.dy
+            )
+            
+            mouseMoveMachine = .leftButtonDown(lastPosition: newPosition)
+        default:
+            break
+        }
+    }
+    
+    private func resolveNavigation(event: NSEvent) -> Bool {
+        guard
+            presentation.mode == .navigation,
+            event.type == .keyDown
+        else {
+            return false
+        }
+        
+        switch event.keyCode {
+        case 49 /* Space bar*/, 36 /* enter */:
+            presentation.selectedFocus += 1
+        case 51 /* Back space */:
+            presentation.selectedFocus -= 1
+        default:
+            return false
+        }
+        
+        return true
+    }
 }
 
 final class PresentationProperties: ObservableObject {
+    enum Mode: Int, Equatable {
+        case entry, navigation
+    }
+    
     static let shared = PresentationProperties()
     
+    @Published var mode: Mode = .navigation
     @Published var colorScheme: ColorScheme = ColorScheme.dark
 
     @Published var automaticFameSize: Bool = true

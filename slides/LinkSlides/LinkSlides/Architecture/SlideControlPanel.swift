@@ -88,13 +88,32 @@ struct SlideControlPanel: View {
         VStack {
             Grid {
                 GridRow {
+                    Text("Režim")
+                    Picker(
+                        "",
+                        selection: .init(
+                            get: {
+                                presentation.mode.rawValue
+                            },
+                            set: {
+                                presentation.mode = .init(rawValue: $0)!
+                            }
+                        )
+                    ) {
+                        Text("Vstup").tag(0)
+                        Text("Navigace").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                    .gridCellColumns(3)
+                }
+                GridRow {
                     Text("Zaměřený slide:")
                     Button("Předchozí") {
                         presentation.selectedFocus -= 1
-                    }.keyboardShortcut("n")
+                    }
                     Button("Následující") {
                         presentation.selectedFocus += 1
-                    }.keyboardShortcut("m")
+                    }
                     HStack {
                         TextField("Manuální", text: $focusManualEntry)
                             .onChange(of: presentation.selectedFocus) { focusManualEntry = String($0) }
@@ -111,12 +130,12 @@ struct SlideControlPanel: View {
                             Slider(value: $presentation.scale, in: ClosedRange<CGFloat>(0.1...2))
                         }
                         GridRow {
-                            Text("X \(presentation.offset.dx)")
-                            Slider(value: $presentation.offset.dx, in: ClosedRange<CGFloat>(-3...3))
+                            Text("X")
+                            Text("\(presentation.offset.dx)")
                         }
                         GridRow {
-                            Text("Y \(presentation.offset.dy)")
-                            Slider(value: $presentation.offset.dy, in: ClosedRange<CGFloat>(-3...3))
+                            Text("Y")
+                            Text("\(presentation.offset.dy)")
                         }
                     }.gridCellColumns(3)
                 }
@@ -129,6 +148,11 @@ struct SlideControlPanel: View {
                     TextField("Y", text: $screenYManualEntry)
                         .disabled(presentation.automaticScreenSize)
                         .onChange(of: presentation.screenSize) { screenYManualEntry = "\($0.height)" }
+                }
+                GridRow {
+                    Spacer()
+                    Spacer()
+                    Spacer()
                     Button("Použít") {
                         if let w = Double(screenXManualEntry), let h = Double(screenYManualEntry) {
                             presentation.screenSize = CGSize(width: CGFloat(w), height: CGFloat(h))
@@ -144,6 +168,11 @@ struct SlideControlPanel: View {
                     TextField("Y", text: $slideYManualEntry)
                         .disabled(presentation.automaticFameSize)
                         .onChange(of: presentation.frameSize) { slideYManualEntry = "\($0.height)" }
+                }
+                GridRow {
+                    Spacer()
+                    Spacer()
+                    Spacer()
                     Button("Použít") {
                         if let w = Double(slideXManualEntry), let h = Double(slideYManualEntry) {
                             presentation.frameSize = CGSize(width: CGFloat(w), height: CGFloat(h))
@@ -183,7 +212,7 @@ struct SlideControlPanel: View {
                             FontPicker("Podnadpis", selection: $presentation.subHeadline)
                             FontPicker("Poznámka", selection: $presentation.note)
                         }
-                    }.gridCellColumns(4)
+                    }.gridCellColumns(3)
                 }
             }
         }
