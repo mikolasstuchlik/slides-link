@@ -195,10 +195,6 @@ final class PresentationProperties: ObservableObject {
         self.slides = slides
         self.focuses = focuses
     }
-    
-    @Published var backgrounds: [any Background]
-    @Published var slides: [any Slide.Type]
-    @Published var focuses: [Focus]
 
     var selectedFocus: Int = 0 {
         didSet {
@@ -209,6 +205,10 @@ final class PresentationProperties: ObservableObject {
             hint = newConfiguration.hint
         }
     }
+
+    var backgrounds: [any Background]
+    var slides: [any Slide.Type]
+    @Published var focuses: [Focus]
 
     @Published var mode: Mode = .navigation
     @Published var colorScheme: ColorScheme = ColorScheme.dark

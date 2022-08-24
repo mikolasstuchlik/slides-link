@@ -1,7 +1,89 @@
-import SwiftUI
+import Darwin
+import Foundation
 import CodeEditor
+import SwiftUI
 
-struct CodeView: View {
+final class RuntimeViewProvider {
+    enum Error: Swift.Error {
+        case failedToOpenSymbol
+    }
+
+    private typealias FunctionPrototype = @convention(c) () -> Any
+
+    static let defaultCommand = "swiftc -parse-as-library -emit-library %file%"
+    
+    let rootViewName: String
+    let workingURL = FileManager.default.temporaryDirectory
+    let workingPath = FileManager.default.temporaryDirectory.path
+
+    private let symbolName = "loadViewFunc"
+    private lazy var fileTemplate: String =
+"""
+import SwiftUI
+
+@_cdecl("\(symbolName)")
+public func \(symbolName)() -> Any {
+    return AnyView(\(rootViewName).init())
+}
+
+
+"""
+
+    private var sourceFileName: String { rootViewName + ".swift" }
+    private var sourceFilePath: String { workingPath + "/" + sourceFileName}
+    private var libraryPath: String { workingPath + "/" + "lib" + rootViewName + ".dylib"}
+
+    private var existingHandle: UnsafeMutableRawPointer?
+
+    init(rootViewName: String) {
+        self.rootViewName = rootViewName
+    }
+
+    func compileAndLoad(code: String, command: String = RuntimeViewProvider.defaultCommand) throws -> AnyView {
+        dispose()
+        try writeFile(code: code)
+
+        let filledCommand = command.replacingOccurrences(of: "%file%", with: sourceFileName)
+        
+        _ = try Process.executeAndWait(
+            "zsh",
+            arguments: ["-c", filledCommand],
+            workingDir: workingURL
+        )
+
+        try deleteSourceFile()
+
+        let handle = dlopen(libraryPath, RTLD_NOW)!
+        existingHandle = handle
+
+        guard let symbol = dlsym(handle, symbolName) else {
+            throw Error.failedToOpenSymbol
+        }
+
+        let callable = unsafeBitCast(symbol, to: FunctionPrototype.self)
+
+        return callable() as! AnyView
+    }
+
+    private func writeFile(code: String) throws {
+        let file = fileTemplate + code
+        try file.write(toFile: sourceFilePath, atomically: true, encoding: .utf8)
+    }
+
+    private func deleteSourceFile() throws {
+        try FileManager.default.removeItem(atPath: sourceFilePath)
+    }
+
+    private func dispose() {
+        _ = existingHandle.flatMap(dlclose(_:))
+        existingHandle = nil
+        try? FileManager.default.removeItem(atPath: libraryPath)
+    }
+
+    deinit { dispose() }
+}
+
+struct CompilerView: View {
     private final class Providers {
         private static var providers: [String: RuntimeViewProvider] = [:]
         
@@ -89,8 +171,8 @@ struct CodeView: View {
     }
 }
 
-struct CodeView_Previews: PreviewProvider {
+struct CompilerView_Previews: PreviewProvider {
     static var previews: some View {
-        CodeView(axis: .horizontal, uniqueName: "preview", code: .constant(""), state: .constant(.idle))
+        CompilerView(axis: .horizontal, uniqueName: "preview", code: .constant(""), state: .constant(.idle))
     }
 }

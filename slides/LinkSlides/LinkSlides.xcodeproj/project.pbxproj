@@ -10,19 +10,24 @@
 		BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */; };
 		BE03640228B14FBD00C667F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE03640128B14FBD00C667F5 /* Assets.xcassets */; };
 		BE03640528B14FBD00C667F5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */; };
-		BE03640E28B14FE300C667F5 /* SlideSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03640D28B14FE300C667F5 /* SlideSupport.swift */; };
-		BE03641028B1502200C667F5 /* DynamicViewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03640F28B1502200C667F5 /* DynamicViewSupport.swift */; };
+		BE03640E28B14FE300C667F5 /* Slides.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03640D28B14FE300C667F5 /* Slides.swift */; };
 		BE03641A28B1588500C667F5 /* Beginning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641928B1588500C667F5 /* Beginning.swift */; };
 		BE03641C28B1589100C667F5 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641B28B1589100C667F5 /* End.swift */; };
 		BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641D28B158A400C667F5 /* WhatIsFTD.swift */; };
 		BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641F28B158AC00C667F5 /* FTDExample.swift */; };
 		BE03642328B1638900C667F5 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BE03642228B1638900C667F5 /* CodeEditor */; };
-		BE6FF46E28B3990600802752 /* SupportingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* SupportingViews.swift */; };
+		BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* FontPicker.swift */; };
+		BE77176028B684980077ABA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77175F28B684980077ABA3 /* Extensions.swift */; };
+		BE77176228B684C30077ABA3 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176128B684C30077ABA3 /* Process.swift */; };
+		BE77176428B684DA0077ABA3 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176328B684DA0077ABA3 /* WebView.swift */; };
+		BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176528B6850A0077ABA3 /* EffectView.swift */; };
+		BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176728B686A30077ABA3 /* ToggleView.swift */; };
+		BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176928B686B20077ABA3 /* TextEditorView.swift */; };
 		BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BFF1128B3764200B04726 /* TerminalView.swift */; };
 		BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
-		BEEC47C928B366BB00BF5C2A /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC47C828B366BB00BF5C2A /* CodeView.swift */; };
+		BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC47C828B366BB00BF5C2A /* CompilerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,18 +36,23 @@
 		BE03640128B14FBD00C667F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BE03640628B14FBD00C667F5 /* LinkSlides.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinkSlides.entitlements; sourceTree = "<group>"; };
-		BE03640D28B14FE300C667F5 /* SlideSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideSupport.swift; sourceTree = "<group>"; };
-		BE03640F28B1502200C667F5 /* DynamicViewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicViewSupport.swift; sourceTree = "<group>"; };
+		BE03640D28B14FE300C667F5 /* Slides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slides.swift; sourceTree = "<group>"; };
 		BE03641928B1588500C667F5 /* Beginning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beginning.swift; sourceTree = "<group>"; };
 		BE03641B28B1589100C667F5 /* End.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = End.swift; sourceTree = "<group>"; };
 		BE03641D28B158A400C667F5 /* WhatIsFTD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIsFTD.swift; sourceTree = "<group>"; };
 		BE03641F28B158AC00C667F5 /* FTDExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDExample.swift; sourceTree = "<group>"; };
-		BE6FF46D28B3990600802752 /* SupportingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingViews.swift; sourceTree = "<group>"; };
+		BE6FF46D28B3990600802752 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
+		BE77175F28B684980077ABA3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BE77176128B684C30077ABA3 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
+		BE77176328B684DA0077ABA3 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		BE77176528B6850A0077ABA3 /* EffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
+		BE77176728B686A30077ABA3 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
+		BE77176928B686B20077ABA3 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		BE8BFF1128B3764200B04726 /* TerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalView.swift; sourceTree = "<group>"; };
 		BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBackground.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
-		BEEC47C828B366BB00BF5C2A /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
+		BEEC47C828B366BB00BF5C2A /* CompilerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,25 +90,22 @@
 				BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */,
 				BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */,
 				BE03641628B1586100C667F5 /* Slides */,
+				BE77175D28B683DC0077ABA3 /* Core */,
+				BE77175E28B684300077ABA3 /* Feature Views */,
 				BE32CCDE28B3CCB3007C4E72 /* Architecture */,
 				BE03640C28B14FD200C667F5 /* Supporting */,
-				BE03640328B14FBD00C667F5 /* Preview Content */,
 			);
 			path = LinkSlides;
-			sourceTree = "<group>";
-		};
-		BE03640328B14FBD00C667F5 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		BE03640C28B14FD200C667F5 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */,
 				BE03640628B14FBD00C667F5 /* LinkSlides.entitlements */,
+				BE77175F28B684980077ABA3 /* Extensions.swift */,
+				BE77176128B684C30077ABA3 /* Process.swift */,
+				BE77176528B6850A0077ABA3 /* EffectView.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -117,14 +124,30 @@
 		BE32CCDE28B3CCB3007C4E72 /* Architecture */ = {
 			isa = PBXGroup;
 			children = (
-				BE03640D28B14FE300C667F5 /* SlideSupport.swift */,
-				BE8BFF1128B3764200B04726 /* TerminalView.swift */,
-				BEEC47C828B366BB00BF5C2A /* CodeView.swift */,
-				BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */,
-				BE03640F28B1502200C667F5 /* DynamicViewSupport.swift */,
-				BE6FF46D28B3990600802752 /* SupportingViews.swift */,
 			);
 			path = Architecture;
+			sourceTree = "<group>";
+		};
+		BE77175D28B683DC0077ABA3 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */,
+				BE03640D28B14FE300C667F5 /* Slides.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BE77175E28B684300077ABA3 /* Feature Views */ = {
+			isa = PBXGroup;
+			children = (
+				BEEC47C828B366BB00BF5C2A /* CompilerView.swift */,
+				BE8BFF1128B3764200B04726 /* TerminalView.swift */,
+				BE77176328B684DA0077ABA3 /* WebView.swift */,
+				BE6FF46D28B3990600802752 /* FontPicker.swift */,
+				BE77176728B686A30077ABA3 /* ToggleView.swift */,
+				BE77176928B686B20077ABA3 /* TextEditorView.swift */,
+			);
+			path = "Feature Views";
 			sourceTree = "<group>";
 		};
 		BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */ = {
@@ -213,18 +236,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */,
-				BE6FF46E28B3990600802752 /* SupportingViews.swift in Sources */,
+				BE77176428B684DA0077ABA3 /* WebView.swift in Sources */,
+				BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */,
 				BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */,
-				BEEC47C928B366BB00BF5C2A /* CodeView.swift in Sources */,
+				BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */,
+				BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */,
+				BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */,
+				BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */,
 				BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */,
-				BE03641028B1502200C667F5 /* DynamicViewSupport.swift in Sources */,
 				BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */,
-				BE03640E28B14FE300C667F5 /* SlideSupport.swift in Sources */,
+				BE03640E28B14FE300C667F5 /* Slides.swift in Sources */,
 				BE03641C28B1589100C667F5 /* End.swift in Sources */,
 				BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */,
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
+				BE77176228B684C30077ABA3 /* Process.swift in Sources */,
 				BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */,
 				BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */,
+				BE77176028B684980077ABA3 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +381,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LinkSlides/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"LinkSlides/Supporting\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -378,7 +406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LinkSlides/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"LinkSlides/Supporting\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

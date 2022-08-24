@@ -4,7 +4,10 @@ import SwiftUI
  TODO:
   - Clean code (separate features)
   - Fix WebView so it stops rendering when off-view
-  - Add Feature View: Placeholder View
+  - Add Feature View:
+     - Placeholder View
+     - Text editor view
+     - Modify command option for CodeView
   - Add Editor mode:
     - The ability to arrange Slides and Backgrounds runtime
     - The ability to define Focuses runtime

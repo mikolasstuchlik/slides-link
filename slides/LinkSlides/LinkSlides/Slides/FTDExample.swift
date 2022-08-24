@@ -39,7 +39,7 @@ struct FTDExample: View, Slide {
     @State var terminalStatus: TerminalView.State = .idle
 
     @State var code: String = FTDExample.defaultCode
-    @State var compilerState: CodeView.State = .idle
+    @State var compilerState: CompilerView.State = .idle
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -54,7 +54,7 @@ struct FTDExample: View, Slide {
     @ViewBuilder private var codeView: some View {
         HStack {
             VStack {
-                CodeView(
+                CompilerView(
                     axis: .horizontal,
                     uniqueName: "FTDExample",
                     code: $code,

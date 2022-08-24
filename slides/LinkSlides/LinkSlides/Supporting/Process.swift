@@ -1,6 +1,4 @@
-import Darwin
 import Foundation
-import SwiftUI
 
 enum ProcessError: Error {
     case endedWith(code: Int, error: String?)
@@ -104,80 +102,3 @@ extension Process {
         return outPipe.stringContents
     }
 }
-
-final class RuntimeViewProvider {
-    enum Error: Swift.Error {
-        case failedToOpenSymbol
-    }
-
-    private typealias FunctionPrototype = @convention(c) () -> Any
-
-    let rootViewName: String
-    let workingURL = FileManager.default.temporaryDirectory
-    let workingPath = FileManager.default.temporaryDirectory.path
-
-    private let symbolName = "loadViewFunc"
-    private lazy var fileTemplate: String =
-"""
-import SwiftUI
-
-@_cdecl("\(symbolName)")
-public func \(symbolName)() -> Any {
-    return AnyView(\(rootViewName).init())
-}
-
-
-"""
-
-    private var sourceFileName: String { rootViewName + ".swift" }
-    private var sourceFilePath: String { workingPath + "/" + sourceFileName}
-    private var libraryPath: String { workingPath + "/" + "lib" + rootViewName + ".dylib"}
-
-    private var existingHandle: UnsafeMutableRawPointer?
-
-    init(rootViewName: String) {
-        self.rootViewName = rootViewName
-    }
-
-    func compileAndLoad(code: String) throws -> AnyView {
-        dispose()
-        try writeFile(code: code)
-
-        _ = try Process.executeAndWait(
-            "swiftc",
-            arguments: ["-parse-as-library", "-emit-library", sourceFileName],
-            workingDir: workingURL
-        )
-
-        try deleteSourceFile()
-
-        let handle = dlopen(libraryPath, RTLD_NOW)!
-        existingHandle = handle
-
-        guard let symbol = dlsym(handle, symbolName) else {
-            throw Error.failedToOpenSymbol
-        }
-
-        let callable = unsafeBitCast(symbol, to: FunctionPrototype.self)
-
-        return callable() as! AnyView
-    }
-
-    private func writeFile(code: String) throws {
-        let file = fileTemplate + code
-        try file.write(toFile: sourceFilePath, atomically: true, encoding: .utf8)
-    }
-
-    private func deleteSourceFile() throws {
-        try FileManager.default.removeItem(atPath: sourceFilePath)
-    }
-
-    private func dispose() {
-        _ = existingHandle.flatMap(dlclose(_:))
-        existingHandle = nil
-        try? FileManager.default.removeItem(atPath: libraryPath)
-    }
-
-    deinit { dispose() }
-}
-
