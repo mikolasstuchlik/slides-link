@@ -105,7 +105,10 @@ struct SlideControlPanel: View {
                         Text("Navigace").tag(1)
                     }
                     .pickerStyle(.segmented)
-                    .gridCellColumns(3)
+                    .gridCellColumns(2)
+                    Button("Reload placeholders") {
+                        presentation.loadThumbnails.toggle()
+                    }
                 }
                 if presentation.mode == .entry {
                     controlPanel

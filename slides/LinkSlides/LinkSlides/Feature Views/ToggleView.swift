@@ -1,13 +1,71 @@
 import SwiftUI
 
-struct ToggleView: View {
+struct ToggleView<C: View>: View {
+    @EnvironmentObject var presentation: PresentationProperties
+    
+    @ViewBuilder var content: () -> C
+    
+    var alignment: Alignment = .bottomTrailing
+    @State var toggledOn: Bool = false
+    @State var placeholder: NSImage? = nil
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { proxy in
+            ZStack(alignment: alignment) {
+                if toggledOn {
+                    content()
+                } else if let image = placeholder {
+                    Image(nsImage: image)
+                        .blur(radius: 10)
+                } else if C.self == WebView.self {
+                    Image("safari")
+                        .frame(maxWidth: proxy.size.width, maxHeight: proxy.size.height)
+                        .scaledToFit()
+                        .clipped()
+                        .blur(radius: 10)
+                }
+                toggleButton
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onChange(of: presentation.loadThumbnails) { _ in
+                Task {
+                    guard C.self != WebView.self else {
+                        return
+                    }
+                    
+                    content()
+                        .frame(width: proxy.size.width, height: proxy.size.height)
+                        .renderAsImage(delay: TimeInterval.random(in: 0.1...4.0)) { image in
+                            placeholder = image
+                        }
+                }
+            }
+        }
+    }
+    
+    private var toggleButton: some View {
+        Button {
+            toggledOn.toggle()
+        } label: {
+            Image(
+                systemName: toggledOn
+                    ? "stop.circle.fill"
+                    : "play.circle.fill"
+            )
+            .resizable()
+            .foregroundStyle(
+                .primary,
+                .secondary,
+                toggledOn ? .red : .green
+            )
+            .frame(width: 25, height: 25)
+        }
+        .buttonStyle(.plain)
     }
 }
 
 struct ToggleView_Previews: PreviewProvider {
     static var previews: some View {
-        ToggleView()
+        ToggleView { Text("Hello") }
     }
 }

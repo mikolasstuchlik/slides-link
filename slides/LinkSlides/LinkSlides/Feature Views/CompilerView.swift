@@ -116,6 +116,8 @@ struct CompilerView: View {
     let uniqueName: String
     @Binding var code: String
     @Binding var state: State
+    @Binding var buildCommand: String
+    @SwiftUI.State var editBuildCommand: Bool = false
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -141,38 +143,60 @@ struct CompilerView: View {
     }
     
     @ViewBuilder private var elements: some View {
-        CodeEditor(
-            source: $code,
-            language: .swift,
-            theme: CodeEditor.ThemeName(rawValue: "xcode"),
-            indentStyle: .softTab(width: 2)
-        ).colorScheme(.light)
+        VStack {
+            CodeEditor(
+                source: $code,
+                language: .swift,
+                theme: CodeEditor.ThemeName(rawValue: "xcode"),
+                indentStyle: .softTab(width: 2)
+            ).colorScheme(.light)
+            if editBuildCommand {
+                TextEditor(text: $buildCommand)
+                    .frame(height: 50)
+            }
+        }
         if case .loading = state {
             ProgressView()
                 .frame(width: 50, height: 50)
         } else {
-            Button {
-                state = .loading
-                Task {
-                    do {
-                        state = .view(try Providers[uniqueName].compileAndLoad(code: code))
-                    } catch {
-                        state = .exception(error)
-                    }
-                }
-            } label: {
-                Image(systemName: "play.circle.fill")
-                    .resizable()
-                    .foregroundStyle(.primary, .secondary, .green)
+            if axis == .vertical {
+                HStack { buttons }
+            } else {
+                VStack { buttons }
             }
-            .frame(width: 50, height: 50)
-            .buttonStyle(.plain)
         }
+    }
+    
+    @ViewBuilder private var buttons: some View {
+        Button {
+            state = .loading
+            Task {
+                do {
+                    state = .view(try Providers[uniqueName].compileAndLoad(code: code))
+                } catch {
+                    state = .exception(error)
+                }
+            }
+        } label: {
+            Image(systemName: "play.circle.fill")
+                .resizable()
+                .foregroundStyle(.primary, .secondary, .green)
+        }
+        .frame(width: 50, height: 50)
+        .buttonStyle(.plain)
+        Button {
+            editBuildCommand.toggle()
+        } label: {
+            Image(systemName: "gearshape")
+                .resizable()
+        }
+        .frame(width: 25, height: 25, alignment: .bottomTrailing)
+        .buttonStyle(.plain)
     }
 }
 
 struct CompilerView_Previews: PreviewProvider {
     static var previews: some View {
-        CompilerView(axis: .horizontal, uniqueName: "preview", code: .constant(""), state: .constant(.idle))
+        CompilerView(axis: .vertical, uniqueName: "preview", code: .constant(""), state: .constant(.idle), buildCommand: .constant("xyz"))
     }
 }

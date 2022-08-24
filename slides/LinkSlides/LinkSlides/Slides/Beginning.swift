@@ -12,9 +12,9 @@ struct Beginning: View, Slide {
             Text("**Dynamická SwiftUI Prezentace**")
                 .font(.presentationTitle)
             if !isPreview {
-                WebView(url: URL(string: "https://www.apple.com/")!)
-                //WebView(url: URL(string: "https://www.youtube.com/watch?v=AJgiKKLEhZw")!)
-                //WebView(url: URL(string: "https://www.youtube.com/watch?v=78706bv98S8")!)
+                ToggleView {
+                    WebView(url: URL(string: "https://www.youtube.com/watch?v=AJgiKKLEhZw")!)
+                }
             }
         }
         .padding()

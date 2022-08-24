@@ -219,6 +219,8 @@ final class PresentationProperties: ObservableObject {
     @Published var automaticScreenSize: Bool = true
     @Published var screenSize: CGSize = CGSize(width: 480, height: 360)
 
+    @Published var loadThumbnails: Bool = false
+    
     @Published var camera: Camera = .init(offset: .zero, scale: 1.0)
     
     @Published var hint: String? = nil
@@ -329,5 +331,4 @@ extension Font {
     static fileprivate(set) var presentationSubHeadline: Font = { Font(PresentationProperties.defaultSubHeadline as CTFont) }()
     static fileprivate(set) var presentationBody: Font = { Font(PresentationProperties.defaultBody as CTFont) }()
     static fileprivate(set) var presentationNote: Font = { Font(PresentationProperties.defaultNote as CTFont) }()
-    
 }

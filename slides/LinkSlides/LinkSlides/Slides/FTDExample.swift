@@ -38,6 +38,7 @@ struct FTDExample: View, Slide {
     @State var stdIn: String = "ls"
     @State var terminalStatus: TerminalView.State = .idle
 
+    @State var buildCommand: String = RuntimeViewProvider.defaultCommand
     @State var code: String = FTDExample.defaultCode
     @State var compilerState: CompilerView.State = .idle
 
@@ -54,12 +55,15 @@ struct FTDExample: View, Slide {
     @ViewBuilder private var codeView: some View {
         HStack {
             VStack {
-                CompilerView(
-                    axis: .horizontal,
-                    uniqueName: "FTDExample",
-                    code: $code,
-                    state: $compilerState
-                )
+                ToggleView {
+                    CompilerView(
+                        axis: .horizontal,
+                        uniqueName: "FTDExample",
+                        code: $code,
+                        state: $compilerState,
+                        buildCommand: $buildCommand
+                    )
+                }
             }.frame(idealWidth: .infinity)
             ZStack {
                 Color.gray.opacity(0.1)
@@ -84,14 +88,16 @@ struct FTDExample: View, Slide {
     }
     
     @ViewBuilder private var terminalView: some View {
-        TerminalView(
-            axis: .horizontal,
-            workingPath: workingPath,
-            aspectRatio: 0.25,
-            stdIn: $stdIn,
-            state: $terminalStatus
-        )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        ToggleView {
+            TerminalView(
+                axis: .horizontal,
+                workingPath: workingPath,
+                aspectRatio: 0.25,
+                stdIn: $stdIn,
+                state: $terminalStatus
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
 }
 

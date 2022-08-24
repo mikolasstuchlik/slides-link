@@ -2,16 +2,13 @@ import SwiftUI
 
 /*
  TODO:
-  - Clean code (separate features)
-  - Fix WebView so it stops rendering when off-view
   - Add Feature View:
-     - Placeholder View
      - Text editor view
-     - Modify command option for CodeView
   - Add Editor mode:
     - The ability to arrange Slides and Backgrounds runtime
     - The ability to define Focuses runtime
     - Source code propagation using simple file processing
+  - Add Render to PDF option
  */
 
 private let backgrounds: [any Background] = [
@@ -28,11 +25,11 @@ private let slides: [any Slide.Type] = [
 
 private let focuses: [Focus] = [
     .slides([Beginning.self]),
+    .slides([FTDExample.self]),
     .slides([WhatIsFTD.self]),
     .properties(.init(offset: CGVector(dx: 0, dy: -4), scale: 0.2, hint: nil)),
     .properties(.init(offset: CGVector(dx: 0, dy: -3.5), scale: 0.9, hint: nil)),
     .slides([Beginning.self, WhatIsFTD.self]),
-    .slides([FTDExample.self]),
     .slides([End.self]),
     .slides([Beginning.self, WhatIsFTD.self, FTDExample.self, End.self]),
 ]
