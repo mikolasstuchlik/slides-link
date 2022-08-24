@@ -1,5 +1,6 @@
 import AppKit
 import SwiftUI
+import CodeEditor
 
 extension ClosedRange where Bound: BinaryFloatingPoint {
     init<Other: BinaryFloatingPoint>(_ other: ClosedRange<Other>) {
@@ -50,4 +51,50 @@ public extension NSView {
         return NSImage(cgImage: cgImage, size: bounds.size)
     }
     
+}
+
+extension CodeEditor.Language {
+    static let knownCases: [CodeEditor.Language] = [
+        .accesslog,
+        .actionscript,
+        .ada,
+        .apache,
+        .applescript,
+        .bash,
+        .basic,
+        .brainfuck,
+        .c,
+        .cpp,
+        .cs,
+        .css,
+        .diff,
+        .dockerfile,
+        .go,
+        .http,
+        .java,
+        .javascript,
+        .json,
+        .lua,
+        .markdown,
+        .makefile,
+        .nginx,
+        .objectivec,
+        .pgsql,
+        .php,
+        .python,
+        .ruby,
+        .rust,
+        .shell,
+        .smalltalk,
+        .sql,
+        .swift,
+        .tcl,
+        .tex,
+        .twig,
+        .typescript,
+        .vbnet,
+        .vbscript,
+        .xml,
+        .yaml,
+    ]
 }

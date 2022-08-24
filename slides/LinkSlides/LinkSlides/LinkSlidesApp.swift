@@ -2,8 +2,6 @@ import SwiftUI
 
 /*
  TODO:
-  - Add Feature View:
-     - Text editor view
   - Add Editor mode:
     - The ability to arrange Slides and Backgrounds runtime
     - The ability to define Focuses runtime

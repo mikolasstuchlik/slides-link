@@ -17,21 +17,8 @@ struct TerminalView: View {
     @Binding var state: State
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            Group {
-                elements
-            }
-            .padding(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4)
-                    .stroke(.gray, style: StrokeStyle(lineWidth: 1, dash: [3]))
-            )
-            .padding(6)
-            Text("zsh in:\(workingPath.path) %")
-                .background( EffectView(material: .windowBackground))
-                .padding(.leading, 16)
-                .foregroundColor(.gray)
-                .font(.system(.footnote))
+        OutlineView(title: "zsh in:\(workingPath.path) %") {
+            elements
         }
     }
     

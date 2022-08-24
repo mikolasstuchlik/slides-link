@@ -120,25 +120,12 @@ struct CompilerView: View {
     @SwiftUI.State var editBuildCommand: Bool = false
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            Group {
-                if axis == .horizontal {
-                    HStack { elements }
-                } else {
-                    VStack { elements }
-                }
+        OutlineView(title: "SwiftUI View: \(uniqueName)") {
+            if axis == .horizontal {
+                HStack { elements }
+            } else {
+                VStack { elements }
             }
-            .padding(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4)
-                    .stroke(.gray, style: StrokeStyle(lineWidth: 1, dash: [3]))
-            )
-            .padding(6)
-            Text("SwiftUI View: \(uniqueName)")
-                .background( EffectView(material: .windowBackground))
-                .padding(.leading, 16)
-                .foregroundColor(.gray)
-                .font(.system(.footnote))
         }
     }
     
@@ -187,7 +174,7 @@ struct CompilerView: View {
         Button {
             editBuildCommand.toggle()
         } label: {
-            Image(systemName: "gearshape")
+            Image(systemName: "terminal.fill")
                 .resizable()
         }
         .frame(width: 25, height: 25, alignment: .bottomTrailing)

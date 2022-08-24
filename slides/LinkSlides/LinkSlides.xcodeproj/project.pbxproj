@@ -23,6 +23,7 @@
 		BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176528B6850A0077ABA3 /* EffectView.swift */; };
 		BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176728B686A30077ABA3 /* ToggleView.swift */; };
 		BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176928B686B20077ABA3 /* TextEditorView.swift */; };
+		BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A826228B6C2D90078ED83 /* OutlineView.swift */; };
 		BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BFF1128B3764200B04726 /* TerminalView.swift */; };
 		BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
@@ -48,6 +49,7 @@
 		BE77176528B6850A0077ABA3 /* EffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
 		BE77176728B686A30077ABA3 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		BE77176928B686B20077ABA3 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
+		BE7A826228B6C2D90078ED83 /* OutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
 		BE8BFF1128B3764200B04726 /* TerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalView.swift; sourceTree = "<group>"; };
 		BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBackground.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				BE6FF46D28B3990600802752 /* FontPicker.swift */,
 				BE77176728B686A30077ABA3 /* ToggleView.swift */,
 				BE77176928B686B20077ABA3 /* TextEditorView.swift */,
+				BE7A826228B6C2D90078ED83 /* OutlineView.swift */,
 			);
 			path = "Feature Views";
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */,
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
 				BE77176228B684C30077ABA3 /* Process.swift in Sources */,
+				BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */,
 				BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */,
 				BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */,
 				BE77176028B684980077ABA3 /* Extensions.swift in Sources */,
