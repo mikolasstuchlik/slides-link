@@ -31,13 +31,15 @@ struct FTDExample: View, Slide {
       }
     }
     """
+
+    init() {}
     
-    let workingPath: URL
-    @Binding var code: String
-    @Binding var compilerState: CodeView.State
-    
-    @Binding var stdIn: String
-    @Binding var terminalStatus: TerminalView.State
+    let workingPath: URL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
+    @State var stdIn: String = "ls"
+    @State var terminalStatus: TerminalView.State = .idle
+
+    @State var code: String = FTDExample.defaultCode
+    @State var compilerState: CodeView.State = .idle
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -95,6 +97,6 @@ struct FTDExample: View, Slide {
 
 struct FTDExample_Previews: PreviewProvider {
     static var previews: some View {
-        FTDExample(workingPath: FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0], code: .constant(FTDExample.defaultCode), compilerState: .constant(.idle), stdIn: .constant(""), terminalStatus: .constant(.idle))
+        FTDExample()
     }
 }

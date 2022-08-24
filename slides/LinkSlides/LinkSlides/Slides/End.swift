@@ -3,6 +3,8 @@ import SwiftUI
 struct End: View, Slide {
     static let offset = CGVector(dx: -1.5, dy: -1.5)
     
+    init() {}
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("**Děkuji za pozornost!!!**")

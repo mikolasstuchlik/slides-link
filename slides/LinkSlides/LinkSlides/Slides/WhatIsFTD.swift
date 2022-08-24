@@ -3,6 +3,8 @@ import SwiftUI
 struct WhatIsFTD: View, Slide {
     static let offset = CGVector(dx: 1, dy: 0)
 
+    init() {}
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Jak spustit prezentaci")

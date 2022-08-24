@@ -12,7 +12,6 @@
 		BE03640528B14FBD00C667F5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */; };
 		BE03640E28B14FE300C667F5 /* SlideSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03640D28B14FE300C667F5 /* SlideSupport.swift */; };
 		BE03641028B1502200C667F5 /* DynamicViewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03640F28B1502200C667F5 /* DynamicViewSupport.swift */; };
-		BE03641228B1504800C667F5 /* Slides.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641128B1504800C667F5 /* Slides.swift */; };
 		BE03641A28B1588500C667F5 /* Beginning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641928B1588500C667F5 /* Beginning.swift */; };
 		BE03641C28B1589100C667F5 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641B28B1589100C667F5 /* End.swift */; };
 		BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641D28B158A400C667F5 /* WhatIsFTD.swift */; };
@@ -34,7 +33,6 @@
 		BE03640628B14FBD00C667F5 /* LinkSlides.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinkSlides.entitlements; sourceTree = "<group>"; };
 		BE03640D28B14FE300C667F5 /* SlideSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideSupport.swift; sourceTree = "<group>"; };
 		BE03640F28B1502200C667F5 /* DynamicViewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicViewSupport.swift; sourceTree = "<group>"; };
-		BE03641128B1504800C667F5 /* Slides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slides.swift; sourceTree = "<group>"; };
 		BE03641928B1588500C667F5 /* Beginning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beginning.swift; sourceTree = "<group>"; };
 		BE03641B28B1589100C667F5 /* End.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = End.swift; sourceTree = "<group>"; };
 		BE03641D28B158A400C667F5 /* WhatIsFTD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIsFTD.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 			children = (
 				BE03640128B14FBD00C667F5 /* Assets.xcassets */,
 				BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */,
-				BE03641128B1504800C667F5 /* Slides.swift */,
 				BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */,
 				BE03641628B1586100C667F5 /* Slides */,
 				BE32CCDE28B3CCB3007C4E72 /* Architecture */,
@@ -225,7 +222,6 @@
 				BE03640E28B14FE300C667F5 /* SlideSupport.swift in Sources */,
 				BE03641C28B1589100C667F5 /* End.swift in Sources */,
 				BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */,
-				BE03641228B1504800C667F5 /* Slides.swift in Sources */,
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
 				BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */,
 				BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */,

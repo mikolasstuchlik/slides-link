@@ -18,6 +18,8 @@ protocol Slide: View {
     static var singleFocusScale: CGFloat { get }
     static var hint: String? { get }
     static var name: String { get }
+    
+    init()
 }
 
 extension Slide {
@@ -30,14 +32,11 @@ extension Slide {
 
 struct Plane: View {
     @EnvironmentObject var presentation: PresentationProperties
-    
-    let backgrounds: [any Background]
-    let slides: [any Slide]
 
     var body: some View {
         ZStack {
-            ForEach(backgrounds, id: \.name, content: content(for:))
-            ForEach(slides, id: \.name, content: content(for:))
+            ForEach(presentation.backgrounds, id: \.name, content: content(for:))
+            ForEach(presentation.slides.indices) { content(for: presentation.slides[$0]) }
         }
         .frame(
             width: presentation.screenSize.width,
@@ -59,16 +58,16 @@ struct Plane: View {
         )
     }
     
-    private func content(for slide: any Slide) -> AnyView {
+    private func content(for slide: any Slide.Type) -> AnyView {
         AnyView(
-            slide.body
+            slide.init()
                 .frame(
                     width: presentation.frameSize.width,
                     height: presentation.frameSize.height
                 )
                 .offset(
-                    x: presentation.screenSize.width * type(of: slide).offset.dx,
-                    y: presentation.screenSize.height * type(of: slide).offset.dy
+                    x: presentation.screenSize.width * slide.offset.dx,
+                    y: presentation.screenSize.height * slide.offset.dy
                 )
         )
     }
@@ -85,6 +84,11 @@ enum Focus {
     case properties(Properties)
 }
 
+struct Camera: Equatable {
+    var offset: CGVector
+    var scale: CGFloat
+}
+
 struct Presentation: View {
     @EnvironmentObject var presentation: PresentationProperties
 
@@ -95,10 +99,6 @@ struct Presentation: View {
     }
     
     @State private var mouseMoveMachine: MouseMoveMachine = .idle
-    
-    let backgrounds: [any Background]
-    let slides: [any Slide]
-    let focuses: [Focus]
 
     var body: some View {
         GeometryReader { geometry in
@@ -118,41 +118,154 @@ struct Presentation: View {
     }
     
     private var plane: some View {
-        Plane(backgrounds: backgrounds, slides: slides)
+        Plane()
             .offset(
-                x: -(presentation.screenSize.width * presentation.offset.dx),
-                y: -(presentation.screenSize.height * presentation.offset.dy)
+                x: -(presentation.screenSize.width * presentation.camera.offset.dx),
+                y: -(presentation.screenSize.height * presentation.camera.offset.dy)
             )
-            .scaleEffect(presentation.scale)
+            .scaleEffect(presentation.camera.scale)
             .clipped()
-            .onChange(of: presentation.selectedFocus, perform: applyNew(focus:))
+            .animation(.easeInOut(duration: 1.0), value: presentation.camera)
     }
-    
-    private func applyNew(focus focusIndex: Int) {
-        guard let newConfiguration = getConfiguration(for: focusIndex) else {
-            return
-        }
-        
-        withAnimation(.easeInOut(duration: 1.0)) {
-            presentation.offset = newConfiguration.offset
-        }
 
-        if abs(presentation.scale - newConfiguration.scale) < 0.1 {
-            withAnimation(.easeIn(duration: 0.5)) {
-                presentation.scale = newConfiguration.scale * 3 / 4
-            }
-            withAnimation(.easeOut(duration: 0.5).delay(0.5)) {
-                presentation.scale = newConfiguration.scale
-            }
-        } else {
-            withAnimation(.easeInOut(duration: 1.0)) {
-                presentation.scale = newConfiguration.scale
-            }
+    private func handleMac(event: NSEvent) -> NSEvent? {
+        resolveMouseDrag(event: event)
+        if resolveNavigation(event: event) {
+            return nil
         }
         
-        presentation.hint = newConfiguration.hint
+        return event
     }
     
+    private func resolveMouseDrag(event: NSEvent) {
+        switch event.type {
+        case .flagsChanged:
+            mouseMoveMachine = event.modifierFlags.contains(.command) ? .cmdDown : .idle
+        case .leftMouseDown where mouseMoveMachine == .cmdDown:
+            mouseMoveMachine = .leftButtonDown(lastPosition: event.locationInWindow)
+        case .leftMouseDragged where mouseMoveMachine != .idle:
+            guard case let .leftButtonDown(lastPosition) = mouseMoveMachine, let windowSize = event.window?.frame.size else {
+                break
+            }
+            let newPosition = event.locationInWindow
+            let movement = CGVector(
+                dx: (newPosition.x - lastPosition.x) / windowSize.width / presentation.camera.scale,
+                dy: (newPosition.y - lastPosition.y) / windowSize.height / presentation.camera.scale
+            )
+            
+            presentation.camera.offset = CGVector(
+                dx: presentation.camera.offset.dx - movement.dx, // X axis is inverted due to different cooridinate usage
+                dy: presentation.camera.offset.dy + movement.dy
+            )
+            
+            mouseMoveMachine = .leftButtonDown(lastPosition: newPosition)
+        default:
+            break
+        }
+    }
+    
+    private func resolveNavigation(event: NSEvent) -> Bool {
+        guard
+            presentation.mode == .navigation,
+            event.type == .keyDown
+        else {
+            return false
+        }
+        
+        switch event.keyCode {
+        case 49 /* Space bar*/, 36 /* enter */:
+            presentation.selectedFocus += 1
+        case 51 /* Back space */:
+            presentation.selectedFocus -= 1
+        default:
+            return false
+        }
+        
+        return true
+    }
+}
+
+final class PresentationProperties: ObservableObject {
+    enum Mode: Int, Equatable {
+        case entry, navigation
+    }
+
+    init(backgrounds: [any Background], slides: [any Slide.Type], focuses: [Focus]) {
+        self.backgrounds = backgrounds
+        self.slides = slides
+        self.focuses = focuses
+    }
+    
+    @Published var backgrounds: [any Background]
+    @Published var slides: [any Slide.Type]
+    @Published var focuses: [Focus]
+
+    var selectedFocus: Int = 0 {
+        didSet {
+            guard let newConfiguration = getConfiguration(for: selectedFocus) else {
+                return
+            }
+            camera = .init(offset: newConfiguration.offset, scale: newConfiguration.scale)
+            hint = newConfiguration.hint
+        }
+    }
+
+    @Published var mode: Mode = .navigation
+    @Published var colorScheme: ColorScheme = ColorScheme.dark
+
+    @Published var automaticFameSize: Bool = true
+    @Published var frameSize: CGSize = CGSize(width: 480, height: 360)
+
+    @Published var automaticScreenSize: Bool = true
+    @Published var screenSize: CGSize = CGSize(width: 480, height: 360)
+
+    @Published var camera: Camera = .init(offset: .zero, scale: 1.0)
+    
+    @Published var hint: String? = nil
+    
+    static let defaultTitle = NSFont.systemFont(ofSize: 80, weight: .bold)
+    static let defaultSubTitle = NSFont.systemFont(ofSize: 70, weight: .regular)
+    static let defaultHeadline = NSFont.systemFont(ofSize: 50, weight: .bold)
+    static let defaultSubHeadline = NSFont.systemFont(ofSize: 40, weight: .regular)
+    static let defaultBody = NSFont.systemFont(ofSize: 30)
+    static let defaultNote = NSFont.systemFont(ofSize: 20, weight: .light)
+
+    @Published var title: NSFont = PresentationProperties.defaultTitle {
+        willSet {
+            Font.presentationTitle = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var subTitle: NSFont = PresentationProperties.defaultSubTitle  {
+        willSet {
+            Font.presentationSubTitle = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var headline: NSFont = PresentationProperties.defaultHeadline {
+        willSet {
+            Font.presentationHeadline = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var subHeadline: NSFont = PresentationProperties.defaultSubHeadline  {
+        willSet {
+            Font.presentationSubHeadline = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var body: NSFont = PresentationProperties.defaultBody {
+        willSet {
+            Font.presentationBody = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var note: NSFont = PresentationProperties.defaultNote  {
+        willSet {
+            Font.presentationNote = Font(newValue as CTFont)
+        }
+    }
+
     private func getConfiguration(for newFocusIndex: Int) -> Focus.Properties? {
         guard
             newFocusIndex >= 0,
@@ -207,130 +320,14 @@ struct Presentation: View {
         return .init(offset: newOffset, scale: newScale - 0.01, hint: newHint)
     }
     
-    private func handleMac(event: NSEvent) -> NSEvent? {
-        resolveMouseDrag(event: event)
-        if resolveNavigation(event: event) {
-            return nil
-        }
-        
-        return event
-    }
-    
-    private func resolveMouseDrag(event: NSEvent) {
-        switch event.type {
-        case .flagsChanged:
-            mouseMoveMachine = event.modifierFlags.contains(.command) ? .cmdDown : .idle
-        case .leftMouseDown where mouseMoveMachine == .cmdDown:
-            mouseMoveMachine = .leftButtonDown(lastPosition: event.locationInWindow)
-        case .leftMouseDragged where mouseMoveMachine != .idle:
-            guard case let .leftButtonDown(lastPosition) = mouseMoveMachine, let windowSize = event.window?.frame.size else {
-                break
-            }
-            let newPosition = event.locationInWindow
-            let movement = CGVector(
-                dx: (newPosition.x - lastPosition.x) / windowSize.width / presentation.scale,
-                dy: (newPosition.y - lastPosition.y) / windowSize.height / presentation.scale
-            )
-            
-            presentation.offset = CGVector(
-                dx: presentation.offset.dx - movement.dx, // X axis is inverted due to different cooridinate usage
-                dy: presentation.offset.dy + movement.dy
-            )
-            
-            mouseMoveMachine = .leftButtonDown(lastPosition: newPosition)
-        default:
-            break
-        }
-    }
-    
-    private func resolveNavigation(event: NSEvent) -> Bool {
-        guard
-            presentation.mode == .navigation,
-            event.type == .keyDown
-        else {
-            return false
-        }
-        
-        switch event.keyCode {
-        case 49 /* Space bar*/, 36 /* enter */:
-            presentation.selectedFocus += 1
-        case 51 /* Back space */:
-            presentation.selectedFocus -= 1
-        default:
-            return false
-        }
-        
-        return true
-    }
-}
-
-final class PresentationProperties: ObservableObject {
-    enum Mode: Int, Equatable {
-        case entry, navigation
-    }
-    
-    static let shared = PresentationProperties()
-    
-    @Published var mode: Mode = .navigation
-    @Published var colorScheme: ColorScheme = ColorScheme.dark
-
-    @Published var automaticFameSize: Bool = true
-    @Published var frameSize: CGSize = CGSize(width: 480, height: 360)
-
-    @Published var automaticScreenSize: Bool = true
-    @Published var screenSize: CGSize = CGSize(width: 480, height: 360)
-
-    @Published var selectedFocus: Int = 0
-
-    @Published var scale: CGFloat = 1.0
-    @Published var offset: CGVector = .zero
-    
-    @Published var hint: String? = nil
-    
-    @Published var title: NSFont = NSFont.systemFont(ofSize: 80, weight: .bold) {
-        willSet {
-            Font.presentationTitle = Font(newValue as CTFont)
-        }
-    }
-
-    @Published var subTitle: NSFont = NSFont.systemFont(ofSize: 70, weight: .regular) {
-        willSet {
-            Font.presentationSubTitle = Font(newValue as CTFont)
-        }
-    }
-
-    @Published var headline: NSFont = NSFont.systemFont(ofSize: 50, weight: .bold) {
-        willSet {
-            Font.presentationHeadline = Font(newValue as CTFont)
-        }
-    }
-
-    @Published var subHeadline: NSFont = NSFont.systemFont(ofSize: 40, weight: .regular) {
-        willSet {
-            Font.presentationSubHeadline = Font(newValue as CTFont)
-        }
-    }
-
-    @Published var body: NSFont = NSFont.systemFont(ofSize: 30) {
-        willSet {
-            Font.presentationBody = Font(newValue as CTFont)
-        }
-    }
-
-    @Published var note: NSFont = NSFont.systemFont(ofSize: 20, weight: .light) {
-        willSet {
-            Font.presentationNote = Font(newValue as CTFont)
-        }
-    }
-
 }
 
 extension Font {
-    static fileprivate(set) var presentationTitle: Font = { Font(PresentationProperties.shared.title as CTFont) }()
-    static fileprivate(set) var presentationSubTitle: Font = { Font(PresentationProperties.shared.subTitle as CTFont) }()
-    static fileprivate(set) var presentationHeadline: Font = { Font(PresentationProperties.shared.headline as CTFont) }()
-    static fileprivate(set) var presentationSubHeadline: Font = { Font(PresentationProperties.shared.subHeadline as CTFont) }()
-    static fileprivate(set) var presentationBody: Font = { Font(PresentationProperties.shared.body as CTFont) }()
-    static fileprivate(set) var presentationNote: Font = { Font(PresentationProperties.shared.note as CTFont) }()
+    static fileprivate(set) var presentationTitle: Font = { Font(PresentationProperties.defaultTitle as CTFont) }()
+    static fileprivate(set) var presentationSubTitle: Font = { Font(PresentationProperties.defaultSubTitle as CTFont) }()
+    static fileprivate(set) var presentationHeadline: Font = { Font(PresentationProperties.defaultHeadline as CTFont) }()
+    static fileprivate(set) var presentationSubHeadline: Font = { Font(PresentationProperties.defaultSubHeadline as CTFont) }()
+    static fileprivate(set) var presentationBody: Font = { Font(PresentationProperties.defaultBody as CTFont) }()
+    static fileprivate(set) var presentationNote: Font = { Font(PresentationProperties.defaultNote as CTFont) }()
     
 }
