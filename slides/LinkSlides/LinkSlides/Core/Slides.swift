@@ -14,16 +14,19 @@ extension Background {
 }
 
 protocol Slide: View {
-    static var offset: CGVector { get }
+    static var offset: CGVector { get set }
     static var singleFocusScale: CGFloat { get }
-    static var hint: String? { get }
+    static var hint: String? { get set }
     static var name: String { get }
     
     init()
 }
 
 extension Slide {
-    static var hint: String? { nil }
+    static var hint: String? {
+        get { nil }
+        set { _ = newValue }
+    }
     static var name: String { String(describing: Self.self) }
     static var singleFocusScale: CGFloat { 0.9999 } // When scale is 1.0, some shapes disappear :shurug:
     
@@ -55,6 +58,7 @@ struct Plane: View {
                     x: presentation.screenSize.width * type(of: background).offset.dx,
                     y: presentation.screenSize.height * type(of: background).offset.dy
                 )
+                .disabled(presentation.mode == .editor)
         )
     }
     
@@ -69,19 +73,42 @@ struct Plane: View {
                     x: presentation.screenSize.width * slide.offset.dx,
                     y: presentation.screenSize.height * slide.offset.dy
                 )
+                .disabled(presentation.mode == .editor)
         )
     }
 }
 
-enum Focus {
-    struct Properties {
-        let offset: CGVector
-        let scale: CGFloat
-        let hint: String?
+
+enum Focus: Hashable {
+    struct Properties: Hashable {
+        var offset: CGVector
+        var scale: CGFloat
+        var hint: String?
     }
     
     case slides([any Slide.Type])
     case properties(Properties)
+    
+    static func == (lhs: Focus, rhs: Focus) -> Bool {
+        switch (lhs, rhs) {
+        case let (.slides(lCont), .slides(rCont)):
+            return lCont.map { $0.name } == rCont.map { $0.name }
+        case let (.properties(lCont), .properties(rCont)) where lCont == rCont:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case let .properties(properties):
+            hasher.combine(0)
+            hasher.combine(properties)
+        case let .slides(slides):
+            hasher.combine(slides.map { $0.name })
+        }
+    }
 }
 
 struct Camera: Equatable {
@@ -89,17 +116,33 @@ struct Camera: Equatable {
     var scale: CGFloat
 }
 
-struct Presentation: View {
-    @EnvironmentObject var presentation: PresentationProperties
-
-    private enum MouseMoveMachine: Equatable {
-        case idle
-        case cmdDown
-        case leftButtonDown(lastPosition: NSPoint)
+private enum MouseMoveMachine<Context>: Equatable {
+    case idle
+    case callFlagDown
+    case leftButtonDown(lastPosition: CGVector, context: Context)
+    
+    static func leftButtonDown(lastPosition: CGVector) -> Self where Context == Void {
+        return Self.leftButtonDown(lastPosition: lastPosition, context: ())
     }
     
-    @State private var mouseMoveMachine: MouseMoveMachine = .idle
+    static func == (lhs: MouseMoveMachine<Context>, rhs: MouseMoveMachine<Context>) -> Bool {
+        switch (lhs, rhs) {
+        case (.idle, .idle), (.callFlagDown, .callFlagDown):
+            return true
+        case let (.leftButtonDown(llastPos, _), .leftButtonDown(rlastPos, _)) where llastPos == rlastPos:
+            return true
+        default:
+            return false
+        }
+    }
+}
 
+struct Presentation: View {
+    @EnvironmentObject var presentation: PresentationProperties
+    
+    @State private var mouseMoveMachine: MouseMoveMachine<Void> = .idle
+    @State private var moveSlideMachine: MouseMoveMachine<any Slide.Type> = .idle
+    
     var body: some View {
         GeometryReader { geometry in
             plane
@@ -113,7 +156,7 @@ struct Presentation: View {
                 }
                 .preferredColorScheme(presentation.colorScheme)
         }.onAppear {
-            NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp, .leftMouseDragged, .leftMouseDown, .flagsChanged], handler: handleMac(event:))
+            NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp, .leftMouseDragged, .leftMouseDown, .leftMouseUp, .flagsChanged], handler: handleMac(event:))
         }
     }
     
@@ -125,12 +168,22 @@ struct Presentation: View {
             )
             .scaleEffect(presentation.camera.scale)
             .clipped()
-            .animation(.easeInOut(duration: 1.0), value: presentation.camera)
+            .animation(
+                presentation.mode == .presentation ? .easeInOut(duration: 1.0) : nil,
+                value: presentation.camera
+            )
     }
-
+    
     private func handleMac(event: NSEvent) -> NSEvent? {
         resolveMouseDrag(event: event)
+        resolveSlideDrag(event: event)
+        if resolveZoomHotkeys(event: event) {
+            return nil
+        }
         if resolveNavigation(event: event) {
+            return nil
+        }
+        if resolveModeSwap(event: event) {
             return nil
         }
         
@@ -140,33 +193,110 @@ struct Presentation: View {
     private func resolveMouseDrag(event: NSEvent) {
         switch event.type {
         case .flagsChanged:
-            mouseMoveMachine = event.modifierFlags.contains(.command) ? .cmdDown : .idle
-        case .leftMouseDown where mouseMoveMachine == .cmdDown:
-            mouseMoveMachine = .leftButtonDown(lastPosition: event.locationInWindow)
-        case .leftMouseDragged where mouseMoveMachine != .idle:
-            guard case let .leftButtonDown(lastPosition) = mouseMoveMachine, let windowSize = event.window?.frame.size else {
+            mouseMoveMachine = event.modifierFlags.contains(.command) ? .callFlagDown : .idle
+        case .leftMouseDown where mouseMoveMachine == .callFlagDown:
+            guard let windowSize = event.window?.frame.size else {
                 break
             }
-            let newPosition = event.locationInWindow
-            let movement = CGVector(
-                dx: (newPosition.x - lastPosition.x) / windowSize.width / presentation.camera.scale,
-                dy: (newPosition.y - lastPosition.y) / windowSize.height / presentation.camera.scale
-            )
-            
-            presentation.camera.offset = CGVector(
-                dx: presentation.camera.offset.dx - movement.dx, // X axis is inverted due to different cooridinate usage
-                dy: presentation.camera.offset.dy + movement.dy
-            )
-            
+            mouseMoveMachine = .leftButtonDown(lastPosition: offset(for: event.locationInWindow, in: windowSize))
+        case .leftMouseDragged where mouseMoveMachine != .idle:
+            guard case let .leftButtonDown(lastPosition, _) = mouseMoveMachine, let windowSize = event.window?.frame.size else {
+                break
+            }
+            let newPosition = offset(for: event.locationInWindow, in: windowSize)
+            presentation.camera.offset = presentation.camera.offset - (newPosition - lastPosition)
             mouseMoveMachine = .leftButtonDown(lastPosition: newPosition)
+        case .leftMouseUp where mouseMoveMachine != .idle:
+            mouseMoveMachine = .callFlagDown
         default:
             break
         }
     }
     
+    private func resolveSlideDrag(event: NSEvent) {
+        guard presentation.mode == .editor else {
+            return
+        }
+        
+        switch event.type {
+        case .flagsChanged:
+            moveSlideMachine = event.modifierFlags.contains(.shift) ? .callFlagDown : .idle
+        case .leftMouseDown where moveSlideMachine == .callFlagDown:
+            guard let windowSize = event.window?.frame.size else {
+                break
+            }
+            let offsetLocation = offset(for: event.locationInWindow, in: windowSize)
+            let slide = presentation.slides.reversed().first { slide in
+                getOffsetRect(of: slide).contains(CGPoint(x: offsetLocation.dx, y: offsetLocation.dy))
+            }
+            guard let slide else {
+                moveSlideMachine = .callFlagDown
+                break
+            }
+            moveSlideMachine = .leftButtonDown(lastPosition: offsetLocation, context: slide)
+        case .leftMouseDragged where moveSlideMachine != .idle:
+            guard case let .leftButtonDown(lastPosition, slide) = moveSlideMachine, let windowSize = event.window?.frame.size else {
+                break
+            }
+            let newPosition = offset(for: event.locationInWindow, in: windowSize)
+
+            slide.offset = slide.offset - (newPosition - lastPosition)
+            // If some camera property isnt changed, the slide is not re-arranged on the plane
+            presentation.camera.offset = presentation.camera.offset - (newPosition - lastPosition)
+
+            moveSlideMachine = .leftButtonDown(lastPosition: newPosition, context: slide)
+        case .leftMouseUp where mouseMoveMachine != .idle:
+            moveSlideMachine = .callFlagDown
+        default:
+            break
+        }
+    }
+    
+    private func resolveZoomHotkeys(event: NSEvent) -> Bool {
+        guard presentation.mode != .entry, event.type == .keyDown else {
+            return false
+        }
+        switch event.keyCode {
+        case 45 /* 'n' */:
+            presentation.camera.scale = presentation.camera.scale - (presentation.camera.scale / 3)
+        case 46 /* 'n' */:
+            presentation.camera.scale = presentation.camera.scale + (presentation.camera.scale / 3)
+        default:
+            return false
+        }
+
+        return true
+    }
+    
+    private func offset(for position: NSPoint, in window: CGSize) -> CGVector {
+        CGVector(
+            dx: (position.x - window.width / 2) / window.width / presentation.camera.scale,
+            dy: (position.y - window.height / 2) / window.height / presentation.camera.scale
+        ).invertedDY() + presentation.camera.offset
+    }
+    
+    private func absoluteToOffset(size: CGSize) -> CGSize {
+        CGSize(
+            width: size.width / presentation.screenSize.width,
+            height: size.height / presentation.screenSize.height
+        )
+    }
+
+    private func getOffsetRect(of slide: any Slide.Type) -> CGRect {
+        let offset = slide.offset
+        let offsetSize = absoluteToOffset(size: presentation.frameSize)
+        return CGRect(
+            origin: CGPoint(
+                x: offset.dx - offsetSize.width / 2,
+                y: offset.dy - offsetSize.height / 2
+            ),
+            size: offsetSize
+        )
+    }
+    
     private func resolveNavigation(event: NSEvent) -> Bool {
         guard
-            presentation.mode == .navigation,
+            presentation.mode == .presentation,
             event.type == .keyDown
         else {
             return false
@@ -183,14 +313,63 @@ struct Presentation: View {
         
         return true
     }
+    
+    private func resolveModeSwap(event: NSEvent) -> Bool {
+        guard
+            event.type == .keyDown,
+            event.keyCode == 53 /* escape */
+        else {
+            return false
+        }
+        
+        switch presentation.mode {
+        case .presentation:
+            presentation.mode = .entry
+        case .entry, .editor:
+            presentation.mode = .presentation
+        }
+        
+        return true
+    }
 }
 
 final class PresentationProperties: ObservableObject {
     enum Mode: Int, Equatable {
-        case entry, navigation
+        case entry, presentation, editor
+        
+        private static let navigationHotkeys = [
+            "`spacebar`, `enter` - increment focus",
+            "`backspace` - decrement focus",
+        ]
+        
+        private static let globalHotkeys = [
+            "`escape` - toggles between Inspection and Presentation mode",
+            "`cmd` + *mouse drag* - move the camera",
+        ]
+        
+        private static let editorHotkeys = [
+            "`shift` + *mouse drag* - move slide on the plane",
+        ]
+        
+        private static let scaleHotkeys = [
+            "`n` - zoom out",
+            "`m` - zoom in",
+        ]
+        
+        var hotkeyHint: [String] {
+            switch self {
+            case .editor:
+                return Mode.globalHotkeys + Mode.scaleHotkeys + Mode.editorHotkeys
+            case .presentation:
+                return Mode.globalHotkeys + Mode.scaleHotkeys + Mode.navigationHotkeys
+            case .entry:
+                return Mode.globalHotkeys
+            }
+        }
     }
 
-    init(backgrounds: [any Background], slides: [any Slide.Type], focuses: [Focus]) {
+    init(slidesPath: String, backgrounds: [any Background], slides: [any Slide.Type], focuses: [Focus]) {
+        self.slidesPath = slidesPath
         self.backgrounds = backgrounds
         self.slides = slides
         self.focuses = focuses
@@ -205,12 +384,13 @@ final class PresentationProperties: ObservableObject {
             hint = newConfiguration.hint
         }
     }
-
+    
+    let slidesPath: String
     var backgrounds: [any Background]
     var slides: [any Slide.Type]
     @Published var focuses: [Focus]
 
-    @Published var mode: Mode = .navigation
+    @Published var mode: Mode = .presentation
     @Published var colorScheme: ColorScheme = ColorScheme.dark
 
     @Published var automaticFameSize: Bool = true

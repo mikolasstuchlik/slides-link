@@ -1,9 +1,10 @@
 import SwiftUI
 import CodeEditor
 
-struct FTDExample: View, Slide {    
-    static let offset = CGVector(dx: 1, dy: 2)
-    static let hint: String? =
+struct FTDExample: View, Slide {
+    // @offset(FTDExample)
+    static var offset = CGVector(dx: 1.0, dy: 2.0)
+    static var hint: String? =
     """
     Tady si vyzkoušíme něco nového:
     

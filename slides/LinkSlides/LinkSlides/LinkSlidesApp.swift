@@ -3,9 +3,9 @@ import SwiftUI
 /*
  TODO:
   - Add Editor mode:
-    - The ability to arrange Slides and Backgrounds runtime
     - The ability to define Focuses runtime
-    - Source code propagation using simple file processing
+    - Ability to modify hints runtime
+    - Save hints and focuses to file
   - Add Render to PDF option
  */
 
@@ -33,6 +33,7 @@ private let focuses: [Focus] = [
 ]
 
 private let presentation = PresentationProperties(
+    slidesPath: Array(String(#file).components(separatedBy: "/").dropLast()).joined(separator: "/") + "/Slides",
     backgrounds: backgrounds,
     slides: slides,
     focuses: focuses
@@ -60,7 +61,9 @@ struct LinkSlidesApp: App {
     @available(macOS 13.0, *)
     @SceneBuilder var new: some Scene {
         WindowGroup("Toolbar") {
-            SlideControlPanel().environmentObject(presentation)
+            SlideControlPanel(
+                focusesChangeContext: SlideControlPanel.makeFocusesChangeContext(with: presentation.focuses)
+            ).environmentObject(presentation)
         }
 
         Window("Slides", id: "slides") {

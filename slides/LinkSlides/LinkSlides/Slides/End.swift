@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct End: View, Slide {
-    static let offset = CGVector(dx: -1.5, dy: -1.5)
+    // @offset(End)
+    static var offset = CGVector(dx: -1.5, dy: -1.5)
     
     init() {}
 

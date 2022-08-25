@@ -2,6 +2,35 @@ import AppKit
 import SwiftUI
 import CodeEditor
 
+extension Substring {
+    var range: Range<String.Index> {
+        startIndex..<endIndex
+    }
+}
+
+extension CGVector {
+    static func -(lhs: CGVector, rhs: CGVector) -> CGVector{
+        CGVector(dx: lhs.dx - rhs.dx, dy: lhs.dy - rhs.dy)
+    }
+    
+    static func +(lhs: CGVector, rhs: CGVector) -> CGVector{
+        CGVector(dx: lhs.dx + rhs.dx, dy: lhs.dy + rhs.dy)
+    }
+    
+    func invertedDY() -> CGVector {
+        var copy = self
+        copy.dy = -copy.dy
+        return copy
+    }
+}
+
+extension CGVector: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(dx)
+        hasher.combine(dy)
+    }
+}
+
 extension ClosedRange where Bound: BinaryFloatingPoint {
     init<Other: BinaryFloatingPoint>(_ other: ClosedRange<Other>) {
         self = Bound(other.lowerBound)...Bound(other.upperBound)

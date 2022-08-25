@@ -1,8 +1,9 @@
 import SwiftUI
  
 struct Beginning: View, Slide {
-    static let offset = CGVector(dx: 0, dy: 0)
-    static let hint: String? = "Čau lidi!"
+    // @offset(Beginning)
+    static var offset = CGVector(dx: 0.0, dy: 0.0)
+    static var hint: String? = "Čau lidi!"
 
     init() {}
     

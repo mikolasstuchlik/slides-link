@@ -97,6 +97,21 @@ struct TextEditorView: View {
 
 struct TextEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        TextEditorView(axis: .horizontal, filePath: "~/nothing.txt", format: .constant(.c), content: .constant("import Nothing\n"))
+        TextEditorView(
+            axis: .vertical,
+            filePath: "~/nothing.txt",
+            format: .constant(.c),
+            content: .constant(
+"""
+#include <stdlib.h>
+#include <stdio.h>
+
+int main(void) {
+    printf("Ahoj %s", "Miki");
+    return 0;
+}
+"""
+            )
+        )
     }
 }

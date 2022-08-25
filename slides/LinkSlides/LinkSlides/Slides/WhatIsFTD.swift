@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct WhatIsFTD: View, Slide {
-    static let offset = CGVector(dx: 1, dy: 0)
+    // @offset(WhatIsFTD)
+    static var offset = CGVector(dx: 1.0, dy: 0.0)
 
     init() {}
     

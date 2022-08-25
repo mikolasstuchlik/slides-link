@@ -24,6 +24,9 @@ struct SlideControlPanel: View {
     
     @State var slideXManualEntry: String = ""
     @State var slideYManualEntry: String = ""
+    
+    @State var focusesChangeContext: [[String]]
+    @State var selectedFocus: Int? = nil
 
     var body: some View {
         HStack(spacing: 16) {
@@ -34,8 +37,12 @@ struct SlideControlPanel: View {
                     timeCounter
                     runButton
                 }
-                Spacer()
-                    .frame(maxHeight: .infinity)
+                if presentation.mode != .editor {
+                    Spacer()
+                        .frame(maxHeight: .infinity)
+                }
+                Text("Klávesové zkratky").bold().frame(maxWidth: .infinity, alignment: .leading)
+                Text(presentation.mode.hotkeyHint.joined(separator: "\n"))
                 Text("Ovládání prezentace").bold().frame(maxWidth: .infinity, alignment: .leading)
                 presentationControl
             }
@@ -101,8 +108,9 @@ struct SlideControlPanel: View {
                             }
                         )
                     ) {
-                        Text("Vstup").tag(0)
-                        Text("Navigace").tag(1)
+                        Text("Inspekce").tag(0)
+                        Text("Prezentace").tag(1)
+                        Text("Editor").tag(2)
                     }
                     .pickerStyle(.segmented)
                     .gridCellColumns(2)
@@ -112,6 +120,9 @@ struct SlideControlPanel: View {
                 }
                 if presentation.mode == .entry {
                     controlPanel
+                }
+                if presentation.mode == .editor {
+                    editorCommands
                 }
             }
         }
@@ -226,12 +237,82 @@ struct SlideControlPanel: View {
             }.gridCellColumns(3)
         }
     }
+    
+    @ViewBuilder var editorCommands: some View {
+        GridRow {
+            Text("Save changes")
+            Spacer()
+            Button("Save offsets") {
+                let editor = EditorCodeManipulator(slidesPath: presentation.slidesPath, knowSlides: presentation.slides)
+                print(editor.saveUpdatesToSourceCode())
+            }
+        }
+        GridRow {
+            
+        }
+        GridRow {
+            focusEditor
+                .gridCellColumns(4)
+                .frame(idealHeight: .infinity, maxHeight: .infinity)
+        }
+    }
+    
+    @ViewBuilder var focusEditor: some View {
+        List(selection: $selectedFocus) {
+            ForEach(presentation.focuses, id: \.hashValue) { focus in
+                let index = presentation.focuses.firstIndex(of: focus)!
+                HStack() {
+                    switch focus {
+                    case let .slides(slides):
+                        Text(slides.map { $0.name }.joined(separator: " "))
+                    case let .properties(properties):
+                        Text("X")
+                        TextEditor(text: .init(get: { focusesChangeContext[index][0] }, set: { focusesChangeContext[index][0] = $0 }))
+                        Text("Y")
+                        TextEditor(text: .init(get: { focusesChangeContext[index][1] }, set: { focusesChangeContext[index][1] = $0 }))
+                        Text("Scale")
+                        TextEditor(text: .init(get: { focusesChangeContext[index][2] }, set: { focusesChangeContext[index][2] = $0 }))
+                        Button("Ulož") {
+                            var copy = properties
+                            let dx = Double(focusesChangeContext[index][0]).flatMap(CGFloat.init(_:))
+                            let dy = Double(focusesChangeContext[index][1]).flatMap(CGFloat.init(_:))
+                            let scale = Double(focusesChangeContext[index][2]).flatMap(CGFloat.init(_:))
+                            copy.offset.dx = dx ?? copy.offset.dx
+                            copy.offset.dy = dy ?? copy.offset.dy
+                            copy.scale = scale ?? copy.scale
+                            presentation.focuses[index] = .properties(copy)
+                        }
+                    }
+                }
+            }.onMove { source, destination in
+                presentation.focuses.move(fromOffsets: source, toOffset: destination)
+                focusesChangeContext = SlideControlPanel.makeFocusesChangeContext(with: presentation.focuses)
+            }.onDelete { toDelete in
+                presentation.focuses.remove(atOffsets: toDelete)
+                focusesChangeContext = SlideControlPanel.makeFocusesChangeContext(with: presentation.focuses)
+            }
+        }
+        .onChange(of: presentation.focuses) { newValue in
+            focusesChangeContext = SlideControlPanel.makeFocusesChangeContext(with: newValue)
+        }
+    }
+    
+    static func makeFocusesChangeContext(with value: [Focus]) -> [[String]] {
+        return value.map { item -> [String] in
+            switch item {
+            case let .properties(properties):
+                return ["\(properties.offset.dx)", "\(properties.offset.dy)", "\(properties.scale)"]
+            case let .slides(slides):
+                return slides.map { $0.name }
+            }
+        }
+    }
 
 }
 
 @available(macOS 13.0, *)
 struct SlideControlPanel_Previews: PreviewProvider {
     static var previews: some View {
-        SlideControlPanel()
+        SlideControlPanel(focusesChangeContext: [])
     }
 }

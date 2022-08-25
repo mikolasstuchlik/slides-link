@@ -28,6 +28,7 @@
 		BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
+		BEC3944D28B7B67A00C2EFF3 /* EditorCodeManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3944C28B7B67A00C2EFF3 /* EditorCodeManipulator.swift */; };
 		BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC47C828B366BB00BF5C2A /* CompilerView.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBackground.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
+		BEC3944C28B7B67A00C2EFF3 /* EditorCodeManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCodeManipulator.swift; sourceTree = "<group>"; };
 		BEEC47C828B366BB00BF5C2A /* CompilerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,7 @@
 			children = (
 				BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */,
 				BE03640D28B14FE300C667F5 /* Slides.swift */,
+				BEC3944C28B7B67A00C2EFF3 /* EditorCodeManipulator.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				BE77176428B684DA0077ABA3 /* WebView.swift in Sources */,
 				BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */,
 				BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */,
+				BEC3944D28B7B67A00C2EFF3 /* EditorCodeManipulator.swift in Sources */,
 				BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */,
 				BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */,
 				BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */,
