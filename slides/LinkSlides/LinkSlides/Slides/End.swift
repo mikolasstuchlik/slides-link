@@ -4,6 +4,13 @@ struct End: View, Slide {
     // @offset(End)
     static var offset = CGVector(dx: -1.5, dy: -1.5)
     
+    // @hint(End){
+    static var hint: String? =
+"""
+
+"""
+    // }@hint(End)
+    
     init() {}
 
     var body: some View {

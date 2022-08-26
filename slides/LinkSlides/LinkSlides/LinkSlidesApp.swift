@@ -1,12 +1,7 @@
 import SwiftUI
 
 /*
- TODO:
-  - Add Editor mode:
-    - The ability to define Focuses runtime
-    - Ability to modify hints runtime
-    - Save hints and focuses to file
-  - Add Render to PDF option
+ Known issues: entering editor mode when focus is out of bounds will crash
  */
 
 private let backgrounds: [any Background] = [
@@ -21,6 +16,7 @@ private let slides: [any Slide.Type] = [
     End.self,
 ]
 
+// @focuses(focuses){
 private let focuses: [Focus] = [
     .slides([Beginning.self]),
     .slides([FTDExample.self]),
@@ -31,8 +27,10 @@ private let focuses: [Focus] = [
     .slides([End.self]),
     .slides([Beginning.self, WhatIsFTD.self, FTDExample.self, End.self]),
 ]
+// }@focuses(focuses)
 
 private let presentation = PresentationProperties(
+    rootPath: Array(String(#file).components(separatedBy: "/").dropLast()).joined(separator: "/"),
     slidesPath: Array(String(#file).components(separatedBy: "/").dropLast()).joined(separator: "/") + "/Slides",
     backgrounds: backgrounds,
     slides: slides,
@@ -61,9 +59,7 @@ struct LinkSlidesApp: App {
     @available(macOS 13.0, *)
     @SceneBuilder var new: some Scene {
         WindowGroup("Toolbar") {
-            SlideControlPanel(
-                focusesChangeContext: SlideControlPanel.makeFocusesChangeContext(with: presentation.focuses)
-            ).environmentObject(presentation)
+            SlideControlPanel(environment: presentation).environmentObject(presentation)
         }
 
         Window("Slides", id: "slides") {

@@ -3,7 +3,13 @@ import SwiftUI
 struct Beginning: View, Slide {
     // @offset(Beginning)
     static var offset = CGVector(dx: 0.0, dy: 0.0)
-    static var hint: String? = "Čau lidi!"
+    
+    // @hint(Beginning){
+    static var hint: String? =
+"""
+Čau lidi!
+"""
+    // }@hint(Beginning)
 
     init() {}
     

@@ -23,10 +23,6 @@ protocol Slide: View {
 }
 
 extension Slide {
-    static var hint: String? {
-        get { nil }
-        set { _ = newValue }
-    }
     static var name: String { String(describing: Self.self) }
     static var singleFocusScale: CGFloat { 0.9999 } // When scale is 1.0, some shapes disappear :shurug:
     
@@ -81,6 +77,7 @@ struct Plane: View {
 
 enum Focus: Hashable {
     struct Properties: Hashable {
+        let uuid: UUID = UUID()
         var offset: CGVector
         var scale: CGFloat
         var hint: String?
@@ -368,7 +365,8 @@ final class PresentationProperties: ObservableObject {
         }
     }
 
-    init(slidesPath: String, backgrounds: [any Background], slides: [any Slide.Type], focuses: [Focus]) {
+    init(rootPath: String, slidesPath: String, backgrounds: [any Background], slides: [any Slide.Type], focuses: [Focus]) {
+        self.rootPath = rootPath
         self.slidesPath = slidesPath
         self.backgrounds = backgrounds
         self.slides = slides
@@ -381,10 +379,10 @@ final class PresentationProperties: ObservableObject {
                 return
             }
             camera = .init(offset: newConfiguration.offset, scale: newConfiguration.scale)
-            hint = newConfiguration.hint
         }
     }
     
+    let rootPath: String
     let slidesPath: String
     var backgrounds: [any Background]
     var slides: [any Slide.Type]
@@ -402,8 +400,6 @@ final class PresentationProperties: ObservableObject {
     @Published var loadThumbnails: Bool = false
     
     @Published var camera: Camera = .init(offset: .zero, scale: 1.0)
-    
-    @Published var hint: String? = nil
     
     static let defaultTitle = NSFont.systemFont(ofSize: 80, weight: .bold)
     static let defaultSubTitle = NSFont.systemFont(ofSize: 70, weight: .regular)

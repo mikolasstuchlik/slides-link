@@ -7,6 +7,11 @@ private let timeDateFormatter: DateFormatter = {
     return formatter
 }()
 
+private struct HashedInt: Hashable {
+    var int: Int
+    let hash: Int
+}
+
 @available(macOS 13.0, *)
 struct SlideControlPanel: View {
 
@@ -25,8 +30,26 @@ struct SlideControlPanel: View {
     @State var slideXManualEntry: String = ""
     @State var slideYManualEntry: String = ""
     
+    @State var selectedFocusHash: Int?
     @State var focusesChangeContext: [[String]]
-    @State var selectedFocus: Int? = nil
+    @State var hintEditing: [String?]
+    
+    init(environment: PresentationProperties) {
+        _focusesChangeContext = State(initialValue: SlideControlPanel.makeFocusesChangeContext(with: environment.focuses))
+        if environment.selectedFocus >= 0, environment.selectedFocus < environment.focuses.count {
+            _selectedFocusHash = State(initialValue: environment.focuses[environment.selectedFocus].hashValue)
+            switch environment.focuses[environment.selectedFocus] {
+            case let .slides(slides):
+                _hintEditing = State(initialValue: slides.map { $0.hint })
+            case let .properties(properties):
+                _hintEditing = State(initialValue: [properties.hint] )
+            }
+        } else {
+            _selectedFocusHash = State(initialValue: nil)
+            _hintEditing = State(initialValue: [])
+        }
+        
+    }
 
     var body: some View {
         HStack(spacing: 16) {
@@ -49,13 +72,14 @@ struct SlideControlPanel: View {
             Divider()
             VStack(spacing: 16) {
                 Text("Poznámky pro zaostřené").bold().frame(maxWidth: .infinity, alignment: .leading)
-                if let hint = presentation.hint {
-                    ScrollView { Text(LocalizedStringKey(hint)) }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                } else {
-                    Spacer()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
+                hintView
+                    .onChange(of: presentation.selectedFocus, perform: prepareHintEditor(for:))
+                    .onChange(of: presentation.focuses) { newValue in
+                        prepareHintEditor(for: presentation.selectedFocus, focuses: newValue)
+                    }
+                    .onChange(of: presentation.mode) { _ in
+                        prepareHintEditor(for: presentation.selectedFocus)
+                    }
             }
         }.padding()
     }
@@ -240,38 +264,58 @@ struct SlideControlPanel: View {
     
     @ViewBuilder var editorCommands: some View {
         GridRow {
-            Text("Save changes")
-            Spacer()
+            Text("Code generation")
             Button("Save offsets") {
-                let editor = EditorCodeManipulator(slidesPath: presentation.slidesPath, knowSlides: presentation.slides)
+                let editor = OffsetCodeManipulator(slidesPath: presentation.slidesPath, knowSlides: presentation.slides)
                 print(editor.saveUpdatesToSourceCode())
             }
-        }
-        GridRow {
-            
+            Button("Save focuses & Hints") {
+                let editor = FocusCodeManipulator(rootPath: presentation.rootPath, knowSlides: presentation.slides, knownFocuses: presentation.focuses)
+                print(editor.saveUpdatesToSourceCode())
+            }
         }
         GridRow {
             focusEditor
                 .gridCellColumns(4)
                 .frame(idealHeight: .infinity, maxHeight: .infinity)
         }
+        GridRow {
+            HStack {
+                Button("Přidej focus na slidy") {
+                    focusesChangeContext.append([])
+                    presentation.focuses.append(.slides([]))
+                }
+                Button("Přidej focus na souřadnice") {
+                    let properties = Focus.Properties(offset: presentation.camera.offset, scale: presentation.camera.scale)
+                    focusesChangeContext.append(["\(properties.offset.dx)", "\(properties.offset.dy)", "\(properties.scale)"])
+                    presentation.focuses.append(.properties(properties))
+                }
+            }.gridCellColumns(4)
+        }
     }
     
     @ViewBuilder var focusEditor: some View {
-        List(selection: $selectedFocus) {
+        List(selection: .init(
+            get: {
+                selectedFocusHash
+            },
+            set: { newHash in
+                guard let index = presentation.focuses.firstIndex(where: { $0.hashValue == newHash }) else {
+                    selectedFocusHash = nil
+                    return
+                }
+                selectedFocusHash = newHash
+                presentation.selectedFocus = index
+                prepareHintEditor(for: index)
+            }
+        )) {
             ForEach(presentation.focuses, id: \.hashValue) { focus in
                 let index = presentation.focuses.firstIndex(of: focus)!
                 HStack() {
                     switch focus {
-                    case let .slides(slides):
-                        Text(slides.map { $0.name }.joined(separator: " "))
+                    case .slides(_):
+                        slidesTokenView(at: index)
                     case let .properties(properties):
-                        Text("X")
-                        TextEditor(text: .init(get: { focusesChangeContext[index][0] }, set: { focusesChangeContext[index][0] = $0 }))
-                        Text("Y")
-                        TextEditor(text: .init(get: { focusesChangeContext[index][1] }, set: { focusesChangeContext[index][1] = $0 }))
-                        Text("Scale")
-                        TextEditor(text: .init(get: { focusesChangeContext[index][2] }, set: { focusesChangeContext[index][2] = $0 }))
                         Button("Ulož") {
                             var copy = properties
                             let dx = Double(focusesChangeContext[index][0]).flatMap(CGFloat.init(_:))
@@ -282,18 +326,28 @@ struct SlideControlPanel: View {
                             copy.scale = scale ?? copy.scale
                             presentation.focuses[index] = .properties(copy)
                         }
+                        Divider()
+                        Text("X")
+                        TextEditor(text: .init(get: { focusesChangeContext[index][0] }, set: { focusesChangeContext[index][0] = $0 }))
+                        Text("Y")
+                        TextEditor(text: .init(get: { focusesChangeContext[index][1] }, set: { focusesChangeContext[index][1] = $0 }))
+                        Text("Scale")
+                        TextEditor(text: .init(get: { focusesChangeContext[index][2] }, set: { focusesChangeContext[index][2] = $0 }))
                     }
                 }
             }.onMove { source, destination in
                 presentation.focuses.move(fromOffsets: source, toOffset: destination)
                 focusesChangeContext = SlideControlPanel.makeFocusesChangeContext(with: presentation.focuses)
+                prepareHintEditor(for: presentation.selectedFocus )
             }.onDelete { toDelete in
                 presentation.focuses.remove(atOffsets: toDelete)
                 focusesChangeContext = SlideControlPanel.makeFocusesChangeContext(with: presentation.focuses)
+                prepareHintEditor(for: presentation.selectedFocus )
             }
         }
         .onChange(of: presentation.focuses) { newValue in
             focusesChangeContext = SlideControlPanel.makeFocusesChangeContext(with: newValue)
+            prepareHintEditor(for: presentation.selectedFocus )
         }
     }
     
@@ -307,12 +361,100 @@ struct SlideControlPanel: View {
             }
         }
     }
+    
+    @ViewBuilder func slidesTokenView(at index: Int) -> some View {
+        Button("Ulož") {
+            let types: [any Slide.Type] = focusesChangeContext[index].compactMap { name in
+                presentation.slides.first { $0.name == name }
+            }
+            
+            presentation.focuses[index] = .slides(types)
+        }
+        Divider()
+        ForEach(focusesChangeContext[index], id: \.self) { slideName in
+            let slideIndex = focusesChangeContext[index].firstIndex(of: slideName)!
+            Button {
+                focusesChangeContext[index].remove(at: slideIndex)
+            }
+            label: {
+                HStack {
+                    Text(slideName)
+                    Image(systemName: "trash")
+                }
+            }
+        }
+        Divider()
+        Menu("Přidej") {
+            ForEach(presentation.slides.indices) { slideIndex in
+                let name = presentation.slides[slideIndex].name
+                Button(name) {
+                    if !focusesChangeContext[index].contains(where: { $0 == name }) {
+                        focusesChangeContext[index].append(name)
+                    }
+                }
+            }
+        }.frame(width: 100)
+    }
 
-}
+    @ViewBuilder private var hintView: some View {
+        if presentation.selectedFocus >= 0, presentation.selectedFocus < presentation.focuses.count {
+            switch presentation.focuses[presentation.selectedFocus] {
+            case let .properties(properties) where presentation.mode == .editor:
+                VStack {
+                    Button("Ulož") {
+                        var copy = properties
+                        copy.hint = hintEditing[0]
+                        presentation.focuses[presentation.selectedFocus] = .properties(copy)
+                    }
+                    TextEditor(text: .init(
+                        get: { hintEditing[0] ?? "" },
+                        set: { hintEditing[0] = $0 })
+                    )
+                }
+            case let .properties(properties):
+                ScrollView { Text(LocalizedStringKey(properties.hint ?? "")) }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            case let .slides(slides) where presentation.mode == .editor:
+                ScrollView {
+                    VStack {
+                        let hash = presentation.focuses[presentation.selectedFocus].hashValue
+                        let hashedInts = slides.indices.map { HashedInt(int: $0, hash: hash) }
+                        ForEach(hashedInts, id: \.int) { index in
+                            HStack {
+                                Button("Ulož") {
+                                    slides[index.int].hint = hintEditing[index.int]
+                                }
+                                Text("\(slides[index.int].name)")
+                            }
+                            TextEditor(text: .init(
+                                get: { hintEditing[index.int] ?? "" },
+                                set: { hintEditing[index.int] = $0 })
+                            )
+                        }
+                    }
+                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            case let .slides(slides):
+                let text = slides.compactMap { slide in slide.hint.flatMap { "**\(slide.name)**\n\($0)" } }.joined(separator: "\n\n--\n\n")
+                ScrollView { Text(LocalizedStringKey(text)) }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
+        } else {
+            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
 
-@available(macOS 13.0, *)
-struct SlideControlPanel_Previews: PreviewProvider {
-    static var previews: some View {
-        SlideControlPanel(focusesChangeContext: [])
+    private func prepareHintEditor(for index: Int) { prepareHintEditor(for: index, focuses: nil)}
+    private func prepareHintEditor(for index: Int, focuses: [Focus]?){
+        let focuses = focuses ?? presentation.focuses
+        if presentation.mode == .editor, index >= 0, index < focuses.count {
+            switch focuses[index] {
+            case let .slides(slides):
+                hintEditing = slides.map { $0.hint }
+            case let .properties(properties):
+                hintEditing = [properties.hint]
+            }
+        }
     }
 }
+

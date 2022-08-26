@@ -3,6 +3,15 @@ import SwiftUI
 struct WhatIsFTD: View, Slide {
     // @offset(WhatIsFTD)
     static var offset = CGVector(dx: 1.0, dy: 0.0)
+    
+    // @hint(WhatIsFTD){
+    static var hint: String? =
+"""
+Byl tu Miki!
+
+Jak se vede?
+"""
+    // }@hint(WhatIsFTD)
 
     init() {}
     
