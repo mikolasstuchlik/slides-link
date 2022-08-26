@@ -14,14 +14,9 @@ struct End: View, Slide {
     init() {}
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("**Děkuji za pozornost!!!**")
-                .font(.presentationTitle)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            Text("... a těste se na iOS meet ;)")
-                .font(.presentationNote)
-        }
-        .padding()
+        Text("**Děkuji za pozornost.**")
+            .font(.presentationTitle)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }
 

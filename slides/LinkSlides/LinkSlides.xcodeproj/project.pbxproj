@@ -13,8 +13,6 @@
 		BE03640E28B14FE300C667F5 /* Slides.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03640D28B14FE300C667F5 /* Slides.swift */; };
 		BE03641A28B1588500C667F5 /* Beginning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641928B1588500C667F5 /* Beginning.swift */; };
 		BE03641C28B1589100C667F5 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641B28B1589100C667F5 /* End.swift */; };
-		BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641D28B158A400C667F5 /* WhatIsFTD.swift */; };
-		BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641F28B158AC00C667F5 /* FTDExample.swift */; };
 		BE03642328B1638900C667F5 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BE03642228B1638900C667F5 /* CodeEditor */; };
 		BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* FontPicker.swift */; };
 		BE77176028B684980077ABA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77175F28B684980077ABA3 /* Extensions.swift */; };
@@ -41,8 +39,6 @@
 		BE03640D28B14FE300C667F5 /* Slides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slides.swift; sourceTree = "<group>"; };
 		BE03641928B1588500C667F5 /* Beginning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beginning.swift; sourceTree = "<group>"; };
 		BE03641B28B1589100C667F5 /* End.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = End.swift; sourceTree = "<group>"; };
-		BE03641D28B158A400C667F5 /* WhatIsFTD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIsFTD.swift; sourceTree = "<group>"; };
-		BE03641F28B158AC00C667F5 /* FTDExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDExample.swift; sourceTree = "<group>"; };
 		BE6FF46D28B3990600802752 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		BE77175F28B684980077ABA3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BE77176128B684C30077ABA3 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
@@ -118,8 +114,6 @@
 			children = (
 				BE03641928B1588500C667F5 /* Beginning.swift */,
 				BE03641B28B1589100C667F5 /* End.swift */,
-				BE03641D28B158A400C667F5 /* WhatIsFTD.swift */,
-				BE03641F28B158AC00C667F5 /* FTDExample.swift */,
 			);
 			path = Slides;
 			sourceTree = "<group>";
@@ -242,11 +236,9 @@
 				BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */,
 				BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */,
 				BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */,
-				BE03641E28B158A400C667F5 /* WhatIsFTD.swift in Sources */,
 				BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */,
 				BE03640E28B14FE300C667F5 /* Slides.swift in Sources */,
 				BE03641C28B1589100C667F5 /* End.swift in Sources */,
-				BE03642028B158AC00C667F5 /* FTDExample.swift in Sources */,
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
 				BE77176228B684C30077ABA3 /* Process.swift in Sources */,
 				BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */,

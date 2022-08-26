@@ -7,22 +7,22 @@ struct Beginning: View, Slide {
     // @hint(Beginning){
     static var hint: String? =
 """
-Čau lidi!
+
 """
     // }@hint(Beginning)
 
     init() {}
-    
-    let isPreview: Bool = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != nil
+
     var body: some View {
-        VStack {
-            Text("**Dynamická SwiftUI Prezentace**")
-                .font(.presentationTitle)
-            if !isPreview {
-                ToggleView {
-                    WebView(url: URL(string: "https://www.youtube.com/watch?v=AJgiKKLEhZw")!)
-                }
-            }
+        VStack(alignment: .leading) {
+            VStack {
+                Text("Sestavování projektu")
+                    .font(.presentationTitle)
+                Text("Hlavičky a linkování")
+                    .font(.presentationSubTitle)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            Text("Mikoláš Stuchlík, Futured.app, 2022")
+                .font(.presentationNote)
         }
         .padding()
     }

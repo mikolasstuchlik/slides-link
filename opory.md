@@ -1,5 +1,7 @@
 # Opory pro Build and Link
 
+---
+
 ## Programy a pojmy
 
 **Programy a nástroje**
@@ -44,5 +46,154 @@
  - _SIL_ Swift Intermediate Language, mezijazyk do kterého je přeložen kód v jazyce Swift.
  - _Swift: .swiftmodule a .swiftdoc soubor_ je Swift analogie pro hlavičkové soubory v C/C++. Soubor `.swiftmodule` obsahuje definice funkcí, datových typů a může obsahovat i SIL. Soubor `. swiftdoc` obsahuje další informace o `.swiftmodule` soubor, jako např. veřejnou dokumentaci. Oba soubory jsou v LLVM Bitcode.  
  
- ## Zdroje
- [1]
+---
+
+## Jazyk C
+
+###Sestavení se statickou knihovnou:
+
+```bash
+ clang -c FooCib.c
+ ar -q libFooCib.a FooCib.o
+ nm libFooCib.a
+ clang libFooCib.a execute.c
+```
+
+1. `clang` kompilátor C, `-c` "zastav po výstupu z assembleru", `FooCib.c` vstupní soubor
+2. `ar` správce archivů, `-q` "rychle" buďto vytvoř nový archiv, nebo přidej soubor na konec, `libFooCib.a` název výstupu, `FooCib.o` jméno vstupu (výstup předchozího kroku)
+3. `nm` zobrazuje symboly
+4. `clang` kompiláor C bez argumentů zkompiluje soubory na vsupu a vytvoří spustitelný soubor, nebo skončí s chybou, `libFooCib.a` statická knihovna obsahující symboly, `executable.c` zdrojový kód pro spustitelný soubor 
+
+
+### Sestavení s dynamickou knihovnou:
+
+```bash
+ clang -c -fPIC FooCib.c
+ clang -shared -o libFooCib.dylib FooCib.o
+ clang libFooCib.dylib execute.c
+``` 
+
+ 
+1. `clang` kompilátor C, `-c` "zastav po výstupu z assembleru", `-fPIC` vygeneruj kód jako "pozicově nezávislý" (viz pojmy), `FooCib.c` vstupní soubor
+2. `clang` kompilátor C, `-shared` pokyn k vytvoření sdílené knihovny, `-o libFooCib.dylib` název výstupu, `FooCib.o` jméno vstupu (výstup předchozího kroku)
+4. `clang` kompiláor C bez argumentů zkompiluje soubory na vsupu a vytvoří spustitelný soubor, nebo skončí s chybou, `libFooCib.dylib` linker editor (viz pojmy) použije tento soubor k vyhodnocení chybějících symbolů - tento soubor budy vyžadován při spuštění programu dynamickým linkerem, `executable.c` zdrojový kód pro spustitelný soubor 
+
+---
+
+## Jazyk C++
+
+Okomentujeme pouze odlišnosti od C
+
+### Sestavení se staticknou knihovnou
+
+```bash
+ clang++ -c FooXccib.cpp
+ ar -q libFooXccib.a FooXccib.o
+ nm --demangle libFooXccib.a
+ clang libFooXccib.a execute.cpp
+```
+
+1. -||-
+2. -||-
+3. `nm` zobrazuje symboly, `--demangle` přeloží "zamanglované" (viz pojmy) jména symbolů do "lidské řeči", `libFooXccib.a` jméno vstupu
+4. -||-
+
+### Sestavení s dynamickou knihovnou
+```bsh
+ clang++ -c -fPIC FooXccib.cpp
+ clang++ -shared -o libFooXccib.dylib FooXccib.o
+ clang++ libFooXccib.dylib execute.cpp
+
+```
+
+1. -||-
+2. -||-
+3. -||-
+
+---
+
+## Jazyk Swift
+
+### Příslušenství - závislosti
+
+```bash
+swiftc -frontend -scan-dependencies Execute.swift
+```
+
+`swiftc` kompilátor Swift (neplést s příkazem `swift`), `-frontend` význam: následující text je argument pro část kompilátoru řídicí průběh kompilace, `-scan-dependencies` vypiš na výstup které závislosti budou potřeba a skonči
+
+### Příslušenství - demangle
+
+```bash
+swift demangle s6FooLib0A5HelloV5greet3andySSSg_tF
+$s6FooLib0A5HelloV5greet3andySSSg_tF ---> FooLib.FooHello.greet(and: Swift.String?) -> ()
+```
+
+Tento příkaz umožňuje demanglovat symbol, který můžeme najít například pomocí `nm` do "lidštiny". Na rozdíl od C++, pro Swift to `nm` neumí automaticky.
+
+### Příslušenství - přečtení obsah souboru `.swiftmodule`
+
+Soubor `.swiftmldule` je binární soubor v LLVM Bitcode, následující programy nám umožňují číst obash
+
+```bash
+xcrun swift-api-digester -dump-sdk -module FooLib -o foo -I`pwd`
+```
+
+`xcrun` program spouštějící jiné programy v prostředí s vývojovými nástroji, `swift-api-digester` součást swift fontendu načítající rozhraní modulů, `-dump-sdk` vypiš obsah modulu ve formátu JSON, `-module FooLib` modul který chceme vypsat, `-o foo.json` kam chceme výstup uložit, `-I\`pwd\`` přidává absolutní cestu do současného adresáře mezi cesty ve kterých kompilátor hledá soubory `.swiftmodule`
+
+Následující program dělá něco podobného
+
+```bash
+sourcekitten module-info --module FooLib -- -sdk "$(xcrun --show-sdk-platform-path)/Developer/SDKs/MacOSX$(xcrun --show-sdk-version).sdk" -I`pwd`
+```
+
+`sourcekitten` nástroj zpřístupňující služby sourcekit před JSON rozhraní, `module-info` vypiš informace o modulu, `--module FooLib` jaký modul chceme vypsat, `--` text za tímto znakem bude předán kompilátoru (resp. sourcekitu), `-sdk "$(xcrun --show-sdk-platform-path)/Developer/SDKs/MacOSX$(xcrun --show-sdk-version).sdk"` specifikuje kde se nachází SDK pro macOS ("cena" za to, že nepoužíváme `xcrun`), `-I\`pwd\`` přidává absolutní cestu do současného adresáře mezi cesty ve kterých kompilátor hledá soubory `.swiftmodule`
+
+### Sestavení se statickou knihovnou
+
+```bash
+swiftc -parse-as-library -emit-library -static -emit-module FooLib.swift
+swiftc -I`pwd` libFooLib.a Execute.swift
+```
+
+První příkaz:
+
+ 1. `swiftc` kompilátor swift
+ 2. `-parse-as-library` chovej se k modulu jako ke knihovně, tj. **neumožni** spustitelný kód mimo scope funkce a **nevytvářej** funkci `main`
+ 3. `-emit-library` vystup kompilace nechť je knihovna (výchozí nastavení je dynamická)
+ 4. `-static` pokud je výstupem knihovna, nechť je statická
+ 5. `-emit-module` vygeneruj soubory `.swiftmodule` a `.swiftdoc` nutné pro to, aby byl modul "importovatelný"
+
+Druhý příkaz:
+
+ 1. `swiftc` kompilátor Swift
+ 2. `-I\`pwd\`` přidej současnou složku do složek, ve kterých hledá kompilátor moduly 
+ 3. `libFooLib.a` soubor s knihovnou
+ 4. `Executable.swift` Swift soubor, který bude zkompilován jako spustitelný
+
+### Sestavení s dynamickou knihovnou
+
+```bash
+swiftc -parse-as-library -emit-library -emit-module FooLib.swift
+swiftc -I`pwd` libFooLib.dylib Execute.swift
+```
+
+Postup je ekvivalentní, jako u statické knihovny, kromě:
+
+První příkaz:
+
+ - Všimněte si, že chybí přepínač `-static`
+
+
+---
+
+## Zdroje
+ [1] Proč Clang automaticky generuje dSYM pro spustitelné binárky na macOS? [https://stackoverflow.com/questions/32297349/why-does-a-2-stage-command-line-build-with-clang-not-generate-a-dsym-directory](https://stackoverflow.com/questions/32297349/why-does-a-2-stage-command-line-build-with-clang-not-generate-a-dsym-directory)
+ 
+ [2] Diagram kompilace Swift [https://qiita.com/rintaro/items/3ad640e3938207218c20](https://qiita.com/rintaro/items/3ad640e3938207218c20)
+ 
+ [3] Rozdíly mezy `nm`, `otool` a poznámky o `Mach-O` [https://medium.com/a-42-journey/nm-otool-everything-you-need-to-know-to-build-your-own-7d4fef3d7507](https://medium.com/a-42-journey/nm-otool-everything-you-need-to-know-to-build-your-own-7d4fef3d7507)
+ 
+ [4] Linkování a kompilace obecně [http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html](http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html)
+
+ [5] Diagramy statické x dynamické knihovny. Dokumentace Apple ohledně dynamických knihoven [https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1)

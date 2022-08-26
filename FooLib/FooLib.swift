@@ -23,16 +23,3 @@ public struct FooHello {
     }
 
 }
-
-/*
- swiftc -parse-as-library -emit-library -emit-module -static FooLib.swift
-
- Obrázek: https://qiita.com/rintaro/items/3ad640e3938207218c20
-
-
-.swiftmodule:
- xcrun swift-api-digester -dump-sdk -module FooLib -o foo -I`pwd`
- nebo
- sourcekitten module-info --module FooLib -- -sdk "$(xcrun --show-sdk-platform-path)/Developer/SDKs/MacOSX$(xcrun --show-sdk-version).sdk" -I`pwd`
-
- */
