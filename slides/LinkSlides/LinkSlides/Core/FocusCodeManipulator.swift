@@ -239,7 +239,7 @@ final class FocusCodeManipulator {
                 switch focus {
                 case let .properties(properties):
                     acumulator.append(
-                        ".properties(.init(offset: CGVector(dx: \(properties.offset.dx), dy: \(properties.offset.dy), scale: \(properties.scale), hint: gen-hint_\(hintIndex)),"
+                        ".properties(.init(offset: CGVector(dx: \(properties.offset.dx), dy: \(properties.offset.dy)), scale: \(properties.scale), hint: generated_hint_\(hintIndex))),"
                     )
                     hintIndex += 1
                 case let .slides(slides):
@@ -263,7 +263,7 @@ final class FocusCodeManipulator {
                 case let .properties(properties):
                     let hintString =
 #"""
-\#(indentation)private let gen-hint_\#(hintIndex): String =
+\#(indentation)private let generated_hint_\#(hintIndex): String =
 """
 
 """#
@@ -273,6 +273,7 @@ final class FocusCodeManipulator {
 #"""
 """
 """#
+                    acumulator.append(hintString)
                     hintIndex += 1
                 default:
                     break
@@ -285,7 +286,7 @@ final class FocusCodeManipulator {
         let output =
 #"""
 \#(indentation)private var focuses: [Focus] = [
-    \#(focusArrayContent())
+\#(focusArrayContent())
 ]
 
 \#(hintContent())

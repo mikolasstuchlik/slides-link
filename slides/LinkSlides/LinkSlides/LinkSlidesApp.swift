@@ -17,16 +17,36 @@ private let slides: [any Slide.Type] = [
 ]
 
 // @focuses(focuses){
-private let focuses: [Focus] = [
-    .slides([Beginning.self]),
-    .slides([FTDExample.self]),
-    .slides([WhatIsFTD.self]),
-    .properties(.init(offset: CGVector(dx: 0, dy: -4), scale: 0.2, hint: nil)),
-    .properties(.init(offset: CGVector(dx: 0, dy: -3.5), scale: 0.9, hint: nil)),
-    .slides([Beginning.self, WhatIsFTD.self]),
-    .slides([End.self]),
-    .slides([Beginning.self, WhatIsFTD.self, FTDExample.self, End.self]),
+private var focuses: [Focus] = [
+    .slides([Beginning.self, ]),
+    .slides([FTDExample.self, ]),
+    .slides([WhatIsFTD.self, ]),
+    .properties(.init(offset: CGVector(dx: 0.0, dy: -4.0), scale: 0.2, hint: generated_hint_0)),
+    .properties(.init(offset: CGVector(dx: 0.0, dy: -3.5), scale: 0.9, hint: generated_hint_1)),
+    .slides([Beginning.self, WhatIsFTD.self, ]),
+    .slides([End.self, ]),
+    .slides([Beginning.self, WhatIsFTD.self, FTDExample.self, End.self, ]),
+    .properties(.init(offset: CGVector(dx: 1.0, dy: 1.0), scale: 0.07, hint: generated_hint_2)),
 ]
+
+private let generated_hint_0: String =
+"""
+
+"""
+
+private let generated_hint_1: String =
+"""
+
+"""
+
+private let generated_hint_2: String =
+"""
+Poslední hint
+:)
+:)
+:)
+"""
+
 // }@focuses(focuses)
 
 private let presentation = PresentationProperties(
