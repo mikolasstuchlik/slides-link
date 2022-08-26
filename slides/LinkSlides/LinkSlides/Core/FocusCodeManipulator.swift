@@ -208,9 +208,9 @@ final class FocusCodeManipulator {
         let indentation = "\(regexResult[FocusCodeManipulator.indent])"
         let hintContent = regexResult[FocusCodeManipulator.content].range
         
-        let output = indentation +
+        let output =
 #"""
-static var hint: String? =
+\#(indentation)static var hint: String? =
 """
 
 """#
@@ -226,7 +226,75 @@ static var hint: String? =
     }
 
     private func storeFocuses(at file: String) throws {
+        var content = try String(contentsOfFile: rootPath + "/" + file, encoding: .utf8)
+        let regexResult = try FocusCodeManipulator.focusRegex.firstMatch(in: content)!
+        let variableName = "\(regexResult[FocusCodeManipulator.startName])"
+        let indentation = "\(regexResult[FocusCodeManipulator.indent])"
+        let focusesContent = regexResult[FocusCodeManipulator.content].range
+            
+        func focusArrayContent() -> String {
+            var acumulator: [String] = []
+            var hintIndex = 0
+            for focus in knownFocuses {
+                switch focus {
+                case let .properties(properties):
+                    acumulator.append(
+                        ".properties(.init(offset: CGVector(dx: \(properties.offset.dx), dy: \(properties.offset.dy), scale: \(properties.scale), hint: gen-hint_\(hintIndex)),"
+                    )
+                    hintIndex += 1
+                case let .slides(slides):
+                    var line = ".slides(["
+                    for slide in slides {
+                        line += String(describing: slide.self) + ".self, "
+                    }
+                    line += "]),"
+                    acumulator.append(line)
+                }
+            }
+            
+            return acumulator.map { indentation + "    " + $0 }.joined(separator: "\n")
+        }
         
+        func hintContent() -> String {
+            var acumulator: [String] = []
+            var hintIndex = 0
+            for focus in knownFocuses {
+                switch focus {
+                case let .properties(properties):
+                    let hintString =
+#"""
+\#(indentation)private let gen-hint_\#(hintIndex): String =
+"""
+
+"""#
+        +
+        (properties.hint.flatMap {$0 + "\n" } ?? "")
+        +
+#"""
+"""
+"""#
+                    hintIndex += 1
+                default:
+                    break
+                }
+            }
+            
+            return acumulator.joined(separator: "\n\n")
+        }
+        
+        let output =
+#"""
+\#(indentation)private var focuses: [Focus] = [
+    \#(focusArrayContent())
+]
+
+\#(hintContent())
+
+"""#
+        
+        content.replaceSubrange(focusesContent, with: output)
+        
+        try content.write(toFile: rootPath + "/" + file, atomically: true, encoding: .utf8)
     }
 
     private func loadFilePathsForHints() -> [String: String] {
