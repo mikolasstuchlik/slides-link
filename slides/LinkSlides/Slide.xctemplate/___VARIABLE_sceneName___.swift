@@ -14,12 +14,22 @@ struct ___VARIABLE_sceneName___: View, Slide {
     init() {}
 
     var body: some View {
-        Text("Hello")
+        VStack(alignment: .leading, spacing: 32) {
+            VStack(alignment: .leading) {
+                Text("Nadpis").font(.presentationHeadline)
+                Text("Podnadpis").font(.presentationSubHeadline)
+            }
+            Text(
+"""
+Tělo
+"""
+            ).font(.presentationBody).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        }.padding()
     }
 }
 
 struct ___VARIABLE_sceneName____Previews: PreviewProvider {
     static var previews: some View {
-        ___VARIABLE_sceneName___()
+        ___VARIABLE_sceneName___().frame(width: 1024, height: 768)
     }
 }

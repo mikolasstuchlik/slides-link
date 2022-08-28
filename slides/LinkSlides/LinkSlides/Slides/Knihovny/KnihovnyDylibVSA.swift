@@ -17,27 +17,21 @@ struct KnihovnyDylibVSA: View, Slide {
         VStack(alignment: .leading, spacing: 32) {
             VStack(alignment: .leading) {
                 Text("Knihovna").font(.presentationHeadline)
-                Text("Pohled z výšky: co to je knihovna").font(.presentationSubHeadline)
+                Text("Pohled z výšky: *statická* vs. *dynamická*").font(.presentationSubHeadline)
             }
-            Text(
-"""
-**Z praxe**
-
-- My se setkáváme s knihovnami nejčastěji ve formě modulů, které si buďto stahujeme z internetu, nebo jsou součástí iOS
-- Např:  `import SwiftUI`  nám zpřístupní funkcionalitu SwiftUI
-
-**Co to znamená pro Xcode?**
-
-- Aby jsme mohli modul používat, musíme vědět co v něm je. Za tímto účelem Xcode načte buďto *hlavičky* nebo *swiftmodule*.
-- "Kód" modulu má pak formu *statické nebo dynamické knihovny*
-
-**Kde se knihovna vezme?**
-
-- Pokud se jedná o "systémový framework" je přímo na zařízení
-- Pokud se jedná o open-source Package, zkompilujeme ji zároveň s aplikací a přibalíme k ní
-- Pokud se jedná o nesvobodnou knihovnu (např. GoogleMaps), zkompiluje nám ji Google a my ji jenom přibalíme.
-"""
-            ).font(.presentationBody).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            HStack {
+                VStack {
+                    Text("Statická").font(.presentationBody)
+                    Image("static").resizable().scaledToFit()
+                    Text("přípona `.a`").font(.presentationBody)
+                }
+                VStack {
+                    Text("Dynamická").font(.presentationBody)
+                    Image("dynamic").resizable().scaledToFit()
+                    Text("přípona `.dylib` (na linuxu `.so`)").font(.presentationBody)
+                }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            Text("`Static linker`  není označení běžně používané, spíše doporučuji  `linker editor`").font(.presentationNote).frame(alignment: .leading)
         }.padding()
     }
 }

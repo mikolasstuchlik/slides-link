@@ -26,6 +26,11 @@
 		BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BFF1128B3764200B04726 /* TerminalView.swift */; };
 		BEA78EE428BBCD4F00EC5816 /* UvodProc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE328BBCD4F00EC5816 /* UvodProc.swift */; };
 		BEA78EE828BBCE9E00EC5816 /* KnihovnyDylibVSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */; };
+		BEA78EEA28BBEF2A00EC5816 /* KnihovnyHighLvl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE928BBEF2A00EC5816 /* KnihovnyHighLvl.swift */; };
+		BEA78EEC28BBF3B200EC5816 /* KnihovnyHandoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EEB28BBF3B200EC5816 /* KnihovnyHandoff.swift */; };
+		BEA78EEF28BBFD6E00EC5816 /* CZaklad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */; };
+		BEA78EF128BC18E300EC5816 /* CHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EF028BC18E300EC5816 /* CHeader.swift */; };
+		BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */; };
 		BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
@@ -54,6 +59,11 @@
 		BE8BFF1128B3764200B04726 /* TerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalView.swift; sourceTree = "<group>"; };
 		BEA78EE328BBCD4F00EC5816 /* UvodProc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UvodProc.swift; sourceTree = "<group>"; };
 		BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnihovnyDylibVSA.swift; sourceTree = "<group>"; };
+		BEA78EE928BBEF2A00EC5816 /* KnihovnyHighLvl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnihovnyHighLvl.swift; sourceTree = "<group>"; };
+		BEA78EEB28BBF3B200EC5816 /* KnihovnyHandoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnihovnyHandoff.swift; sourceTree = "<group>"; };
+		BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CZaklad.swift; sourceTree = "<group>"; };
+		BEA78EF028BC18E300EC5816 /* CHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHeader.swift; sourceTree = "<group>"; };
+		BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDvaSoubory.swift; sourceTree = "<group>"; };
 		BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBackground.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
@@ -118,6 +128,7 @@
 		BE03641628B1586100C667F5 /* Slides */ = {
 			isa = PBXGroup;
 			children = (
+				BEA78EED28BBFD5800EC5816 /* C */,
 				BEA78EE628BBCE7300EC5816 /* Knihovny */,
 				BEA78EE528BBCE6900EC5816 /* Uvod */,
 				BE03641928B1588500C667F5 /* Beginning.swift */,
@@ -163,8 +174,20 @@
 			isa = PBXGroup;
 			children = (
 				BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */,
+				BEA78EE928BBEF2A00EC5816 /* KnihovnyHighLvl.swift */,
+				BEA78EEB28BBF3B200EC5816 /* KnihovnyHandoff.swift */,
 			);
 			path = Knihovny;
+			sourceTree = "<group>";
+		};
+		BEA78EED28BBFD5800EC5816 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */,
+				BEA78EF028BC18E300EC5816 /* CHeader.swift */,
+				BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */,
+			);
+			path = C;
 			sourceTree = "<group>";
 		};
 		BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */ = {
@@ -258,8 +281,11 @@
 				BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */,
 				BEC3944D28B7B67A00C2EFF3 /* FocusCodeManipulator.swift in Sources */,
 				BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */,
+				BEA78EEC28BBF3B200EC5816 /* KnihovnyHandoff.swift in Sources */,
+				BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */,
 				BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */,
 				BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */,
+				BEA78EF128BC18E300EC5816 /* CHeader.swift in Sources */,
 				BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */,
 				BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */,
 				BE03640E28B14FE300C667F5 /* Slides.swift in Sources */,
@@ -268,6 +294,8 @@
 				BE4D2D5028BBCAD10086D7D8 /* UvodOTematu.swift in Sources */,
 				BE03641C28B1589100C667F5 /* End.swift in Sources */,
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
+				BEA78EEA28BBEF2A00EC5816 /* KnihovnyHighLvl.swift in Sources */,
+				BEA78EEF28BBFD6E00EC5816 /* CZaklad.swift in Sources */,
 				BE77176228B684C30077ABA3 /* Process.swift in Sources */,
 				BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */,
 				BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */,

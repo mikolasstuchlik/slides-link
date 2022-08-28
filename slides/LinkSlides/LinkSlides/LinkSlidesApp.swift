@@ -11,7 +11,8 @@ private let backgrounds: [any Background] = [
 private let slides: [any Slide.Type] = [
     Beginning.self,
     UvodOTematu.self, UvodProc.self,
-    KnihovnyDylibVSA.self,
+    KnihovnyDylibVSA.self, KnihovnyHighLvl.self, KnihovnyHandoff.self,
+    CZaklad.self, CHeader.self, CDvaSoubory.self,
     End.self,
 ]
 
@@ -28,6 +29,7 @@ let hint_manual1 =
 
 private var focuses: [Focus] = [
     .slides([Beginning.self, ]),
+    .slides([CDvaSoubory.self]),
     .slides([UvodOTematu.self]),
     .slides([UvodProc.self]),
     .properties(.init(offset: .zero, scale: 0.5, hint: hint_manual1)),
@@ -42,6 +44,50 @@ private let presentation = PresentationProperties(
     slides: slides,
     focuses: focuses
 )
+
+final class FileCoordinator {
+    static let shared = FileCoordinator()
+    
+    private static let workFolder = "/slides"
+    
+    let appSupportURL: URL
+    var workFolder: String { appSupportURL.path + FileCoordinator.workFolder }
+    private var preparedFolders: Set<String> = []
+    
+    private init() {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        self.appSupportURL = appSupport
+        var isDir = ObjCBool(true)
+        if FileManager.default.fileExists(atPath: appSupport.path + FileCoordinator.workFolder, isDirectory: &isDir) {
+            guard isDir.boolValue else {
+                fatalError()
+            }
+
+            try! FileManager.default.removeItem(atPath: appSupport.path + FileCoordinator.workFolder)
+        }
+        
+        try! FileManager.default.createDirectory(atPath: appSupport.path + FileCoordinator.workFolder, withIntermediateDirectories: true)
+    }
+    
+    func pathToFolder(for name: String) -> String {
+        if preparedFolders.contains(name) {
+            return workFolder + "/" + name
+        }
+        
+        var isDir = ObjCBool(true)
+        if FileManager.default.fileExists(atPath: workFolder + "/" + name, isDirectory: &isDir) {
+            guard isDir.boolValue else {
+                fatalError()
+            }
+
+            try! FileManager.default.removeItem(atPath: workFolder + "/" + name)
+        }
+        
+        try! FileManager.default.createDirectory(atPath: workFolder + "/" + name, withIntermediateDirectories: true)
+        
+        return workFolder + "/" + name
+    }
+}
 
 @main
 struct LinkSlidesApp: App {

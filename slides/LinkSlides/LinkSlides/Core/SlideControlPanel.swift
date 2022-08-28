@@ -230,6 +230,14 @@ struct SlideControlPanel: View {
                     FontPicker("Podnadpis", selection: $presentation.subHeadline)
                     FontPicker("Poznámka", selection: $presentation.note)
                 }
+                GridRow {
+                    Slider(
+                        value: $presentation.codeEditorFontSize,
+                        in: CGFloat(15.0)...CGFloat(40.0),
+                        step: 1.0,
+                        label: { Text("Editor font \(presentation.codeEditorFontSize)") }
+                    ).gridCellColumns(2)
+                }
             }.gridCellColumns(3)
         }
     }

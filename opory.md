@@ -44,7 +44,8 @@
  - **C/C++: deklarace a prototyp** deklarace symbolu nastává v C/C++ tam, kde dochází k "první zmíňce" o symbolu (nehledě na to, jestli se jedná o definici prototypu nebo použití, což vede k "implicitní deklaraci"). Definice prototypu přisuzuje symbolu jeho typ/návratovou hodnoty a argumenty - ale ne nutně tělo funkce (popř. místo pro data), to může být vyhodnoceno během linkování.
  - **C/C++: hlavičkový soubor** soubor, který obsahuje (mj.) deklarace symbolů (proměnných, funkcí), ale i datových typů (např. `struct`, `typealias`, `enum`, ...).
  - **SIL** Swift Intermediate Language, mezijazyk do kterého je přeložen kód v jazyce Swift.
- - **Swift: .swiftmodule a .swiftdoc soubor** je Swift analogie pro hlavičkové soubory v C/C++. Soubor `.swiftmodule` obsahuje definice funkcí, datových typů a může obsahovat i SIL. Soubor `. swiftdoc` obsahuje další informace o `.swiftmodule` soubor, jako např. veřejnou dokumentaci. Oba soubory jsou v LLVM Bitcode.  
+ - **Swift: .swiftmodule a .swiftdoc soubor** je Swift analogie pro hlavičkové soubory v C/C++. Soubor `.swiftmodule` obsahuje definice funkcí, datových typů a může obsahovat i SIL. Soubor `. swiftdoc` obsahuje další informace o `.swiftmodule` soubor, jako např. veřejnou dokumentaci. Oba soubory jsou v LLVM Bitcode.
+ - **Stub object** volně přeložený jako "kousek sdíleného objektu" může mít různé formy, ale zpravidla obsahuje seznam symbolů a architektur, které obsahuje *nějaká existující* sdílená knihovna kterou zastupuje. Neobsahuje ale definice symbolů. Požívá se např. v SDK na Apple platformách.
  
 ---
 
@@ -211,8 +212,12 @@ Osnova
 
  - Nejprve se podíváme na to, co to vůbec je knihovna
  - Ukážeme si jak se pracuje s knihovnami v C a na tomto základě si vysvětlíme jak funguje proces kompilace
- - Co jsme viděli u C si zopakujeme v C++ ale zaměříme se na rozdíly
  - Ukážeme si jak do toho všeho zapadá Swift
+ 
+Bonus
+ - Co je .tbd
+ - Co je uvnitř Frameworků 
+ - Co jsme viděli u C si zopakujeme v C++ ale zaměříme se na rozdíly
 
 ---
 
@@ -228,3 +233,5 @@ Osnova
  [5] Diagramy statické x dynamické knihovny. Dokumentace Apple ohledně dynamických knihoven [https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1)
  
  [6] Co je `.swiftmodule` [https://forums.swift.org/t/whats-in-the-file-of-swiftmodule-how-to-open-it/1032/2](https://forums.swift.org/t/whats-in-the-file-of-swiftmodule-how-to-open-it/1032/2)
+
+ [7] Forma `.tbd` viz [https://stackoverflow.com/questions/31450690/why-xcode-7-shows-tbd-instead-of-dylib](https://stackoverflow.com/questions/31450690/why-xcode-7-shows-tbd-instead-of-dylib), definice "Stub object" viz Oracle [https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter2-22.html](https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter2-22.html) 

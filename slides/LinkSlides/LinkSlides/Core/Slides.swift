@@ -364,6 +364,10 @@ final class PresentationProperties: ObservableObject {
             }
         }
     }
+    
+    static func preview() -> PresentationProperties {
+        PresentationProperties(rootPath: "", slidesPath: "", backgrounds: [], slides: [], focuses: [])
+    }
 
     init(rootPath: String, slidesPath: String, backgrounds: [any Background], slides: [any Slide.Type], focuses: [Focus]) {
         self.rootPath = rootPath
@@ -408,6 +412,7 @@ final class PresentationProperties: ObservableObject {
     static let defaultSubHeadline = NSFont.systemFont(ofSize: 40, weight: .regular)
     static let defaultBody = NSFont.systemFont(ofSize: 30)
     static let defaultNote = NSFont.systemFont(ofSize: 20, weight: .light)
+    static let defaultEditorFont = NSFont.systemFont(ofSize: 25, weight: .regular)
 
     @Published var title: NSFont = PresentationProperties.defaultTitle {
         willSet {
@@ -442,6 +447,12 @@ final class PresentationProperties: ObservableObject {
     @Published var note: NSFont = PresentationProperties.defaultNote  {
         willSet {
             Font.presentationNote = Font(newValue as CTFont)
+        }
+    }
+
+    @Published var codeEditorFontSize: CGFloat = 25 {
+        willSet {
+            Font.presentationEditorFont = Font.system(size: newValue)
         }
     }
 
@@ -508,4 +519,5 @@ extension Font {
     static fileprivate(set) var presentationSubHeadline: Font = { Font(PresentationProperties.defaultSubHeadline as CTFont) }()
     static fileprivate(set) var presentationBody: Font = { Font(PresentationProperties.defaultBody as CTFont) }()
     static fileprivate(set) var presentationNote: Font = { Font(PresentationProperties.defaultNote as CTFont) }()
+    static fileprivate(set) var presentationEditorFont: Font = { Font(PresentationProperties.defaultEditorFont as CTFont) }()
 }
