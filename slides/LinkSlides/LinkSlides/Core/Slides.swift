@@ -237,12 +237,12 @@ struct Presentation: View {
             }
             let newPosition = offset(for: event.locationInWindow, in: windowSize)
 
-            slide.offset = slide.offset - (newPosition - lastPosition)
+            slide.offset = slide.offset + (newPosition - lastPosition)
             // If some camera property isnt changed, the slide is not re-arranged on the plane
-            presentation.camera.offset = presentation.camera.offset - (newPosition - lastPosition)
+            presentation.camera.offset = presentation.camera.offset
 
             moveSlideMachine = .leftButtonDown(lastPosition: newPosition, context: slide)
-        case .leftMouseUp where mouseMoveMachine != .idle:
+        case .leftMouseUp where moveSlideMachine != .idle:
             moveSlideMachine = .callFlagDown
         default:
             break
@@ -269,7 +269,7 @@ struct Presentation: View {
         CGVector(
             dx: (position.x - window.width / 2) / window.width / presentation.camera.scale,
             dy: (position.y - window.height / 2) / window.height / presentation.camera.scale
-        ).invertedDY() + presentation.camera.offset
+        ).invertedDY()
     }
     
     private func absoluteToOffset(size: CGSize) -> CGSize {
@@ -375,7 +375,7 @@ final class PresentationProperties: ObservableObject {
 
     var selectedFocus: Int = 0 {
         didSet {
-            guard let newConfiguration = getConfiguration(for: selectedFocus) else {
+            guard let newConfiguration = getConfiguration(for: selectedFocus), !(mode == .editor && moveCamera == false) else {
                 return
             }
             camera = .init(offset: newConfiguration.offset, scale: newConfiguration.scale)
@@ -400,6 +400,7 @@ final class PresentationProperties: ObservableObject {
     @Published var loadThumbnails: Bool = false
     
     @Published var camera: Camera = .init(offset: .zero, scale: 1.0)
+    @Published var moveCamera: Bool = false
     
     static let defaultTitle = NSFont.systemFont(ofSize: 80, weight: .bold)
     static let defaultSubTitle = NSFont.systemFont(ofSize: 70, weight: .regular)

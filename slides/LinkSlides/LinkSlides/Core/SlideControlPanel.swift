@@ -17,11 +17,7 @@ struct SlideControlPanel: View {
 
     @EnvironmentObject var presentation: PresentationProperties
     @Environment(\.openWindow) private var openWindow
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var now: Date = Date()
-    @State var stateTime: Date?
-    
+
     @State var focusManualEntry: String = ""
     
     @State var screenXManualEntry: String = ""
@@ -54,12 +50,7 @@ struct SlideControlPanel: View {
     var body: some View {
         HStack(spacing: 16) {
             VStack(spacing: 16) {
-                HStack(spacing: 16) {
-                    dateCounter
-                    Spacer()
-                    timeCounter
-                    runButton
-                }
+                runButton
                 if presentation.mode != .editor {
                     Spacer()
                         .frame(maxHeight: .infinity)
@@ -86,7 +77,6 @@ struct SlideControlPanel: View {
     
     private var runButton: some View {
         Button {
-            stateTime = Date()
             openWindow(id: "slides")
         } label: {
             Image(systemName: "play.circle.fill")
@@ -97,25 +87,7 @@ struct SlideControlPanel: View {
         .buttonStyle(.plain)
         .frame(width: 50, height: 50)
     }
-    
-    private var dateCounter: some View {
-        Text(timeDateFormatter.string(from: now)).onReceive(timer) { _ in
-            now = Date()
-        }.font(.largeTitle)
-    }
-    
-    @ViewBuilder private var timeCounter: some View {
-        if let stateTime {
-            Text(
-                timeDateFormatter.string(
-                    from: Date(timeIntervalSince1970: -stateTime.timeIntervalSinceNow - 3600)
-                )
-            ).font(.largeTitle)
-        } else {
-            Text("00:00:00").font(.largeTitle)
-        }
-    }
-    
+
     @ViewBuilder private var presentationControl: some View {
         VStack {
             Grid {
@@ -264,6 +236,10 @@ struct SlideControlPanel: View {
     
     @ViewBuilder var editorCommands: some View {
         GridRow {
+            Text("Pohyb kamery")
+            Toggle(isOn: $presentation.moveCamera, label: { Text("Zaostřit na vybraný snímek") }).gridCellColumns(3)
+        }
+        GridRow {
             Text("Code generation")
             Button("Save offsets") {
                 let editor = OffsetCodeManipulator(slidesPath: presentation.slidesPath, knowSlides: presentation.slides)
@@ -295,20 +271,22 @@ struct SlideControlPanel: View {
     }
     
     @ViewBuilder var focusEditor: some View {
-        List(selection: .init(
-            get: {
-                selectedFocusHash
-            },
-            set: { newHash in
-                guard let index = presentation.focuses.firstIndex(where: { $0.hashValue == newHash }) else {
-                    selectedFocusHash = nil
-                    return
+        List(
+            selection: .init(
+                get: {
+                    selectedFocusHash
+                },
+                set: { newHash in
+                    guard let index = presentation.focuses.firstIndex(where: { $0.hashValue == newHash }) else {
+                        selectedFocusHash = nil
+                        return
+                    }
+                    selectedFocusHash = newHash
+                    presentation.selectedFocus = index
+                    prepareHintEditor(for: index)
                 }
-                selectedFocusHash = newHash
-                presentation.selectedFocus = index
-                prepareHintEditor(for: index)
-            }
-        )) {
+            )
+        ) {
             ForEach(presentation.focuses, id: \.hashValue) { focus in
                 let index = presentation.focuses.firstIndex(of: focus)!
                 HStack() {
