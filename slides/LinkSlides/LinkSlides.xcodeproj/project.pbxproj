@@ -14,6 +14,7 @@
 		BE03641A28B1588500C667F5 /* Beginning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641928B1588500C667F5 /* Beginning.swift */; };
 		BE03641C28B1589100C667F5 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641B28B1589100C667F5 /* End.swift */; };
 		BE03642328B1638900C667F5 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BE03642228B1638900C667F5 /* CodeEditor */; };
+		BE4D2D5028BBCAD10086D7D8 /* UvodOTematu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */; };
 		BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* FontPicker.swift */; };
 		BE77176028B684980077ABA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77175F28B684980077ABA3 /* Extensions.swift */; };
 		BE77176228B684C30077ABA3 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176128B684C30077ABA3 /* Process.swift */; };
@@ -23,6 +24,8 @@
 		BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176928B686B20077ABA3 /* TextEditorView.swift */; };
 		BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A826228B6C2D90078ED83 /* OutlineView.swift */; };
 		BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BFF1128B3764200B04726 /* TerminalView.swift */; };
+		BEA78EE428BBCD4F00EC5816 /* UvodProc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE328BBCD4F00EC5816 /* UvodProc.swift */; };
+		BEA78EE828BBCE9E00EC5816 /* KnihovnyDylibVSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */; };
 		BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
@@ -39,6 +42,7 @@
 		BE03640D28B14FE300C667F5 /* Slides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slides.swift; sourceTree = "<group>"; };
 		BE03641928B1588500C667F5 /* Beginning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beginning.swift; sourceTree = "<group>"; };
 		BE03641B28B1589100C667F5 /* End.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = End.swift; sourceTree = "<group>"; };
+		BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UvodOTematu.swift; sourceTree = "<group>"; };
 		BE6FF46D28B3990600802752 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		BE77175F28B684980077ABA3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BE77176128B684C30077ABA3 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
@@ -48,6 +52,8 @@
 		BE77176928B686B20077ABA3 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		BE7A826228B6C2D90078ED83 /* OutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
 		BE8BFF1128B3764200B04726 /* TerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalView.swift; sourceTree = "<group>"; };
+		BEA78EE328BBCD4F00EC5816 /* UvodProc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UvodProc.swift; sourceTree = "<group>"; };
+		BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnihovnyDylibVSA.swift; sourceTree = "<group>"; };
 		BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBackground.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
@@ -112,6 +118,8 @@
 		BE03641628B1586100C667F5 /* Slides */ = {
 			isa = PBXGroup;
 			children = (
+				BEA78EE628BBCE7300EC5816 /* Knihovny */,
+				BEA78EE528BBCE6900EC5816 /* Uvod */,
 				BE03641928B1588500C667F5 /* Beginning.swift */,
 				BE03641B28B1589100C667F5 /* End.swift */,
 			);
@@ -140,6 +148,23 @@
 				BE7A826228B6C2D90078ED83 /* OutlineView.swift */,
 			);
 			path = "Feature Views";
+			sourceTree = "<group>";
+		};
+		BEA78EE528BBCE6900EC5816 /* Uvod */ = {
+			isa = PBXGroup;
+			children = (
+				BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */,
+				BEA78EE328BBCD4F00EC5816 /* UvodProc.swift */,
+			);
+			path = Uvod;
+			sourceTree = "<group>";
+		};
+		BEA78EE628BBCE7300EC5816 /* Knihovny */ = {
+			isa = PBXGroup;
+			children = (
+				BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */,
+			);
+			path = Knihovny;
 			sourceTree = "<group>";
 		};
 		BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */ = {
@@ -238,6 +263,9 @@
 				BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */,
 				BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */,
 				BE03640E28B14FE300C667F5 /* Slides.swift in Sources */,
+				BEA78EE828BBCE9E00EC5816 /* KnihovnyDylibVSA.swift in Sources */,
+				BEA78EE428BBCD4F00EC5816 /* UvodProc.swift in Sources */,
+				BE4D2D5028BBCAD10086D7D8 /* UvodOTematu.swift in Sources */,
 				BE03641C28B1589100C667F5 /* End.swift in Sources */,
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
 				BE77176228B684C30077ABA3 /* Process.swift in Sources */,

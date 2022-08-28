@@ -10,12 +10,27 @@ private let backgrounds: [any Background] = [
 
 private let slides: [any Slide.Type] = [
     Beginning.self,
+    UvodOTematu.self, UvodProc.self,
+    KnihovnyDylibVSA.self,
     End.self,
 ]
 
 // @focuses(focuses){
+let hint_manual1 =
+"""
+ - Nejprve se podíváme na to, co to vůbec je knihovna
+ - Ukážeme si jak se pracuje s knihovnami v C a na tomto základě si vysvětlíme jak funguje proces kompilace
+ - Co jsme viděli u C si zopakujeme v C++ ale zaměříme se na rozdíly
+ - Ukážeme si jak do toho všeho zapadá Swift
+
+ - Zásadní pojmy si nejdřív definujeme "z výšky" resp. tak, jak je můžeme znát z praxe
+"""
+
 private var focuses: [Focus] = [
     .slides([Beginning.self, ]),
+    .slides([UvodOTematu.self]),
+    .slides([UvodProc.self]),
+    .properties(.init(offset: .zero, scale: 0.5, hint: hint_manual1)),
     .slides([End.self, ]),
 ]
 // }@focuses(focuses)

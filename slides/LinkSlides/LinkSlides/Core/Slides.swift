@@ -392,10 +392,10 @@ final class PresentationProperties: ObservableObject {
     @Published var colorScheme: ColorScheme = ColorScheme.dark
 
     @Published var automaticFameSize: Bool = true
-    @Published var frameSize: CGSize = CGSize(width: 480, height: 360)
+    @Published var frameSize: CGSize = CGSize(width: 1024, height: 768)
 
     @Published var automaticScreenSize: Bool = true
-    @Published var screenSize: CGSize = CGSize(width: 480, height: 360)
+    @Published var screenSize: CGSize = CGSize(width: 1024, height: 768)
 
     @Published var loadThumbnails: Bool = false
     
