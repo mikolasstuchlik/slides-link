@@ -8,6 +8,16 @@ extension Substring {
     }
 }
 
+extension CGSize {
+    static func /(_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
+        CGSize(width: lhs.width / rhs, height: lhs.height / rhs)
+    }
+
+    static func *(_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
+        CGSize(width: lhs.width * rhs, height: lhs.height * rhs)
+    }
+}
+
 extension CGVector {
     static func -(lhs: CGVector, rhs: CGVector) -> CGVector{
         CGVector(dx: lhs.dx - rhs.dx, dy: lhs.dy - rhs.dy)

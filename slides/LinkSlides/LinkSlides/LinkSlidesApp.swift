@@ -4,8 +4,8 @@ import SwiftUI
  Known issues: entering editor mode when focus is out of bounds will crash
  */
 
-private let backgrounds: [any Background] = [
-    SwiftBackground(), CBackground(), CBackground2(), LibBackground(), OBackground(),
+private let backgrounds: [any Background.Type] = [
+    SwiftBackground.self, CBackground.self, CBackground2.self, LibBackground.self, OBackground.self,
 ]
 
 private let slides: [any Slide.Type] = [
@@ -36,6 +36,7 @@ private var focuses: [Focus] = [
     .slides([OCteni.self, ]),
     .slides([CLibStaticka.self, ]),
     .slides([CLibDynamicka.self, ]),
+    .slides([CShrnuti.self, ]),
     .slides([SwiftShrnuti.self, ]),
     .properties(.init(offset: CGVector(dx: 0.5041070690666503, dy: 10.129525911752044), scale: 3.1601777777777773, hint: generated_hint_0)),
     .slides([SwiftShrnuti.self, ]),

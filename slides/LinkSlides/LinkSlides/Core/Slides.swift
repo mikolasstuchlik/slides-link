@@ -4,13 +4,9 @@ import SwiftUI
 protocol Background: View {
     static var offset: CGVector { get }
     static var relativeSize: CGSize { get }
-    static var name: String { get }
-}
-
-extension Background {
-    static var name: String { String(describing: Self.self) }
-
-    var name: String { Self.name }
+    static var scale: CGFloat { get }
+    
+    init()
 }
 
 protocol Slide: View {
@@ -34,7 +30,7 @@ struct Plane: View {
 
     var body: some View {
         ZStack {
-            ForEach(presentation.backgrounds, id: \.name, content: content(for:))
+            ForEach(presentation.backgrounds.indices) { content(for: presentation.backgrounds[$0]) }
             ForEach(presentation.slides.indices) { content(for: presentation.slides[$0]) }
         }
         .frame(
@@ -43,18 +39,18 @@ struct Plane: View {
         )
     }
 
-    private func content(for background: any Background) -> AnyView {
+    private func content(for background: any Background.Type) -> some View {
         AnyView(
-            background.body
-                .frame(
-                    width: presentation.screenSize.width * type(of: background).relativeSize.width,
-                    height: presentation.screenSize.height * type(of: background).relativeSize.height
-                )
-                .offset(
-                    x: presentation.screenSize.width * type(of: background).offset.dx,
-                    y: presentation.screenSize.height * type(of: background).offset.dy
-                )
-                .disabled(presentation.mode == .editor)
+            background.init()
+        )
+        .frame(
+            width: presentation.screenSize.width * background.relativeSize.width,
+            height: presentation.screenSize.height * background.relativeSize.height
+        )
+        .scaleEffect(background.scale)
+        .offset(
+            x: presentation.screenSize.width * background.offset.dx,
+            y: presentation.screenSize.height * background.offset.dy
         )
     }
     
@@ -369,7 +365,7 @@ final class PresentationProperties: ObservableObject {
         PresentationProperties(rootPath: "", slidesPath: "", backgrounds: [], slides: [], focuses: [])
     }
 
-    init(rootPath: String, slidesPath: String, backgrounds: [any Background], slides: [any Slide.Type], focuses: [Focus]) {
+    init(rootPath: String, slidesPath: String, backgrounds: [any Background.Type], slides: [any Slide.Type], focuses: [Focus]) {
         self.rootPath = rootPath
         self.slidesPath = slidesPath
         self.backgrounds = backgrounds
@@ -388,7 +384,7 @@ final class PresentationProperties: ObservableObject {
     
     let rootPath: String
     let slidesPath: String
-    var backgrounds: [any Background]
+    var backgrounds: [any Background.Type]
     var slides: [any Slide.Type]
     @Published var focuses: [Focus]
 
