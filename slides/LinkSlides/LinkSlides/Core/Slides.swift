@@ -453,6 +453,7 @@ final class PresentationProperties: ObservableObject {
     @Published var codeEditorFontSize: CGFloat = 25 {
         willSet {
             Font.presentationEditorFont = Font.system(size: newValue)
+            Font.presentationEditorFontSize = newValue
         }
     }
 
@@ -520,4 +521,5 @@ extension Font {
     static fileprivate(set) var presentationBody: Font = { Font(PresentationProperties.defaultBody as CTFont) }()
     static fileprivate(set) var presentationNote: Font = { Font(PresentationProperties.defaultNote as CTFont) }()
     static fileprivate(set) var presentationEditorFont: Font = { Font(PresentationProperties.defaultEditorFont as CTFont) }()
+    static fileprivate(set) var presentationEditorFontSize: CGFloat = { PresentationProperties.defaultEditorFont.pointSize }()
 }

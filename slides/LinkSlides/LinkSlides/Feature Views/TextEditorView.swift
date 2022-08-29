@@ -2,8 +2,6 @@ import SwiftUI
 import CodeEditor
 
 struct TextEditorView: View {
-    @EnvironmentObject var presentation: PresentationProperties
-
     enum Axis {
         case horizontal, vertical
     }
@@ -43,7 +41,7 @@ struct TextEditorView: View {
                 theme: format == .swift
                     ? CodeEditor.ThemeName(rawValue: "xcode")
                     : .default,
-                fontSize: $presentation.codeEditorFontSize,
+                fontSize: .constant(Font.presentationEditorFontSize),
                 indentStyle: .softTab(width: 2)
             ).colorScheme(.light)
         } else {
@@ -53,7 +51,7 @@ struct TextEditorView: View {
                 theme: format == .swift
                     ? CodeEditor.ThemeName(rawValue: "xcode")
                     : .default,
-                fontSize: $presentation.codeEditorFontSize,
+                fontSize: .constant(Font.presentationEditorFontSize),
                 indentStyle: .softTab(width: 2)
             )
         }

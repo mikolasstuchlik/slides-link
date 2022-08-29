@@ -84,8 +84,6 @@ public func \(symbolName)() -> Any {
 }
 
 struct CompilerView: View {
-    @EnvironmentObject var presentation: PresentationProperties
-
     private final class Providers {
         private static var providers: [String: RuntimeViewProvider] = [:]
         
@@ -137,7 +135,7 @@ struct CompilerView: View {
                 source: $code,
                 language: .swift,
                 theme: CodeEditor.ThemeName(rawValue: "xcode"),
-                fontSize: $presentation.codeEditorFontSize,
+                fontSize: .constant(Font.presentationEditorFontSize),
                 indentStyle: .softTab(width: 2)
             ).colorScheme(.light)
             if editBuildCommand {

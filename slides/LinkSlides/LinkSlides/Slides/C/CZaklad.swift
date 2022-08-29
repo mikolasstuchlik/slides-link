@@ -2,11 +2,12 @@ import SwiftUI
 
 struct CZaklad: View, Slide {
     // @offset(CZaklad)
-    static var offset = CGVector(dx: 1, dy: 0)
+    static var offset = CGVector(dx: -2, dy: -4)
     
     // @hint(CZaklad){
     static var hint: String? =
 """
+
 """
     // }@hint(CZaklad)
     

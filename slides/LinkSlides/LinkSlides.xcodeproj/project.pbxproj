@@ -15,6 +15,17 @@
 		BE03641C28B1589100C667F5 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641B28B1589100C667F5 /* End.swift */; };
 		BE03642328B1638900C667F5 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BE03642228B1638900C667F5 /* CodeEditor */; };
 		BE4D2D5028BBCAD10086D7D8 /* UvodOTematu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */; };
+		BE6430E428BCC48300BDB7D6 /* CShrnuti.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E328BCC48300BDB7D6 /* CShrnuti.swift */; };
+		BE6430E828BCC58800BDB7D6 /* OCoToJe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E728BCC58800BDB7D6 /* OCoToJe.swift */; };
+		BE6430EA28BCF0B300BDB7D6 /* OCteni.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E928BCF0B300BDB7D6 /* OCteni.swift */; };
+		BE6430ED28BD01AD00BDB7D6 /* CLibStaticka.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430EC28BD01AD00BDB7D6 /* CLibStaticka.swift */; };
+		BE6430EF28BD0BFC00BDB7D6 /* CLibDynamicka.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430EE28BD0BFC00BDB7D6 /* CLibDynamicka.swift */; };
+		BE6430F228BD15C200BDB7D6 /* SwiftShrnuti.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430F128BD15C200BDB7D6 /* SwiftShrnuti.swift */; };
+		BE6430F428BD179700BDB7D6 /* SwiftModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430F328BD179700BDB7D6 /* SwiftModule.swift */; };
+		BE6430F628BD19C200BDB7D6 /* SwiftStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430F528BD19C200BDB7D6 /* SwiftStatic.swift */; };
+		BE6430FA28BD27BF00BDB7D6 /* CBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430F928BD27BF00BDB7D6 /* CBackground.swift */; };
+		BE6430FC28BD291800BDB7D6 /* LibBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430FB28BD291800BDB7D6 /* LibBackground.swift */; };
+		BE6430FE28BD2A6A00BDB7D6 /* OBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430FD28BD2A6A00BDB7D6 /* OBackground.swift */; };
 		BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* FontPicker.swift */; };
 		BE77176028B684980077ABA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77175F28B684980077ABA3 /* Extensions.swift */; };
 		BE77176228B684C30077ABA3 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176128B684C30077ABA3 /* Process.swift */; };
@@ -31,7 +42,6 @@
 		BEA78EEF28BBFD6E00EC5816 /* CZaklad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */; };
 		BEA78EF128BC18E300EC5816 /* CHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EF028BC18E300EC5816 /* CHeader.swift */; };
 		BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */; };
-		BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
 		BEC3944D28B7B67A00C2EFF3 /* FocusCodeManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */; };
@@ -48,6 +58,17 @@
 		BE03641928B1588500C667F5 /* Beginning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beginning.swift; sourceTree = "<group>"; };
 		BE03641B28B1589100C667F5 /* End.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = End.swift; sourceTree = "<group>"; };
 		BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UvodOTematu.swift; sourceTree = "<group>"; };
+		BE6430E328BCC48300BDB7D6 /* CShrnuti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CShrnuti.swift; sourceTree = "<group>"; };
+		BE6430E728BCC58800BDB7D6 /* OCoToJe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCoToJe.swift; sourceTree = "<group>"; };
+		BE6430E928BCF0B300BDB7D6 /* OCteni.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCteni.swift; sourceTree = "<group>"; };
+		BE6430EC28BD01AD00BDB7D6 /* CLibStaticka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLibStaticka.swift; sourceTree = "<group>"; };
+		BE6430EE28BD0BFC00BDB7D6 /* CLibDynamicka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLibDynamicka.swift; sourceTree = "<group>"; };
+		BE6430F128BD15C200BDB7D6 /* SwiftShrnuti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShrnuti.swift; sourceTree = "<group>"; };
+		BE6430F328BD179700BDB7D6 /* SwiftModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftModule.swift; sourceTree = "<group>"; };
+		BE6430F528BD19C200BDB7D6 /* SwiftStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftStatic.swift; sourceTree = "<group>"; };
+		BE6430F928BD27BF00BDB7D6 /* CBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBackground.swift; sourceTree = "<group>"; };
+		BE6430FB28BD291800BDB7D6 /* LibBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibBackground.swift; sourceTree = "<group>"; };
+		BE6430FD28BD2A6A00BDB7D6 /* OBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBackground.swift; sourceTree = "<group>"; };
 		BE6FF46D28B3990600802752 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		BE77175F28B684980077ABA3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BE77176128B684C30077ABA3 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
@@ -64,7 +85,6 @@
 		BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CZaklad.swift; sourceTree = "<group>"; };
 		BEA78EF028BC18E300EC5816 /* CHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHeader.swift; sourceTree = "<group>"; };
 		BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDvaSoubory.swift; sourceTree = "<group>"; };
-		BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBackground.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
 		BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCodeManipulator.swift; sourceTree = "<group>"; };
@@ -128,6 +148,9 @@
 		BE03641628B1586100C667F5 /* Slides */ = {
 			isa = PBXGroup;
 			children = (
+				BE6430F028BD0ED500BDB7D6 /* Swift */,
+				BE6430EB28BD019800BDB7D6 /* CLib */,
+				BE6430E628BCC57A00BDB7D6 /* O */,
 				BEA78EED28BBFD5800EC5816 /* C */,
 				BEA78EE628BBCE7300EC5816 /* Knihovny */,
 				BEA78EE528BBCE6900EC5816 /* Uvod */,
@@ -135,6 +158,34 @@
 				BE03641B28B1589100C667F5 /* End.swift */,
 			);
 			path = Slides;
+			sourceTree = "<group>";
+		};
+		BE6430E628BCC57A00BDB7D6 /* O */ = {
+			isa = PBXGroup;
+			children = (
+				BE6430E728BCC58800BDB7D6 /* OCoToJe.swift */,
+				BE6430E928BCF0B300BDB7D6 /* OCteni.swift */,
+			);
+			path = O;
+			sourceTree = "<group>";
+		};
+		BE6430EB28BD019800BDB7D6 /* CLib */ = {
+			isa = PBXGroup;
+			children = (
+				BE6430EC28BD01AD00BDB7D6 /* CLibStaticka.swift */,
+				BE6430EE28BD0BFC00BDB7D6 /* CLibDynamicka.swift */,
+			);
+			path = CLib;
+			sourceTree = "<group>";
+		};
+		BE6430F028BD0ED500BDB7D6 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				BE6430F128BD15C200BDB7D6 /* SwiftShrnuti.swift */,
+				BE6430F328BD179700BDB7D6 /* SwiftModule.swift */,
+				BE6430F528BD19C200BDB7D6 /* SwiftStatic.swift */,
+			);
+			path = Swift;
 			sourceTree = "<group>";
 		};
 		BE77175D28B683DC0077ABA3 /* Core */ = {
@@ -186,6 +237,7 @@
 				BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */,
 				BEA78EF028BC18E300EC5816 /* CHeader.swift */,
 				BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */,
+				BE6430E328BCC48300BDB7D6 /* CShrnuti.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -193,8 +245,10 @@
 		BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				BEBB4F2E28B4C87300F5DEB8 /* XcodeBackground.swift */,
 				BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */,
+				BE6430F928BD27BF00BDB7D6 /* CBackground.swift */,
+				BE6430FB28BD291800BDB7D6 /* LibBackground.swift */,
+				BE6430FD28BD2A6A00BDB7D6 /* OBackground.swift */,
 			);
 			path = Backgrounds;
 			sourceTree = "<group>";
@@ -275,21 +329,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE6430FC28BD291800BDB7D6 /* LibBackground.swift in Sources */,
 				BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */,
 				BE77176428B684DA0077ABA3 /* WebView.swift in Sources */,
 				BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */,
+				BE6430F428BD179700BDB7D6 /* SwiftModule.swift in Sources */,
+				BE6430ED28BD01AD00BDB7D6 /* CLibStaticka.swift in Sources */,
 				BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */,
 				BEC3944D28B7B67A00C2EFF3 /* FocusCodeManipulator.swift in Sources */,
+				BE6430F628BD19C200BDB7D6 /* SwiftStatic.swift in Sources */,
 				BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */,
+				BE6430F228BD15C200BDB7D6 /* SwiftShrnuti.swift in Sources */,
 				BEA78EEC28BBF3B200EC5816 /* KnihovnyHandoff.swift in Sources */,
 				BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */,
 				BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */,
+				BE6430EA28BCF0B300BDB7D6 /* OCteni.swift in Sources */,
+				BE6430EF28BD0BFC00BDB7D6 /* CLibDynamicka.swift in Sources */,
 				BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */,
 				BEA78EF128BC18E300EC5816 /* CHeader.swift in Sources */,
+				BE6430FA28BD27BF00BDB7D6 /* CBackground.swift in Sources */,
 				BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */,
-				BEBB4F2F28B4C87300F5DEB8 /* XcodeBackground.swift in Sources */,
 				BE03640E28B14FE300C667F5 /* Slides.swift in Sources */,
 				BEA78EE828BBCE9E00EC5816 /* KnihovnyDylibVSA.swift in Sources */,
+				BE6430E828BCC58800BDB7D6 /* OCoToJe.swift in Sources */,
 				BEA78EE428BBCD4F00EC5816 /* UvodProc.swift in Sources */,
 				BE4D2D5028BBCAD10086D7D8 /* UvodOTematu.swift in Sources */,
 				BE03641C28B1589100C667F5 /* End.swift in Sources */,
@@ -297,10 +359,12 @@
 				BEA78EEA28BBEF2A00EC5816 /* KnihovnyHighLvl.swift in Sources */,
 				BEA78EEF28BBFD6E00EC5816 /* CZaklad.swift in Sources */,
 				BE77176228B684C30077ABA3 /* Process.swift in Sources */,
+				BE6430E428BCC48300BDB7D6 /* CShrnuti.swift in Sources */,
 				BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */,
 				BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */,
 				BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */,
 				BE77176028B684980077ABA3 /* Extensions.swift in Sources */,
+				BE6430FE28BD2A6A00BDB7D6 /* OBackground.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

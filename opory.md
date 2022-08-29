@@ -24,7 +24,7 @@
 
  - **Assembly** aka. *jazyk symbolických adres* je jazyk určený pro čitelnou reprezentaci strojových instrukcí
  - **Assembler** program, který překládá asembler do objektového kódu
- - **Objektový soubor** přípona `.o`, obsahuje objektový kód
+ - **Objektový soubor** přípona `.o`, výstup kompilátoru, obsahuje objektový kód
  - **Kompilátor** program, který překládá kód z jednoho jazyka do jiného jazyka
  - **Linker** také. **Linker Editor** je program, který z jednoho nebo vícero objektových souborů (nebo knihoven) sestaví spustitelný soubor, knihovnu, nebo jiný objektový soubor.
  - **Dynamický linker** program, který otevírá a připravuje dynamické knihovny pro potřeby programu v čase jeho běhu. 
@@ -134,7 +134,7 @@ Tento příkaz umožňuje demanglovat symbol, který můžeme najít například
 
 ### Příslušenství - přečtení obsah souboru `.swiftmodule`
 
-Soubor `.swiftmldule` je binární soubor v LLVM Bitcode, následující programy nám umožňují číst obash
+Soubor `.swiftmodule` je binární soubor v LLVM Bitcode, následující programy nám umožňují číst obash
 
 ```bash
 xcrun swift-api-digester -dump-sdk -module FooLib -o foo -I`pwd`
@@ -218,6 +218,7 @@ Bonus
  - Co je .tbd
  - Co je uvnitř Frameworků 
  - Co jsme viděli u C si zopakujeme v C++ ale zaměříme se na rozdíly
+ - DWARF vs dSYM
 
 ---
 
@@ -235,3 +236,5 @@ Bonus
  [6] Co je `.swiftmodule` [https://forums.swift.org/t/whats-in-the-file-of-swiftmodule-how-to-open-it/1032/2](https://forums.swift.org/t/whats-in-the-file-of-swiftmodule-how-to-open-it/1032/2)
 
  [7] Forma `.tbd` viz [https://stackoverflow.com/questions/31450690/why-xcode-7-shows-tbd-instead-of-dylib](https://stackoverflow.com/questions/31450690/why-xcode-7-shows-tbd-instead-of-dylib), definice "Stub object" viz Oracle [https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter2-22.html](https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter2-22.html) 
+ 
+ [8] Diagram kompilace C [https://csgeekshub.com/c-programming/c-program-compilation-steps-example-with-gcc-linux/](https://csgeekshub.com/c-programming/c-program-compilation-steps-example-with-gcc-linux/)

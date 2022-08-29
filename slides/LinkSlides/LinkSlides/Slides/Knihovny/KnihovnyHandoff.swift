@@ -2,7 +2,7 @@ import SwiftUI
 
 struct KnihovnyHandoff: View, Slide {
     // @offset(KnihovnyHandoff)
-    static var offset = CGVector(dx: 0, dy: 0)
+    static var offset = CGVector(dx: 2, dy: 1)
     
     // @hint(KnihovnyHandoff){
     static var hint: String? =

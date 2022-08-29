@@ -2,8 +2,6 @@ import SwiftUI
 import CodeEditor
 
 struct TerminalView: View {
-    @EnvironmentObject var presentation: PresentationProperties
-
     enum Axis {
         case horizontal, vertical
     }
@@ -55,7 +53,7 @@ struct TerminalView: View {
             CodeEditor(
                 source: $stdIn,
                 language: .bash,
-                fontSize: $presentation.codeEditorFontSize,
+                fontSize: .constant(Font.presentationEditorFontSize),
                 indentStyle: .softTab(width: 2),
                 autoscroll: false
             )
@@ -77,9 +75,16 @@ struct TerminalView: View {
                     .foregroundColor(.gray)
                     .font(.system(.footnote))
                     .frame(maxWidth: .infinity, maxHeight: 12, alignment: .leading)
-                Text(stdout ?? "(Empty)")
-                    .font(.presentationEditorFont)
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                if #available(macOS 13.0, *) {
+                    Text(stdout ?? "(Empty)")
+                        .monospaced()
+                        .font(.presentationEditorFont)
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                } else {
+                    Text(stdout ?? "(Empty)")
+                        .font(.presentationEditorFont)
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                }
             case let .result(.failure(ProcessError.endedWith(code: code, error: stderr))):
                 Text("Status: \(code)  stderr:")
                     .foregroundColor(.gray)

@@ -5,36 +5,39 @@ import SwiftUI
  */
 
 private let backgrounds: [any Background] = [
-    XcodeBackground(),
+    SwiftBackground(), CBackground(), CBackground2(), LibBackground(), OBackground(),
 ]
 
 private let slides: [any Slide.Type] = [
     Beginning.self,
     UvodOTematu.self, UvodProc.self,
     KnihovnyDylibVSA.self, KnihovnyHighLvl.self, KnihovnyHandoff.self,
-    CZaklad.self, CHeader.self, CDvaSoubory.self,
+    CZaklad.self, CHeader.self, CDvaSoubory.self, CShrnuti.self,
+    OCoToJe.self, OCteni.self,
+    CLibStaticka.self, CLibDynamicka.self,
+    SwiftShrnuti.self, SwiftModule.self, SwiftStatic.self,
     End.self,
 ]
 
 // @focuses(focuses){
-let hint_manual1 =
+private var focuses: [Focus] = [
+    .slides([Beginning.self, ]),
+    .slides([SwiftStatic.self, ]),
+    .slides([UvodOTematu.self, ]),
+    .slides([UvodProc.self, ]),
+    .properties(.init(offset: CGVector(dx: 0.0, dy: 0.0), scale: 0.5, hint: generated_hint_0)),
+    .slides([End.self, ]),
+]
+
+private let generated_hint_0: String =
 """
  - Nejprve se podíváme na to, co to vůbec je knihovna
  - Ukážeme si jak se pracuje s knihovnami v C a na tomto základě si vysvětlíme jak funguje proces kompilace
- - Co jsme viděli u C si zopakujeme v C++ ale zaměříme se na rozdíly
  - Ukážeme si jak do toho všeho zapadá Swift
 
  - Zásadní pojmy si nejdřív definujeme "z výšky" resp. tak, jak je můžeme znát z praxe
 """
 
-private var focuses: [Focus] = [
-    .slides([Beginning.self, ]),
-    .slides([CDvaSoubory.self]),
-    .slides([UvodOTematu.self]),
-    .slides([UvodProc.self]),
-    .properties(.init(offset: .zero, scale: 0.5, hint: hint_manual1)),
-    .slides([End.self, ]),
-]
 // }@focuses(focuses)
 
 private let presentation = PresentationProperties(
@@ -85,6 +88,7 @@ final class FileCoordinator {
         
         try! FileManager.default.createDirectory(atPath: workFolder + "/" + name, withIntermediateDirectories: true)
         
+        preparedFolders.insert(name)
         return workFolder + "/" + name
     }
 }
