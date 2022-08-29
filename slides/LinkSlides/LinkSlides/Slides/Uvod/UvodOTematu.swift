@@ -2,7 +2,7 @@ import SwiftUI
 
 struct UvodOTematu: View, Slide {
     // @offset(UvodOTematu)
-    static var offset = CGVector(dx: 1, dy: 0)
+    static var offset = CGVector(dx: 1.0, dy: 0.0)
     
     // @hint(UvodOTematu){
     static var hint: String? =
@@ -17,7 +17,7 @@ struct UvodOTematu: View, Slide {
         VStack(alignment: .leading, spacing: 32) {
             VStack(alignment: .leading) {
                 Text("Úvod").font(.presentationHeadline)
-                Text("O čem se budeme bavi").font(.presentationSubHeadline)
+                Text("O čem se budeme bavit").font(.presentationSubHeadline)
             }
             Text(
 """

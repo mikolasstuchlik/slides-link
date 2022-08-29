@@ -244,8 +244,9 @@ struct SlideControlPanel: View {
     
     @ViewBuilder var editorCommands: some View {
         GridRow {
-            Text("Pohyb kamery")
-            Toggle(isOn: $presentation.moveCamera, label: { Text("Zaostřit na vybraný snímek") }).gridCellColumns(3)
+            Text("Pohyby")
+            Toggle(isOn: $presentation.moveCamera, label: { Text("Zaostřit na vybraný snímek") })
+            Toggle(isOn: $presentation.allowHotkeys, label: { Text("Povolit zkratky") })
         }
         GridRow {
             Text("Code generation")

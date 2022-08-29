@@ -168,6 +168,10 @@ struct Presentation: View {
     }
     
     private func handleMac(event: NSEvent) -> NSEvent? {
+        guard !(presentation.mode == .editor && !presentation.allowHotkeys) else {
+            return event
+        }
+        
         resolveMouseDrag(event: event)
         resolveSlideDrag(event: event)
         if resolveZoomHotkeys(event: event) {
@@ -401,6 +405,7 @@ final class PresentationProperties: ObservableObject {
     
     @Published var camera: Camera = .init(offset: .zero, scale: 1.0)
     @Published var moveCamera: Bool = false
+    @Published var allowHotkeys: Bool = true
     
     static let defaultTitle = NSFont.systemFont(ofSize: 80, weight: .bold)
     static let defaultSubTitle = NSFont.systemFont(ofSize: 70, weight: .regular)

@@ -7,7 +7,7 @@ struct SwiftStatic: View, Slide {
     // @hint(SwiftStatic){
     static var hint: String? =
 """
-
+Po kompilaci nezapomenout ukázat opet rozdíl mezi ld a dyld. DŮLEŽITÉ.
 """
     // }@hint(SwiftStatic)
     
