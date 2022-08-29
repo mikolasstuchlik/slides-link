@@ -24,8 +24,9 @@ private var focuses: [Focus] = [
     .slides([Beginning.self, ]),
     .slides([UvodOTematu.self, ]),
     .slides([UvodProc.self, ]),
-    .slides([KnihovnyDylibVSA.self, ]),
+    .slides([KnihovnyHighLvl.self, SwiftStatic.self, ]),
     .slides([KnihovnyHighLvl.self, ]),
+    .slides([KnihovnyDylibVSA.self, ]),
     .slides([KnihovnyHandoff.self, ]),
     .slides([CZaklad.self, ]),
     .slides([CDvaSoubory.self, ]),
@@ -36,6 +37,12 @@ private var focuses: [Focus] = [
     .slides([CLibStaticka.self, ]),
     .slides([CLibDynamicka.self, ]),
     .slides([SwiftShrnuti.self, ]),
+    .properties(.init(offset: CGVector(dx: 0.5041070690666503, dy: 10.129525911752044), scale: 3.1601777777777773, hint: generated_hint_0)),
+    .slides([SwiftShrnuti.self, ]),
+    .properties(.init(offset: CGVector(dx: 0.4254430528548137, dy: 9.595775247528993), scale: 3.1601777777777773, hint: generated_hint_1)),
+    .slides([SwiftShrnuti.self, ]),
+    .properties(.init(offset: CGVector(dx: 0.43980574469777456, dy: 9.790506373650125), scale: 3.1601777777777773, hint: generated_hint_2)),
+    .slides([SwiftShrnuti.self, ]),
     .slides([SwiftModule.self, ]),
     .slides([SwiftStatic.self, ]),
     .slides([End.self, ]),
@@ -43,11 +50,14 @@ private var focuses: [Focus] = [
 
 private let generated_hint_0: String =
 """
- - Nejprve se podíváme na to, co to vůbec je knihovna
- - Ukážeme si jak se pracuje s knihovnami v C a na tomto základě si vysvětlíme jak funguje proces kompilace
- - Ukážeme si jak do toho všeho zapadá Swift
+"""
 
- - Zásadní pojmy si nejdřív definujeme "z výšky" resp. tak, jak je můžeme znát z praxe
+private let generated_hint_1: String =
+"""
+"""
+
+private let generated_hint_2: String =
+"""
 """
 
 // }@focuses(focuses)
