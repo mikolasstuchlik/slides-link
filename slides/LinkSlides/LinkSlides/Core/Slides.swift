@@ -222,7 +222,7 @@ struct Presentation: View {
             guard let windowSize = event.window?.frame.size else {
                 break
             }
-            let offsetLocation = offset(for: event.locationInWindow, in: windowSize)
+            let offsetLocation = offset(for: event.locationInWindow, in: windowSize) + presentation.camera.offset
             let slide = presentation.slides.reversed().first { slide in
                 getOffsetRect(of: slide).contains(CGPoint(x: offsetLocation.dx, y: offsetLocation.dy))
             }
@@ -235,7 +235,7 @@ struct Presentation: View {
             guard case let .leftButtonDown(lastPosition, slide) = moveSlideMachine, let windowSize = event.window?.frame.size else {
                 break
             }
-            let newPosition = offset(for: event.locationInWindow, in: windowSize)
+            let newPosition = offset(for: event.locationInWindow, in: windowSize) + presentation.camera.offset
 
             slide.offset = slide.offset + (newPosition - lastPosition)
             // If some camera property isnt changed, the slide is not re-arranged on the plane

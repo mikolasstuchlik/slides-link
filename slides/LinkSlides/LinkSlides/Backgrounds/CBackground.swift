@@ -7,14 +7,10 @@ struct CBackground: View, Background {
     var body: some View {
         ZStack(alignment: .topLeading) {
             Text("C")
-                .font(.system(size: 400, weight: .bold))
+                .font(.system(size: 375, weight: .bold))
                 .foregroundColor(.blue)
                 .padding(.leading, 40)
-            LinearGradient(
-                colors: [.blue, .blue.opacity(0.8)],
-                startPoint: .bottom,
-                endPoint: .top
-            ).mask(RoundedRectangle(cornerRadius: 40).stroke(style: StrokeStyle(lineWidth: 20, dash: []))).frame(maxWidth: .infinity, maxHeight: .infinity)
+            RoundedRectangle(cornerRadius: 40).stroke(.blue, style: StrokeStyle(lineWidth: 20, dash: [])).frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
@@ -26,14 +22,10 @@ struct CBackground2: View, Background {
     var body: some View {
         ZStack(alignment: .topLeading) {
             Text("C")
-                .font(.system(size: 400, weight: .bold))
+                .font(.system(size: 375, weight: .bold))
                 .foregroundColor(.blue)
                 .padding(.leading, 40)
-            LinearGradient(
-                colors: [.blue, .blue.opacity(80)],
-                startPoint: .bottom,
-                endPoint: .top
-            ).mask(RoundedRectangle(cornerRadius: 40).stroke(style: StrokeStyle(lineWidth: 20, dash: []))).frame(maxWidth: .infinity, maxHeight: .infinity)
+            RoundedRectangle(cornerRadius: 40).stroke(.blue, style: StrokeStyle(lineWidth: 20, dash: [])).frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

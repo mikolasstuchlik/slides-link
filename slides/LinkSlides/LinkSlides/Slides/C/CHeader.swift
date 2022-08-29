@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CHeader: View, Slide {
     // @offset(CHeader)
-    static var offset = CGVector(dx: 0, dy: -4)
+    static var offset = CGVector(dx: 2.5, dy: 3.75)
     
     // @hint(CHeader){
     static var hint: String? =

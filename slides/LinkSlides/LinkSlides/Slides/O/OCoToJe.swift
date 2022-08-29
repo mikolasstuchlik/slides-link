@@ -2,7 +2,7 @@ import SwiftUI
 
 struct OCoToJe: View, Slide {
     // @offset(OCoToJe)
-    static var offset = CGVector(dx: 0, dy: -2)
+    static var offset = CGVector(dx: 0.5, dy: 5.75)
     
     // @hint(OCoToJe){
     static var hint: String? =

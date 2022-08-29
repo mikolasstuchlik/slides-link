@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CLibDynamicka: View, Slide {
     // @offset(CLibDynamicka)
-    static var offset = CGVector(dx: -2, dy: 0)
+    static var offset = CGVector(dx: 1.5, dy: 7.75)
     
     // @hint(CLibDynamicka){
     static var hint: String? =

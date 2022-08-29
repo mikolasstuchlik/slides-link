@@ -8,13 +8,9 @@ struct LibBackground: View, Background {
         ZStack(alignment: .topLeading) {
             Image(systemName: "building.columns.fill")
                 .resizable()
-                .frame(width: 400, height: 400)
+                .frame(width: 375, height: 375)
                 .foregroundStyle(.red).padding(40)
-            LinearGradient(
-                colors: [.red, .red.opacity(0.8)],
-                startPoint: .bottom,
-                endPoint: .top
-            ).mask(RoundedRectangle(cornerRadius: 40).stroke(style: StrokeStyle(lineWidth: 20, dash: []))).frame(maxWidth: .infinity, maxHeight: .infinity)
+            RoundedRectangle(cornerRadius: 40).stroke(.red, style: StrokeStyle(lineWidth: 20, dash: [])).frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct KnihovnyDylibVSA: View, Slide {
     // @offset(KnihovnyDylibVSA)
-    static var offset = CGVector(dx: 1, dy: 1)
+    static var offset = CGVector(dx: 1.5, dy: 1.75)
     
     // @hint(KnihovnyDylibVSA){
     static var hint: String? =

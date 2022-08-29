@@ -9,10 +9,10 @@ struct SwiftBackground: View, Background {
             HStack(spacing: 40) {
                 Image(systemName: "swift")
                     .resizable()
-                    .frame(width: 400, height: 400)
+                    .frame(width: 375, height: 375)
                     .foregroundStyle(Color(red: 240.0/255.0, green: 140.0/255.0, blue: 40.0/255.0))
                 Text("Swift")
-                    .font(.system(size: 400, weight: .light))
+                    .font(.system(size: 375, weight: .light))
                     .foregroundColor(Color(red: 240.0/255.0, green: 140.0/255.0, blue: 40.0/255.0))
             }.padding(40)
             LinearGradient(

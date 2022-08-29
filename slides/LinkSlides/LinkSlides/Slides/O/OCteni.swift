@@ -2,7 +2,7 @@ import SwiftUI
 
 struct OCteni: View, Slide {
     // @offset(OCteni)
-    static var offset = CGVector(dx: 1, dy: -2)
+    static var offset = CGVector(dx: 1.5, dy: 5.75)
     
     // @hint(OCteni){
     static var hint: String? =

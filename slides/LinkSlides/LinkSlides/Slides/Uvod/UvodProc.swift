@@ -2,7 +2,7 @@ import SwiftUI
 
 struct UvodProc: View, Slide {
     // @offset(UvodProc)
-    static var offset = CGVector(dx: 1, dy: 0)
+    static var offset = CGVector(dx: 2, dy: 0)
     
     // @hint(UvodProc){
     static var hint: String? =

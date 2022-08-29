@@ -22,10 +22,22 @@ private let slides: [any Slide.Type] = [
 // @focuses(focuses){
 private var focuses: [Focus] = [
     .slides([Beginning.self, ]),
-    .slides([SwiftStatic.self, ]),
     .slides([UvodOTematu.self, ]),
     .slides([UvodProc.self, ]),
-    .properties(.init(offset: CGVector(dx: 0.0, dy: 0.0), scale: 0.5, hint: generated_hint_0)),
+    .slides([KnihovnyDylibVSA.self, ]),
+    .slides([KnihovnyHighLvl.self, ]),
+    .slides([KnihovnyHandoff.self, ]),
+    .slides([CZaklad.self, ]),
+    .slides([CDvaSoubory.self, ]),
+    .slides([CHeader.self, ]),
+    .slides([CShrnuti.self, ]),
+    .slides([OCoToJe.self, ]),
+    .slides([OCteni.self, ]),
+    .slides([CLibStaticka.self, ]),
+    .slides([CLibDynamicka.self, ]),
+    .slides([SwiftShrnuti.self, ]),
+    .slides([SwiftModule.self, ]),
+    .slides([SwiftStatic.self, ]),
     .slides([End.self, ]),
 ]
 
