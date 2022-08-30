@@ -238,3 +238,5 @@ Bonus
  [7] Forma `.tbd` viz [https://stackoverflow.com/questions/31450690/why-xcode-7-shows-tbd-instead-of-dylib](https://stackoverflow.com/questions/31450690/why-xcode-7-shows-tbd-instead-of-dylib), definice "Stub object" viz Oracle [https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter2-22.html](https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter2-22.html) 
  
  [8] Diagram kompilace C [https://csgeekshub.com/c-programming/c-program-compilation-steps-example-with-gcc-linux/](https://csgeekshub.com/c-programming/c-program-compilation-steps-example-with-gcc-linux/)
+ 
+ [9] Vysvětlivky pro nastavení Xcode [https://xcodebuildsettings.com](https://xcodebuildsettings.com)

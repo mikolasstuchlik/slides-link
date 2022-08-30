@@ -110,6 +110,7 @@ float getPi() {
             Text(
 """
 Argumenty  `-I` ,  `-L`  a  `-l`  neukazuji jen tak pro radost - ke stejnému účelu se používají se i ve Swiftu!
+Ekvivalent `-I`/`-L` pro `.framework` je `-F` a ekvivalent `-l<jméno frameworku>` je `-framework <jméno frameworku>`
 """
             )
             .font(.presentationNote)

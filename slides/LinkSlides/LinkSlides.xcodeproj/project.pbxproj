@@ -46,6 +46,7 @@
 		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
 		BEC3944D28B7B67A00C2EFF3 /* FocusCodeManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */; };
 		BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC47C828B366BB00BF5C2A /* CompilerView.swift */; };
+		BEF18E4128BE107A00545830 /* FileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF18E4028BE107A00545830 /* FileCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
 		BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCodeManipulator.swift; sourceTree = "<group>"; };
 		BEEC47C828B366BB00BF5C2A /* CompilerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilerView.swift; sourceTree = "<group>"; };
+		BEF18E4028BE107A00545830 /* FileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 				BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */,
 				BE03640D28B14FE300C667F5 /* Slides.swift */,
 				BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */,
+				BEF18E4028BE107A00545830 /* FileCoordinator.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE6430FC28BD291800BDB7D6 /* LibBackground.swift in Sources */,
+				BEF18E4128BE107A00545830 /* FileCoordinator.swift in Sources */,
 				BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */,
 				BE77176428B684DA0077ABA3 /* WebView.swift in Sources */,
 				BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */,

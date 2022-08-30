@@ -228,7 +228,6 @@ final class FocusCodeManipulator {
     private func storeFocuses(at file: String) throws {
         var content = try String(contentsOfFile: rootPath + "/" + file, encoding: .utf8)
         let regexResult = try FocusCodeManipulator.focusRegex.firstMatch(in: content)!
-        let variableName = "\(regexResult[FocusCodeManipulator.startName])"
         let indentation = "\(regexResult[FocusCodeManipulator.indent])"
         let focusesContent = regexResult[FocusCodeManipulator.content].range
             
