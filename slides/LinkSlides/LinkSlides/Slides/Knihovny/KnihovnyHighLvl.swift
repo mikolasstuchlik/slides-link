@@ -1,4 +1,7 @@
 import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons
 
 struct KnihovnyHighLvl: View, Slide {
     // @offset(KnihovnyHighLvl)
@@ -24,7 +27,10 @@ struct KnihovnyHighLvl: View, Slide {
 **Z praxe**
 
 - My se setkáváme s knihovnami nejčastěji ve formě modulů, které si buďto stahujeme z internetu, nebo jsou součástí iOS
-- Např:  `import SwiftUI`  nám zpřístupní funkcionalitu SwiftUI
+- Např:  `import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons`  nám zpřístupní funkcionalitu SwiftUI
 
 **Co to znamená pro Xcode?**
 

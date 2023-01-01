@@ -1,4 +1,7 @@
 import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons
 
 struct CLibStaticka: View, Slide {
     // @offset(CLibStaticka)

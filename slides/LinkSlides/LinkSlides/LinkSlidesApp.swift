@@ -1,4 +1,7 @@
 import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons
 
 /*
  Known issues: entering editor mode when focus is out of bounds will crash
@@ -21,37 +24,52 @@ private let slides: [any Slide.Type] = [
 
 // @focuses(focuses){
 private var focuses: [Focus] = [
-    .slides([Beginning.self, ]),
-    .slides([UvodOTematu.self, ]),
-    .slides([UvodProc.self, ]),
-    .properties(.init(offset: CGVector(dx: 1.6922540350274722, dy: 5.434065934065933), scale: 0.10111111111111111, hint: generated_hint_0)),
-    .slides([KnihovnyHighLvl.self, ]),
-    .slides([KnihovnyDylibVSA.self, ]),
-    .slides([KnihovnyHandoff.self, ]),
-    .slides([CZaklad.self, ]),
-    .slides([CDvaSoubory.self, ]),
-    .slides([CHeader.self, ]),
-    .slides([CShrnuti.self, ]),
-    .properties(.init(offset: CGVector(dx: 3.4140188066658204, dy: 3.4606751843397228), scale: 2.106785185185185, hint: generated_hint_1)),
-    .properties(.init(offset: CGVector(dx: 3.4926249937291525, dy: 4.155842471759384), scale: 1.8726979423868308, hint: generated_hint_2)),
-    .slides([OCoToJe.self, ]),
-    .slides([OCteni.self, ]),
-    .slides([CLibStaticka.self, ]),
-    .slides([CLibDynamicka.self, ]),
-    .slides([CShrnuti.self, ]),
-    .slides([SwiftShrnuti.self, ]),
-    .properties(.init(offset: CGVector(dx: 0.5041070690666503, dy: 10.129525911752044), scale: 3.1601777777777773, hint: generated_hint_3)),
-    .slides([SwiftShrnuti.self, ]),
-    .properties(.init(offset: CGVector(dx: 0.4254430528548137, dy: 9.595775247528993), scale: 3.1601777777777773, hint: generated_hint_4)),
-    .slides([SwiftShrnuti.self, ]),
-    .properties(.init(offset: CGVector(dx: 0.43980574469777456, dy: 9.790506373650125), scale: 3.1601777777777773, hint: generated_hint_5)),
-    .slides([SwiftShrnuti.self, ]),
-    .slides([SwiftModule.self, ]),
-    .slides([SwiftStatic.self, ]),
-    .slides([End.self, ]),
+    Focus(kind: .specific([Beginning.self]), hint: generated_hint_0),
+    Focus(kind: .specific([UvodOTematu.self]), hint: generated_hint_1),
+    Focus(kind: .specific([UvodProc.self]), hint: generated_hint_2),
+    Focus(kind: .unbound(Camera(offset: CGVector(dx: 1.6922540350274722, dy: 5.434065934065933), scale: 0.10111111111111111)), hint: generated_hint_3),
+    Focus(kind: .specific([KnihovnyHighLvl.self]), hint: generated_hint_4),
+    Focus(kind: .specific([KnihovnyDylibVSA.self]), hint: generated_hint_5),
+    Focus(kind: .specific([KnihovnyHandoff.self]), hint: generated_hint_6),
+    Focus(kind: .specific([CZaklad.self]), hint: generated_hint_7),
+    Focus(kind: .specific([CDvaSoubory.self]), hint: generated_hint_8),
+    Focus(kind: .specific([CHeader.self]), hint: generated_hint_9),
+    Focus(kind: .specific([CShrnuti.self]), hint: generated_hint_10),
+    Focus(kind: .unbound(Camera(offset: CGVector(dx: 3.4140188066658204, dy: 3.4606751843397228), scale: 2.106785185185185)), hint: generated_hint_11),
+    Focus(kind: .unbound(Camera(offset: CGVector(dx: 3.4926249937291525, dy: 4.155842471759384), scale: 1.8726979423868308)), hint: generated_hint_12),
+    Focus(kind: .specific([OCoToJe.self]), hint: generated_hint_13),
+    Focus(kind: .specific([OCteni.self]), hint: generated_hint_14),
+    Focus(kind: .specific([CLibStaticka.self]), hint: generated_hint_15),
+    Focus(kind: .specific([CLibDynamicka.self]), hint: generated_hint_16),
+    Focus(kind: .specific([CShrnuti.self]), hint: generated_hint_17),
+    Focus(kind: .specific([SwiftShrnuti.self]), hint: generated_hint_18),
+    Focus(kind: .unbound(Camera(offset: CGVector(dx: 0.5041070690666503, dy: 10.129525911752044), scale: 3.1601777777777773)), hint: generated_hint_19),
+    Focus(kind: .specific([SwiftShrnuti.self]), hint: generated_hint_20),
+    Focus(kind: .unbound(Camera(offset: CGVector(dx: 0.4254430528548137, dy: 9.595775247528993), scale: 3.1601777777777773)), hint: generated_hint_21),
+    Focus(kind: .specific([SwiftShrnuti.self]), hint: generated_hint_22),
+    Focus(kind: .unbound(Camera(offset: CGVector(dx: 0.43980574469777456, dy: 9.790506373650125), scale: 3.1601777777777773)), hint: generated_hint_23),
+    Focus(kind: .specific([SwiftShrnuti.self]), hint: generated_hint_24),
+    Focus(kind: .specific([SwiftModule.self]), hint: generated_hint_25),
+    Focus(kind: .specific([SwiftStatic.self]), hint: generated_hint_26),
+    Focus(kind: .specific([End.self]), hint: generated_hint_27)
 ]
 
 private let generated_hint_0: String =
+"""
+
+"""
+
+private let generated_hint_1: String =
+"""
+
+"""
+
+private let generated_hint_2: String =
+"""
+
+"""
+
+private let generated_hint_3: String =
 """
 Pokusil jsem se zkondenzovat prezentaci co nejvíc.
 
@@ -62,26 +80,122 @@ Během prezentace můžete pokládat dotazy, ale připravil jsem i opory (link n
 Vyřadil jsem i spoustu témat, pokud by vás některé zajímalo, dejte vědět.
 """
 
-private let generated_hint_1: String =
-"""
-"""
-
-private let generated_hint_2: String =
-"""
-Liker v toto případě je Linker Editor. (Program LD)
-"""
-
-private let generated_hint_3: String =
-"""
-
-"""
-
 private let generated_hint_4: String =
 """
 
 """
 
 private let generated_hint_5: String =
+"""
+
+"""
+
+private let generated_hint_6: String =
+"""
+
+"""
+
+private let generated_hint_7: String =
+"""
+
+"""
+
+private let generated_hint_8: String =
+"""
+
+"""
+
+private let generated_hint_9: String =
+"""
+
+"""
+
+private let generated_hint_10: String =
+"""
+
+"""
+
+private let generated_hint_11: String =
+"""
+
+"""
+
+private let generated_hint_12: String =
+"""
+Liker v toto případě je Linker Editor. (Program LD)
+"""
+
+private let generated_hint_13: String =
+"""
+
+"""
+
+private let generated_hint_14: String =
+"""
+
+"""
+
+private let generated_hint_15: String =
+"""
+
+"""
+
+private let generated_hint_16: String =
+"""
+
+"""
+
+private let generated_hint_17: String =
+"""
+
+"""
+
+private let generated_hint_18: String =
+"""
+
+"""
+
+private let generated_hint_19: String =
+"""
+
+"""
+
+private let generated_hint_20: String =
+"""
+
+"""
+
+private let generated_hint_21: String =
+"""
+
+"""
+
+private let generated_hint_22: String =
+"""
+
+"""
+
+private let generated_hint_23: String =
+"""
+
+"""
+
+private let generated_hint_24: String =
+"""
+
+"""
+
+private let generated_hint_25: String =
+"""
+
+"""
+
+private let generated_hint_26: String =
+"""
+
+"""
+
+private let generated_hint_27: String =
 """
 
 """
@@ -98,31 +212,13 @@ private let presentation = PresentationProperties(
 
 @main
 struct LinkSlidesApp: App {
-
     var body: some Scene {
-        get {
-            if #available(macOS 13.0, *) {
-                return new
-            } else {
-                return old
-            }
-        }
-    }
-    
-    var old: some Scene {
-        WindowGroup {
-            Presentation().environmentObject(presentation)
-        }
-    }
-    
-    @available(macOS 13.0, *)
-    @SceneBuilder var new: some Scene {
         WindowGroup("Toolbar") {
-            SlideControlPanel(environment: presentation).environmentObject(presentation)
+            SlideControlPanel().environmentObject(presentation)
         }
 
         Window("Slides", id: "slides") {
-            Presentation().environmentObject(presentation)
+            Presentation(environment: presentation).environmentObject(presentation)
         }
     }
 }

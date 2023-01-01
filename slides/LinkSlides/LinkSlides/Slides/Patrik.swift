@@ -1,4 +1,7 @@
 import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons
 
 struct Patrik: View, Slide {
     // @offset(Patrik)

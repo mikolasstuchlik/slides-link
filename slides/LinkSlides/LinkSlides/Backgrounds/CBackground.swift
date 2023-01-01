@@ -1,4 +1,7 @@
 import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons
 
 struct CBackground: View, Background {
     static var offset: CGVector = CGVector(dx: 4 / 2, dy: 3.5)

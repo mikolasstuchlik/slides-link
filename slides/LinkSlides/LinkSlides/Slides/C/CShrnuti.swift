@@ -1,4 +1,7 @@
 import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons
 
 struct CShrnuti: View, Slide {
     // @offset(CShrnuti)

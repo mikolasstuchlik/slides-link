@@ -1,4 +1,7 @@
 import SwiftUI
+import SlideUIViews
+import SlideUI
+import SlideUICommons
 
 struct CLibDynamicka: View, Slide {
     // @offset(CLibDynamicka)
