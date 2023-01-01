@@ -17,6 +17,15 @@
         "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
         "version" : "2.1.2"
       }
+    },
+    {
+      "identity" : "slideui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mikolasstuchlik/SlideUI.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "290ca6d54ec77ad8292399aeffc4afbfe64a55db"
+      }
     }
   ],
   "version" : 2

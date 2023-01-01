@@ -10,10 +10,8 @@
 		BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */; };
 		BE03640228B14FBD00C667F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE03640128B14FBD00C667F5 /* Assets.xcassets */; };
 		BE03640528B14FBD00C667F5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */; };
-		BE03640E28B14FE300C667F5 /* Slides.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03640D28B14FE300C667F5 /* Slides.swift */; };
 		BE03641A28B1588500C667F5 /* Beginning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641928B1588500C667F5 /* Beginning.swift */; };
 		BE03641C28B1589100C667F5 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641B28B1589100C667F5 /* End.swift */; };
-		BE03642328B1638900C667F5 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BE03642228B1638900C667F5 /* CodeEditor */; };
 		BE4D2D5028BBCAD10086D7D8 /* UvodOTematu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */; };
 		BE6430E428BCC48300BDB7D6 /* CShrnuti.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E328BCC48300BDB7D6 /* CShrnuti.swift */; };
 		BE6430E828BCC58800BDB7D6 /* OCoToJe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E728BCC58800BDB7D6 /* OCoToJe.swift */; };
@@ -26,15 +24,9 @@
 		BE6430FA28BD27BF00BDB7D6 /* CBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430F928BD27BF00BDB7D6 /* CBackground.swift */; };
 		BE6430FC28BD291800BDB7D6 /* LibBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430FB28BD291800BDB7D6 /* LibBackground.swift */; };
 		BE6430FE28BD2A6A00BDB7D6 /* OBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430FD28BD2A6A00BDB7D6 /* OBackground.swift */; };
-		BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FF46D28B3990600802752 /* FontPicker.swift */; };
-		BE77176028B684980077ABA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77175F28B684980077ABA3 /* Extensions.swift */; };
-		BE77176228B684C30077ABA3 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176128B684C30077ABA3 /* Process.swift */; };
-		BE77176428B684DA0077ABA3 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176328B684DA0077ABA3 /* WebView.swift */; };
-		BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176528B6850A0077ABA3 /* EffectView.swift */; };
-		BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176728B686A30077ABA3 /* ToggleView.swift */; };
-		BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77176928B686B20077ABA3 /* TextEditorView.swift */; };
-		BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A826228B6C2D90078ED83 /* OutlineView.swift */; };
-		BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BFF1128B3764200B04726 /* TerminalView.swift */; };
+		BE8C2E00295C800400AD11C2 /* SlideUI in Frameworks */ = {isa = PBXBuildFile; productRef = BE8C2DFF295C800400AD11C2 /* SlideUI */; };
+		BE8C2E02295C800400AD11C2 /* SlideUICommons in Frameworks */ = {isa = PBXBuildFile; productRef = BE8C2E01295C800400AD11C2 /* SlideUICommons */; };
+		BE8C2E04295C800400AD11C2 /* SlideUIViews in Frameworks */ = {isa = PBXBuildFile; productRef = BE8C2E03295C800400AD11C2 /* SlideUIViews */; };
 		BEA78EE428BBCD4F00EC5816 /* UvodProc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE328BBCD4F00EC5816 /* UvodProc.swift */; };
 		BEA78EE828BBCE9E00EC5816 /* KnihovnyDylibVSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */; };
 		BEA78EEA28BBEF2A00EC5816 /* KnihovnyHighLvl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EE928BBEF2A00EC5816 /* KnihovnyHighLvl.swift */; };
@@ -44,10 +36,6 @@
 		BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */; };
 		BEAE171D28D0D21D0057A27A /* Patrik.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAE171C28D0D21D0057A27A /* Patrik.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
-		BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */; };
-		BEC3944D28B7B67A00C2EFF3 /* FocusCodeManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */; };
-		BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC47C828B366BB00BF5C2A /* CompilerView.swift */; };
-		BEF18E4128BE107A00545830 /* FileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF18E4028BE107A00545830 /* FileCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,7 +44,6 @@
 		BE03640128B14FBD00C667F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BE03640628B14FBD00C667F5 /* LinkSlides.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinkSlides.entitlements; sourceTree = "<group>"; };
-		BE03640D28B14FE300C667F5 /* Slides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slides.swift; sourceTree = "<group>"; };
 		BE03641928B1588500C667F5 /* Beginning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beginning.swift; sourceTree = "<group>"; };
 		BE03641B28B1589100C667F5 /* End.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = End.swift; sourceTree = "<group>"; };
 		BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UvodOTematu.swift; sourceTree = "<group>"; };
@@ -71,15 +58,6 @@
 		BE6430F928BD27BF00BDB7D6 /* CBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBackground.swift; sourceTree = "<group>"; };
 		BE6430FB28BD291800BDB7D6 /* LibBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibBackground.swift; sourceTree = "<group>"; };
 		BE6430FD28BD2A6A00BDB7D6 /* OBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBackground.swift; sourceTree = "<group>"; };
-		BE6FF46D28B3990600802752 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
-		BE77175F28B684980077ABA3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		BE77176128B684C30077ABA3 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
-		BE77176328B684DA0077ABA3 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		BE77176528B6850A0077ABA3 /* EffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
-		BE77176728B686A30077ABA3 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
-		BE77176928B686B20077ABA3 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
-		BE7A826228B6C2D90078ED83 /* OutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
-		BE8BFF1128B3764200B04726 /* TerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalView.swift; sourceTree = "<group>"; };
 		BEA78EE328BBCD4F00EC5816 /* UvodProc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UvodProc.swift; sourceTree = "<group>"; };
 		BEA78EE728BBCE9E00EC5816 /* KnihovnyDylibVSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnihovnyDylibVSA.swift; sourceTree = "<group>"; };
 		BEA78EE928BBEF2A00EC5816 /* KnihovnyHighLvl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnihovnyHighLvl.swift; sourceTree = "<group>"; };
@@ -89,10 +67,6 @@
 		BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDvaSoubory.swift; sourceTree = "<group>"; };
 		BEAE171C28D0D21D0057A27A /* Patrik.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patrik.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
-		BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideControlPanel.swift; sourceTree = "<group>"; };
-		BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCodeManipulator.swift; sourceTree = "<group>"; };
-		BEEC47C828B366BB00BF5C2A /* CompilerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilerView.swift; sourceTree = "<group>"; };
-		BEF18E4028BE107A00545830 /* FileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +74,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE03642328B1638900C667F5 /* CodeEditor in Frameworks */,
+				BE8C2E04295C800400AD11C2 /* SlideUIViews in Frameworks */,
+				BE8C2E00295C800400AD11C2 /* SlideUI in Frameworks */,
+				BE8C2E02295C800400AD11C2 /* SlideUICommons in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +88,7 @@
 			children = (
 				BE0363FC28B14FBC00C667F5 /* LinkSlides */,
 				BE0363FB28B14FBC00C667F5 /* Products */,
+				BEC4898128E0CD67004969CA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,8 +107,6 @@
 				BE0363FD28B14FBC00C667F5 /* LinkSlidesApp.swift */,
 				BEBB4F2D28B4C86000F5DEB8 /* Backgrounds */,
 				BE03641628B1586100C667F5 /* Slides */,
-				BE77175D28B683DC0077ABA3 /* Core */,
-				BE77175E28B684300077ABA3 /* Feature Views */,
 				BE03640C28B14FD200C667F5 /* Supporting */,
 			);
 			path = LinkSlides;
@@ -142,9 +117,6 @@
 			children = (
 				BE03640428B14FBD00C667F5 /* Preview Assets.xcassets */,
 				BE03640628B14FBD00C667F5 /* LinkSlides.entitlements */,
-				BE77175F28B684980077ABA3 /* Extensions.swift */,
-				BE77176128B684C30077ABA3 /* Process.swift */,
-				BE77176528B6850A0077ABA3 /* EffectView.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -193,31 +165,6 @@
 			path = Swift;
 			sourceTree = "<group>";
 		};
-		BE77175D28B683DC0077ABA3 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				BEC1FF1928B2782B00C8FB26 /* SlideControlPanel.swift */,
-				BE03640D28B14FE300C667F5 /* Slides.swift */,
-				BEC3944C28B7B67A00C2EFF3 /* FocusCodeManipulator.swift */,
-				BEF18E4028BE107A00545830 /* FileCoordinator.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		BE77175E28B684300077ABA3 /* Feature Views */ = {
-			isa = PBXGroup;
-			children = (
-				BEEC47C828B366BB00BF5C2A /* CompilerView.swift */,
-				BE8BFF1128B3764200B04726 /* TerminalView.swift */,
-				BE77176328B684DA0077ABA3 /* WebView.swift */,
-				BE6FF46D28B3990600802752 /* FontPicker.swift */,
-				BE77176728B686A30077ABA3 /* ToggleView.swift */,
-				BE77176928B686B20077ABA3 /* TextEditorView.swift */,
-				BE7A826228B6C2D90078ED83 /* OutlineView.swift */,
-			);
-			path = "Feature Views";
-			sourceTree = "<group>";
-		};
 		BEA78EE528BBCE6900EC5816 /* Uvod */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +206,13 @@
 			path = Backgrounds;
 			sourceTree = "<group>";
 		};
+		BEC4898128E0CD67004969CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -276,7 +230,9 @@
 			);
 			name = LinkSlides;
 			packageProductDependencies = (
-				BE03642228B1638900C667F5 /* CodeEditor */,
+				BE8C2DFF295C800400AD11C2 /* SlideUI */,
+				BE8C2E01295C800400AD11C2 /* SlideUICommons */,
+				BE8C2E03295C800400AD11C2 /* SlideUIViews */,
 			);
 			productName = LinkSlides;
 			productReference = BE0363FA28B14FBC00C667F5 /* LinkSlides.app */;
@@ -290,7 +246,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					BE0363F928B14FBC00C667F5 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -304,10 +260,10 @@
 			knownRegions = (
 				en,
 				Base,
+				cs,
 			);
 			mainGroup = BE0363F128B14FBC00C667F5;
 			packageReferences = (
-				BE03642128B1638900C667F5 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = BE0363FB28B14FBC00C667F5 /* Products */;
 			projectDirPath = "";
@@ -336,28 +292,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE6430FC28BD291800BDB7D6 /* LibBackground.swift in Sources */,
-				BEF18E4128BE107A00545830 /* FileCoordinator.swift in Sources */,
-				BE8BFF1228B3764200B04726 /* TerminalView.swift in Sources */,
-				BE77176428B684DA0077ABA3 /* WebView.swift in Sources */,
-				BE6FF46E28B3990600802752 /* FontPicker.swift in Sources */,
 				BE6430F428BD179700BDB7D6 /* SwiftModule.swift in Sources */,
 				BE6430ED28BD01AD00BDB7D6 /* CLibStaticka.swift in Sources */,
 				BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */,
-				BEC3944D28B7B67A00C2EFF3 /* FocusCodeManipulator.swift in Sources */,
 				BE6430F628BD19C200BDB7D6 /* SwiftStatic.swift in Sources */,
 				BEAE171D28D0D21D0057A27A /* Patrik.swift in Sources */,
-				BE77176628B6850A0077ABA3 /* EffectView.swift in Sources */,
 				BE6430F228BD15C200BDB7D6 /* SwiftShrnuti.swift in Sources */,
 				BEA78EEC28BBF3B200EC5816 /* KnihovnyHandoff.swift in Sources */,
 				BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */,
-				BE77176828B686A30077ABA3 /* ToggleView.swift in Sources */,
 				BE6430EA28BCF0B300BDB7D6 /* OCteni.swift in Sources */,
 				BE6430EF28BD0BFC00BDB7D6 /* CLibDynamicka.swift in Sources */,
-				BE77176A28B686B20077ABA3 /* TextEditorView.swift in Sources */,
 				BEA78EF128BC18E300EC5816 /* CHeader.swift in Sources */,
 				BE6430FA28BD27BF00BDB7D6 /* CBackground.swift in Sources */,
-				BEEC47C928B366BB00BF5C2A /* CompilerView.swift in Sources */,
-				BE03640E28B14FE300C667F5 /* Slides.swift in Sources */,
 				BEA78EE828BBCE9E00EC5816 /* KnihovnyDylibVSA.swift in Sources */,
 				BE6430E828BCC58800BDB7D6 /* OCoToJe.swift in Sources */,
 				BEA78EE428BBCD4F00EC5816 /* UvodProc.swift in Sources */,
@@ -366,12 +312,8 @@
 				BE03641A28B1588500C667F5 /* Beginning.swift in Sources */,
 				BEA78EEA28BBEF2A00EC5816 /* KnihovnyHighLvl.swift in Sources */,
 				BEA78EEF28BBFD6E00EC5816 /* CZaklad.swift in Sources */,
-				BE77176228B684C30077ABA3 /* Process.swift in Sources */,
 				BE6430E428BCC48300BDB7D6 /* CShrnuti.swift in Sources */,
-				BE7A826328B6C2D90078ED83 /* OutlineView.swift in Sources */,
-				BEC1FF1A28B2782B00C8FB26 /* SlideControlPanel.swift in Sources */,
 				BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */,
-				BE77176028B684980077ABA3 /* Extensions.swift in Sources */,
 				BE6430FE28BD2A6A00BDB7D6 /* OBackground.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +325,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -412,6 +355,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -429,6 +373,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -443,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -472,6 +418,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -483,6 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -498,9 +446,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LinkSlides/Supporting/LinkSlides.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LinkSlides/Supporting\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -525,9 +475,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LinkSlides/Supporting/LinkSlides.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LinkSlides/Supporting\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -569,22 +521,18 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		BE03642128B1638900C667F5 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		BE03642228B1638900C667F5 /* CodeEditor */ = {
+		BE8C2DFF295C800400AD11C2 /* SlideUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BE03642128B1638900C667F5 /* XCRemoteSwiftPackageReference "CodeEditor" */;
-			productName = CodeEditor;
+			productName = SlideUI;
+		};
+		BE8C2E01295C800400AD11C2 /* SlideUICommons */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SlideUICommons;
+		};
+		BE8C2E03295C800400AD11C2 /* SlideUIViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SlideUIViews;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
