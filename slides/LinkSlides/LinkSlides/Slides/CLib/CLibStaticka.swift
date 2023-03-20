@@ -73,13 +73,11 @@ float getPi() {
                 HStack(spacing: 8) {
                     VStack(spacing: 8) {
                         TextEditorView(
-                            axis: .vertical,
                             filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/mylib.h",
                             format: .constant(.c),
                             content: $header
                         )
                         TextEditorView(
-                            axis: .vertical,
                             filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/mylib.c",
                             format: .constant(.c),
                             content: $lib
@@ -87,17 +85,16 @@ float getPi() {
                     }
                     VStack(spacing: 8) {
                         TextEditorView(
-                            axis: .vertical,
                             filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/exec.c",
                             format: .constant(.c),
                             content: $code
                         )
                         TerminalView(
-                            axis: .horizontal,
                             workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cstaticlib")),
-                            aspectRatio: 0.5,
                             stdIn: $stdin,
-                            state: $state
+                            state: $state,
+                            aspectRatio: 0.5,
+                            axis: .horizontal
                         )
                         Button("Další řádek") {
                             line += 1

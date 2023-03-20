@@ -29,11 +29,11 @@ struct OCteni: View, Slide {
             }
             ToggleView {
                 TerminalView(
-                    axis: .horizontal,
                     workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "ctwofiles")),
-                    aspectRatio: 0.20,
                     stdIn: $stdin,
-                    state: $state
+                    state: $state,
+                    aspectRatio: 0.20,
+                    axis: .horizontal
                 )
             }
             Text(

@@ -59,13 +59,11 @@ public func getPi() -> Double {
                 HStack(spacing: 8) {
                     VStack(spacing: 8) {
                         TextEditorView(
-                            axis: .vertical,
                             filePath: FileCoordinator.shared.pathToFolder(for: "swiftslib") + "/MyLib.swift",
                             format: .constant(.swift),
                             content: $lib
                         )
                         TextEditorView(
-                            axis: .vertical,
                             filePath: FileCoordinator.shared.pathToFolder(for: "swiftslib") + "/Exec.swift",
                             format: .constant(.swift),
                             content: $code
@@ -73,11 +71,11 @@ public func getPi() -> Double {
                     }
                     
                     TerminalView(
-                        axis: .horizontal,
                         workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "swiftslib")),
-                        aspectRatio: 0.25,
                         stdIn: $stdin,
-                        state: $state
+                        state: $state,
+                        aspectRatio: 0.25,
+                        axis: .horizontal
                     )
                     Button("Další řádek") {
                         line += 1

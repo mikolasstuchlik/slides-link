@@ -43,17 +43,16 @@ int main(void) {
                 ToggleView {
                     VStack {
                         TextEditorView(
-                            axis: .vertical,
                             filePath: FileCoordinator.shared.pathToFolder(for: "cbasic") + "/source.c",
                             format: .constant(.c),
                             content: $content
                         )
                         TerminalView(
-                            axis: .horizontal,
                             workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cbasic")),
-                            aspectRatio: 0.5,
                             stdIn: $stdin,
-                            state: $state
+                            state: $state,
+                            aspectRatio: 0.5,
+                            axis: .horizontal
                         ).frame(height: 200)
                     }
                 }

@@ -56,24 +56,22 @@ int mul2(int input) {
                     VStack {
                         HStack {
                             TextEditorView(
-                                axis: .vertical,
                                 filePath: FileCoordinator.shared.pathToFolder(for: "ctwofiles") + "/source.c",
                                 format: .constant(.c),
                                 content: $content
                             )
                             TextEditorView(
-                                axis: .vertical,
                                 filePath: FileCoordinator.shared.pathToFolder(for: "ctwofiles") + "/mul.c",
                                 format: .constant(.c),
                                 content: $otherCont
                             )
                         }
                         TerminalView(
-                            axis: .horizontal,
                             workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "ctwofiles")),
-                            aspectRatio: 0.5,
                             stdIn: $stdin,
-                            state: $state
+                            state: $state,
+                            aspectRatio: 0.5,
+                            axis: .horizontal
                         ).frame(height: 200)
                     }
                 }
