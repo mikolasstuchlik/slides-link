@@ -24,6 +24,9 @@
 		BE6430FA28BD27BF00BDB7D6 /* CBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430F928BD27BF00BDB7D6 /* CBackground.swift */; };
 		BE6430FC28BD291800BDB7D6 /* LibBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430FB28BD291800BDB7D6 /* LibBackground.swift */; };
 		BE6430FE28BD2A6A00BDB7D6 /* OBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430FD28BD2A6A00BDB7D6 /* OBackground.swift */; };
+		BE76E57429C89CA50012AD4A /* SlideUI in Frameworks */ = {isa = PBXBuildFile; productRef = BE76E57329C89CA50012AD4A /* SlideUI */; };
+		BE76E57629C89CA50012AD4A /* SlideUICommons in Frameworks */ = {isa = PBXBuildFile; productRef = BE76E57529C89CA50012AD4A /* SlideUICommons */; };
+		BE76E57829C89CA50012AD4A /* SlideUIViews in Frameworks */ = {isa = PBXBuildFile; productRef = BE76E57729C89CA50012AD4A /* SlideUIViews */; };
 		BE8C2E00295C800400AD11C2 /* SlideUI in Frameworks */ = {isa = PBXBuildFile; productRef = BE8C2DFF295C800400AD11C2 /* SlideUI */; };
 		BE8C2E02295C800400AD11C2 /* SlideUICommons in Frameworks */ = {isa = PBXBuildFile; productRef = BE8C2E01295C800400AD11C2 /* SlideUICommons */; };
 		BE8C2E04295C800400AD11C2 /* SlideUIViews in Frameworks */ = {isa = PBXBuildFile; productRef = BE8C2E03295C800400AD11C2 /* SlideUIViews */; };
@@ -75,7 +78,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE8C2E04295C800400AD11C2 /* SlideUIViews in Frameworks */,
+				BE76E57629C89CA50012AD4A /* SlideUICommons in Frameworks */,
 				BE8C2E00295C800400AD11C2 /* SlideUI in Frameworks */,
+				BE76E57829C89CA50012AD4A /* SlideUIViews in Frameworks */,
+				BE76E57429C89CA50012AD4A /* SlideUI in Frameworks */,
 				BE8C2E02295C800400AD11C2 /* SlideUICommons in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +239,9 @@
 				BE8C2DFF295C800400AD11C2 /* SlideUI */,
 				BE8C2E01295C800400AD11C2 /* SlideUICommons */,
 				BE8C2E03295C800400AD11C2 /* SlideUIViews */,
+				BE76E57329C89CA50012AD4A /* SlideUI */,
+				BE76E57529C89CA50012AD4A /* SlideUICommons */,
+				BE76E57729C89CA50012AD4A /* SlideUIViews */,
 			);
 			productName = LinkSlides;
 			productReference = BE0363FA28B14FBC00C667F5 /* LinkSlides.app */;
@@ -264,6 +273,7 @@
 			);
 			mainGroup = BE0363F128B14FBC00C667F5;
 			packageReferences = (
+				BE76E57229C89CA50012AD4A /* XCRemoteSwiftPackageReference "SlideUI" */,
 			);
 			productRefGroup = BE0363FB28B14FBC00C667F5 /* Products */;
 			projectDirPath = "";
@@ -521,7 +531,33 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		BE76E57229C89CA50012AD4A /* XCRemoteSwiftPackageReference "SlideUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mikolasstuchlik/SlideUI.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		BE76E57329C89CA50012AD4A /* SlideUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE76E57229C89CA50012AD4A /* XCRemoteSwiftPackageReference "SlideUI" */;
+			productName = SlideUI;
+		};
+		BE76E57529C89CA50012AD4A /* SlideUICommons */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE76E57229C89CA50012AD4A /* XCRemoteSwiftPackageReference "SlideUI" */;
+			productName = SlideUICommons;
+		};
+		BE76E57729C89CA50012AD4A /* SlideUIViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE76E57229C89CA50012AD4A /* XCRemoteSwiftPackageReference "SlideUI" */;
+			productName = SlideUIViews;
+		};
 		BE8C2DFF295C800400AD11C2 /* SlideUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SlideUI;
