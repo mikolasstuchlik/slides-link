@@ -37,7 +37,6 @@
 		BEA78EEF28BBFD6E00EC5816 /* CZaklad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */; };
 		BEA78EF128BC18E300EC5816 /* CHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EF028BC18E300EC5816 /* CHeader.swift */; };
 		BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */; };
-		BEAE171D28D0D21D0057A27A /* Patrik.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAE171C28D0D21D0057A27A /* Patrik.swift */; };
 		BEBB4F3128B4C87B00F5DEB8 /* SwiftBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +67,6 @@
 		BEA78EEE28BBFD6E00EC5816 /* CZaklad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CZaklad.swift; sourceTree = "<group>"; };
 		BEA78EF028BC18E300EC5816 /* CHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHeader.swift; sourceTree = "<group>"; };
 		BEA78EF228BC1E6800EC5816 /* CDvaSoubory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDvaSoubory.swift; sourceTree = "<group>"; };
-		BEAE171C28D0D21D0057A27A /* Patrik.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patrik.swift; sourceTree = "<group>"; };
 		BEBB4F3028B4C87B00F5DEB8 /* SwiftBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBackground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,7 +136,6 @@
 				BEA78EE528BBCE6900EC5816 /* Uvod */,
 				BE03641928B1588500C667F5 /* Beginning.swift */,
 				BE03641B28B1589100C667F5 /* End.swift */,
-				BEAE171C28D0D21D0057A27A /* Patrik.swift */,
 			);
 			path = Slides;
 			sourceTree = "<group>";
@@ -306,7 +303,6 @@
 				BE6430ED28BD01AD00BDB7D6 /* CLibStaticka.swift in Sources */,
 				BE0363FE28B14FBC00C667F5 /* LinkSlidesApp.swift in Sources */,
 				BE6430F628BD19C200BDB7D6 /* SwiftStatic.swift in Sources */,
-				BEAE171D28D0D21D0057A27A /* Patrik.swift in Sources */,
 				BE6430F228BD15C200BDB7D6 /* SwiftShrnuti.swift in Sources */,
 				BEA78EEC28BBF3B200EC5816 /* KnihovnyHandoff.swift in Sources */,
 				BEA78EF328BC1E6800EC5816 /* CDvaSoubory.swift in Sources */,

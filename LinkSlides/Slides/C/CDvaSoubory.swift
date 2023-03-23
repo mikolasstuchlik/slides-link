@@ -36,14 +36,33 @@ int mul2(int input) {
   return input * 2;
 }
 
-"""
-    
+""" 
+
     private static let defaultStdIn = "clang -c mul.c && clang mul.o source.c -o source && ./source"
-    
+
+    @StateObject var execCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "ctwofiles") + "/source.c",
+        format: .c,
+        content: CDvaSoubory.defaultCode
+    )
+
+    @StateObject var exec2Code: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "ctwofiles") + "/mul.c",
+        format: .c,
+        content: CDvaSoubory.defaultSecond
+    )
+
+    @StateObject var terminal: TerminalView.Model = .init(
+        workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "ctwofiles")),
+        stdIn: CDvaSoubory.defaultStdIn,
+        state: .idle
+    )
+
     @State var content: String = CDvaSoubory.defaultCode
     @State var otherCont: String = CDvaSoubory.defaultSecond
     @State var state: TerminalView.State = .idle
     @State var stdin: String = CDvaSoubory.defaultStdIn
+    @State var toggle: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
@@ -52,27 +71,13 @@ int mul2(int input) {
                 Text("Rychlokurz - Víc než jeden soubor, prosím").font(.presentationSubHeadline)
             }
             HStack {
-                ToggleView {
+                ToggleView(toggledOn: $toggle) {
                     VStack {
                         HStack {
-                            TextEditorView(
-                                filePath: FileCoordinator.shared.pathToFolder(for: "ctwofiles") + "/source.c",
-                                format: .constant(.c),
-                                content: $content
-                            )
-                            TextEditorView(
-                                filePath: FileCoordinator.shared.pathToFolder(for: "ctwofiles") + "/mul.c",
-                                format: .constant(.c),
-                                content: $otherCont
-                            )
+                            TextEditorView(model: execCode)
+                            TextEditorView(model: exec2Code)
                         }
-                        TerminalView(
-                            workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "ctwofiles")),
-                            stdIn: $stdin,
-                            state: $state,
-                            aspectRatio: 0.5,
-                            axis: .horizontal
-                        ).frame(height: 200)
+                        TerminalView(model: terminal, aspectRatio: 0.5, axis: .horizontal).frame(height: 200)
                     }
                 }
             }

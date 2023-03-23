@@ -54,14 +54,33 @@ float getPi() {
         #"clang -I"$(pwd)" -o exec libmylib.a exec.c && ./exec"#,
         #"clang -I"$(pwd)" -L"$(pwd)" -o exec -lmylib exec.c && ./exec"#,
     ]
-    
-    @State var code: String = CLibStaticka.defaultCode
-    @State var lib: String = CLibStaticka.defaultLib
-    @State var header: String = CLibStaticka.defaultHeader
 
-    @State var state: TerminalView.State = .idle
-    @State var stdin: String = CLibStaticka.defaultStdIn[0]
+    @StateObject var libCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/mylib.c",
+        format: .c,
+        content: CLibStaticka.defaultLib
+    )
+
+    @StateObject var headerCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/mylib.h",
+        format: .c,
+        content: CLibStaticka.defaultHeader
+    )
+
+    @StateObject var execCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/exec.c",
+        format: .c,
+        content: CLibStaticka.defaultCode
+    )
+
+    @StateObject var terminal: TerminalView.Model = .init(
+        workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cstaticlib")),
+        stdIn: CLibStaticka.defaultStdIn[0],
+        state: .idle
+    )
+
     @State var line = 0
+    @State var toggle: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
@@ -69,40 +88,22 @@ float getPi() {
                 Text("C knihovna").font(.presentationHeadline)
                 Text("Vytvoření statické knihovny").font(.presentationSubHeadline)
             }
-            ToggleView {
+            ToggleView(toggledOn: $toggle) {
                 HStack(spacing: 8) {
                     VStack(spacing: 8) {
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/mylib.h",
-                            format: .constant(.c),
-                            content: $header
-                        )
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/mylib.c",
-                            format: .constant(.c),
-                            content: $lib
-                        )
+                        TextEditorView(model: headerCode)
+                        TextEditorView(model: libCode)
                     }
                     VStack(spacing: 8) {
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "cstaticlib") + "/exec.c",
-                            format: .constant(.c),
-                            content: $code
-                        )
-                        TerminalView(
-                            workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cstaticlib")),
-                            stdIn: $stdin,
-                            state: $state,
-                            aspectRatio: 0.5,
-                            axis: .horizontal
-                        )
+                        TextEditorView(model: execCode)
+                        TerminalView(model: terminal, aspectRatio: 0.5, axis: .horizontal)
                         Button("Další řádek") {
                             line += 1
 
                             if line >= Self.defaultStdIn.count {
                                 line = 0
                             }
-                            stdin = Self.defaultStdIn[line]
+                            terminal.stdIn = Self.defaultStdIn[line]
                         }
                     }
                 }

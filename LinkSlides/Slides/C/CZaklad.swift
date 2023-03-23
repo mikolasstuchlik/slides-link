@@ -28,10 +28,20 @@ int main(void) {
 """
     
     private static let defaultStdIn = "clang source.c -o source && ./source"
-    
-    @State var content: String = CZaklad.defaultCode
-    @State var state: TerminalView.State = .idle
-    @State var stdin: String = CZaklad.defaultStdIn
+
+    @StateObject var execCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "cbasic") + "/source.c",
+        format: .c,
+        content: CZaklad.defaultCode
+    )
+
+    @StateObject var terminal: TerminalView.Model = .init(
+        workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cbasic")),
+        stdIn: CZaklad.defaultStdIn,
+        state: .idle
+    )
+
+    @State var toggle: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
@@ -40,20 +50,10 @@ int main(void) {
                 Text("Rychlokurz - funkce a volání").font(.presentationSubHeadline)
             }
             HStack {
-                ToggleView {
+                ToggleView(toggledOn: $toggle) {
                     VStack {
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "cbasic") + "/source.c",
-                            format: .constant(.c),
-                            content: $content
-                        )
-                        TerminalView(
-                            workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cbasic")),
-                            stdIn: $stdin,
-                            state: $state,
-                            aspectRatio: 0.5,
-                            axis: .horizontal
-                        ).frame(height: 200)
+                        TextEditorView(model: execCode)
+                        TerminalView(model: terminal, aspectRatio: 0.5, axis: .horizontal).frame(height: 200)
                     }
                 }
             }

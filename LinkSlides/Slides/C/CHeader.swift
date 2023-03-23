@@ -40,11 +40,48 @@ int mul2(int input);
 """
     
     private static let defaultStdIn = "clang source.c -o source && ./source"
-    
-    @State var content: String = CHeader.defaultCode
-    @State var header: String = CHeader.defaultHeader
-    @State var state: TerminalView.State = .idle
-    @State var stdin: String = CHeader.defaultStdIn
+
+    public final class ExposedState: ForwardEventCapturingState {
+        public static var stateSingleton: CHeader.ExposedState = .init()
+
+        @Published var headerCode: TextEditorView.Model = .init(
+            filePath: FileCoordinator.shared.pathToFolder(for: "cheader") + "/source.h",
+            format: .c,
+            content: CHeader.defaultHeader
+        )
+
+        @Published var execCode: TextEditorView.Model = .init(
+            filePath: FileCoordinator.shared.pathToFolder(for: "cheader") + "/source.c",
+            format: .c,
+            content: CHeader.defaultCode
+        )
+
+        @Published var terminal: TerminalView.Model = .init(
+            workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cheader")),
+            stdIn: CHeader.defaultStdIn,
+            state: .idle
+        )
+
+        @Published var toggle: Bool = false
+
+        public func captured(forwardEvent number: UInt) -> Bool {
+            switch number {
+            case 0:
+                toggle.toggle()
+            case 1:
+                headerCode.save()
+                execCode.save()
+            case 2:
+                terminal.execute()
+            case 3:
+                toggle.toggle()
+            default:
+                return false
+            }
+            return true
+        }
+    }
+    @ObservedObject private var state: ExposedState = ExposedState.stateSingleton
 
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
@@ -53,27 +90,13 @@ int mul2(int input);
                 Text("Rychlokurz - Hlavičkové soubory").font(.presentationSubHeadline)
             }
             HStack {
-                ToggleView {
+                ToggleView(toggledOn: $state.toggle) {
                     VStack {
                         HStack {
-                            TextEditorView(
-                                filePath: FileCoordinator.shared.pathToFolder(for: "cheader") + "/source.c",
-                                format: .constant(.c),
-                                content: $content
-                            )
-                            TextEditorView(
-                                filePath: FileCoordinator.shared.pathToFolder(for: "cheader") + "/source.h",
-                                format: .constant(.c),
-                                content: $header
-                            )
+                            TextEditorView(model: state.execCode)
+                            TextEditorView(model: state.headerCode)
                         }
-                        TerminalView(
-                            workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cheader")),
-                            stdIn: $stdin,
-                            state: $state,
-                            aspectRatio: 0.5,
-                            axis: .horizontal
-                        ).frame(height: 200)
+                        TerminalView(model: state.terminal, aspectRatio: 0.5, axis: .horizontal).frame(height: 200)
                     }
                 }
             }

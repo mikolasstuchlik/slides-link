@@ -41,13 +41,27 @@ public func getPi() -> Double {
         "swift demangle s5MyLib5getPiSdyF",
         #"swiftc -I"$(pwd)" -L"$(pwd)" -lMyLib Exec.swift && ./Exec"#,
     ]
-    
-    @State var code: String = SwiftStatic.defaultCode
-    @State var lib: String = SwiftStatic.defaultLib
 
-    @State var state: TerminalView.State = .idle
-    @State var stdin: String = SwiftStatic.defaultStdIn[0]
+    @StateObject var libCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "swiftslib") + "/MyLib.swift",
+        format: .swift,
+        content: SwiftStatic.defaultLib
+    )
+
+    @StateObject var execCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "swiftslib") + "/Exec.swift",
+        format: .swift,
+        content: SwiftStatic.defaultCode
+    )
+
+    @StateObject var terminal: TerminalView.Model = .init(
+        workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "swiftslib")),
+        stdIn: SwiftStatic.defaultStdIn[0],
+        state: .idle
+    )
+
     @State var line = 0
+    @State var toggle: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
@@ -55,35 +69,21 @@ public func getPi() -> Double {
                 Text("C knihovna").font(.presentationHeadline)
                 Text("Vytvoření statické nebo dynamické knihovny").font(.presentationSubHeadline)
             }
-            ToggleView {
+            ToggleView(toggledOn: $toggle) {
                 HStack(spacing: 8) {
                     VStack(spacing: 8) {
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "swiftslib") + "/MyLib.swift",
-                            format: .constant(.swift),
-                            content: $lib
-                        )
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "swiftslib") + "/Exec.swift",
-                            format: .constant(.swift),
-                            content: $code
-                        )
+                        TextEditorView(model: libCode)
+                        TextEditorView(model: execCode)
                     }
                     
-                    TerminalView(
-                        workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "swiftslib")),
-                        stdIn: $stdin,
-                        state: $state,
-                        aspectRatio: 0.25,
-                        axis: .horizontal
-                    )
+                    TerminalView(model: terminal, aspectRatio: 0.25, axis: .horizontal)
                     Button("Další řádek") {
                         line += 1
                         
                         if line >= Self.defaultStdIn.count {
                             line = 0
                         }
-                        stdin = Self.defaultStdIn[line]
+                        terminal.stdIn = Self.defaultStdIn[line]
                     }
                 }
             }

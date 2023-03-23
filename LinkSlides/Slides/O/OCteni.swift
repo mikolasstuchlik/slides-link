@@ -17,9 +17,14 @@ struct OCteni: View, Slide {
     init() {}
 
     private static var defaultStdIn = "nm mul.o"
-    
-    @State var state: TerminalView.State = .idle
-    @State var stdin: String = OCteni.defaultStdIn
+
+    @StateObject var terminal: TerminalView.Model = .init(
+        workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "ctwofiles")),
+        stdIn: OCteni.defaultStdIn,
+        state: .idle
+    )
+
+    @State var toggle: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
@@ -27,14 +32,8 @@ struct OCteni: View, Slide {
                 Text("Objektový soubor").font(.presentationHeadline)
                 Text("Čtení tabulky symbolů").font(.presentationSubHeadline)
             }
-            ToggleView {
-                TerminalView(
-                    workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "ctwofiles")),
-                    stdIn: $stdin,
-                    state: $state,
-                    aspectRatio: 0.20,
-                    axis: .horizontal
-                )
+            ToggleView(toggledOn: $toggle) {
+                TerminalView(model: terminal, aspectRatio: 0.20, axis: .horizontal)
             }
             Text(
 """

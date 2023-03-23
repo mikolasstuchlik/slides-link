@@ -55,14 +55,34 @@ float getPi() {
         "otool -L exec",
         "rm libmylib.dylib && ./exec"
     ]
-    
-    @State var code: String = CLibDynamicka.defaultCode
-    @State var lib: String = CLibDynamicka.defaultLib
-    @State var header: String = CLibDynamicka.defaultHeader
 
-    @State var state: TerminalView.State = .idle
-    @State var stdin: String = CLibDynamicka.defaultStdIn[0]
+
+    @StateObject var libCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib") + "/mylib.c",
+        format: .c,
+        content: CLibDynamicka.defaultLib
+    )
+
+    @StateObject var headerCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib") + "/mylib.h",
+        format: .c,
+        content: CLibDynamicka.defaultHeader
+    )
+
+    @StateObject var execCode: TextEditorView.Model = .init(
+        filePath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib") + "/exec.c",
+        format: .c,
+        content: CLibDynamicka.defaultCode
+    )
+
+    @StateObject var terminal: TerminalView.Model = .init(
+        workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib")),
+        stdIn: CLibDynamicka.defaultStdIn[0],
+        state: .idle
+    )
+
     @State var line = 0
+    @State var toggle: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
@@ -70,40 +90,22 @@ float getPi() {
                 Text("C knihovna").font(.presentationHeadline)
                 Text("Vytvoření statické knihovny").font(.presentationSubHeadline)
             }
-            ToggleView {
+            ToggleView(toggledOn: $toggle) {
                 HStack(spacing: 8) {
                     VStack(spacing: 8) {
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib") + "/mylib.h",
-                            format: .constant(.c),
-                            content: $header
-                        )
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib") + "/mylib.c",
-                            format: .constant(.c),
-                            content: $lib
-                        )
+                        TextEditorView(model: headerCode)
+                        TextEditorView(model: libCode)
                     }
                     VStack(spacing: 8) {
-                        TextEditorView(
-                            filePath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib") + "/exec.c",
-                            format: .constant(.c),
-                            content: $code
-                        )
-                        TerminalView(
-                            workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cdynamiclib")),
-                            stdIn: $stdin,
-                            state: $state,
-                            aspectRatio: 0.5,
-                            axis: .horizontal
-                        )
+                        TextEditorView(model: execCode)
+                        TerminalView(model: terminal, aspectRatio: 0.5, axis: .horizontal)
                         Button("Další řádek") {
                             line += 1
 
                             if line >= Self.defaultStdIn.count {
                                 line = 0
                             }
-                            stdin = Self.defaultStdIn[line]
+                            terminal.stdIn = Self.defaultStdIn[line]
                         }
                     }
                 }
