@@ -13,6 +13,7 @@
 		BE03641A28B1588500C667F5 /* Beginning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641928B1588500C667F5 /* Beginning.swift */; };
 		BE03641C28B1589100C667F5 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03641B28B1589100C667F5 /* End.swift */; };
 		BE4D2D5028BBCAD10086D7D8 /* UvodOTematu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4D2D4F28BBCAD10086D7D8 /* UvodOTematu.swift */; };
+		BE5E9B3029CCE2A900FC520E /* SlideVaporized in Frameworks */ = {isa = PBXBuildFile; productRef = BE5E9B2F29CCE2A900FC520E /* SlideVaporized */; };
 		BE6430E428BCC48300BDB7D6 /* CShrnuti.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E328BCC48300BDB7D6 /* CShrnuti.swift */; };
 		BE6430E828BCC58800BDB7D6 /* OCoToJe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E728BCC58800BDB7D6 /* OCoToJe.swift */; };
 		BE6430EA28BCF0B300BDB7D6 /* OCteni.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6430E928BCF0B300BDB7D6 /* OCteni.swift */; };
@@ -81,6 +82,7 @@
 				BE76E57829C89CA50012AD4A /* SlideUIViews in Frameworks */,
 				BE76E57429C89CA50012AD4A /* SlideUI in Frameworks */,
 				BE8C2E02295C800400AD11C2 /* SlideUICommons in Frameworks */,
+				BE5E9B3029CCE2A900FC520E /* SlideVaporized in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +241,7 @@
 				BE76E57329C89CA50012AD4A /* SlideUI */,
 				BE76E57529C89CA50012AD4A /* SlideUICommons */,
 				BE76E57729C89CA50012AD4A /* SlideUIViews */,
+				BE5E9B2F29CCE2A900FC520E /* SlideVaporized */,
 			);
 			productName = LinkSlides;
 			productReference = BE0363FA28B14FBC00C667F5 /* LinkSlides.app */;
@@ -539,6 +542,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BE5E9B2F29CCE2A900FC520E /* SlideVaporized */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SlideVaporized;
+		};
 		BE76E57329C89CA50012AD4A /* SlideUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BE76E57229C89CA50012AD4A /* XCRemoteSwiftPackageReference "SlideUI" */;

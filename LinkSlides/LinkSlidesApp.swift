@@ -2,6 +2,7 @@ import SwiftUI
 import SlideUIViews
 import SlideUI
 import SlideUICommons
+import SlideVaporized
 
 /*
  Known issues: entering editor mode when focus is out of bounds will crash
@@ -214,7 +215,22 @@ private let presentation = PresentationProperties(
 struct LinkSlidesApp: App {
     var body: some Scene {
         WindowGroup("Toolbar") {
-            SlideControlPanel().environmentObject(presentation)
+            SlideControlPanel {
+                HStack {
+                    RemoteControlService.QRAccessoryView()
+                    RemoteHitnSocketService.QRAccessoryView()
+                }
+            }
+            .environmentObject(presentation)
+            .onAppear {
+                VaporService.shared = VaporService.shared ?? (try? VaporService { app in
+                    RemoteControlService.register(to: app, for: presentation)
+                    RemoteHitnSocketService.register(to: app, for: presentation)
+                })
+
+                VaporService.shared.flatMap(RemoteControlService.performAfter(loaded:))
+                VaporService.shared.flatMap(RemoteHitnSocketService.performAfter(loaded:))
+            }
         }
 
         Window("Slides", id: "slides") {
