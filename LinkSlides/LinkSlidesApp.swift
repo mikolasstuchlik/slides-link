@@ -211,18 +211,28 @@ private let presentation = PresentationProperties(
     focuses: focuses
 )
 
-@main
-struct LinkSlidesApp: App {
-    var body: some Scene {
-        WindowGroup("Toolbar") {
-            SlideControlPanel {
-                HStack {
+private struct VaporControlView: View {
+    @State var booted: Bool = false
+
+    var body: some View {
+        if booted {
+            HStack {
+                VStack {
+                    Text("Remote control")
                     RemoteControlService.QRAccessoryView()
+                }
+                Spacer()
+                VStack {
+                    Text("Address: " + (VaporService.shared.flatMap { "\($0.ipAddress):\($0.port)" } ?? ""))
+                }
+                Spacer()
+                VStack {
+                    Text("Hint stream")
                     RemoteHitnSocketService.QRAccessoryView()
                 }
             }
-            .environmentObject(presentation)
-            .onAppear {
+        } else {
+            Button("Launch server") {
                 VaporService.shared = VaporService.shared ?? (try? VaporService { app in
                     RemoteControlService.register(to: app, for: presentation)
                     RemoteHitnSocketService.register(to: app, for: presentation)
@@ -230,7 +240,19 @@ struct LinkSlidesApp: App {
 
                 VaporService.shared.flatMap(RemoteControlService.performAfter(loaded:))
                 VaporService.shared.flatMap(RemoteHitnSocketService.performAfter(loaded:))
+                booted.toggle()
             }
+        }
+    }
+}
+
+@main
+struct LinkSlidesApp: App {
+    var body: some Scene {
+        WindowGroup("Toolbar") {
+            SlideControlPanel {
+                VaporControlView()
+            }.environmentObject(presentation)
         }
 
         Window("Slides", id: "slides") {
