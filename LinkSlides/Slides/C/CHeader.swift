@@ -42,21 +42,21 @@ int mul2(int input);
     private static let defaultStdIn = "clang source.c -o source && ./source"
 
     public final class ExposedState: ForwardEventCapturingState {
-        public static var stateSingleton: CHeader.ExposedState = .init()
+        public static var stateSingleton: CHeader.ExposedState = .makeSingleton()
 
-        @Published var headerCode: TextEditorView.Model = .init(
+        var headerCode: TextEditorView.Model = .init(
             filePath: FileCoordinator.shared.pathToFolder(for: "cheader") + "/source.h",
             format: .c,
             content: CHeader.defaultHeader
         )
 
-        @Published var execCode: TextEditorView.Model = .init(
+        var execCode: TextEditorView.Model = .init(
             filePath: FileCoordinator.shared.pathToFolder(for: "cheader") + "/source.c",
             format: .c,
             content: CHeader.defaultCode
         )
 
-        @Published var terminal: TerminalView.Model = .init(
+        var terminal: TerminalView.Model = .init(
             workingPath: URL(fileURLWithPath: FileCoordinator.shared.pathToFolder(for: "cheader")),
             stdIn: CHeader.defaultStdIn,
             state: .idle
@@ -81,7 +81,7 @@ int mul2(int input);
             return true
         }
     }
-    @ObservedObject private var state: ExposedState = ExposedState.stateSingleton
+    @StateObject private var state: ExposedState = ExposedState.stateSingleton
 
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {

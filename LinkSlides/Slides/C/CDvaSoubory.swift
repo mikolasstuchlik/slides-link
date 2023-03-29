@@ -58,10 +58,6 @@ int mul2(int input) {
         state: .idle
     )
 
-    @State var content: String = CDvaSoubory.defaultCode
-    @State var otherCont: String = CDvaSoubory.defaultSecond
-    @State var state: TerminalView.State = .idle
-    @State var stdin: String = CDvaSoubory.defaultStdIn
     @State var toggle: Bool = false
 
     var body: some View {
